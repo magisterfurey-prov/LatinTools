@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Translation Practice — Latin Study Tools</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%8F%9B%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="site-title" href="index.html">
+      🏛️ Latin Study Tools
+      <span class="site-title-sub">Latin for the New Millennium — Level 1</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="flashcards.html">Flashcards</a>
+      <a href="grammar.html">Grammar Charts</a>
+      <a href="translation.html">Translation</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <h1>Translation Practice</h1>
+  <p>For each sentence: parse the highlighted words, label how each one is used, and then translate the whole sentence into English.</p>
+
+  <div class="card">
+    <div class="flashcard-toolbar">
+      <div class="field" style="min-width:260px;">
+        <label for="sentenceSelect">Sentence</label>
+        <select id="sentenceSelect"></select>
+      </div>
+      <div class="field">
+        <button class="btn btn-secondary" id="prevBtn" type="button">⬅ Previous</button>
+      </div>
+      <div class="field">
+        <button class="btn btn-secondary" id="nextBtn" type="button">Next ➡</button>
+      </div>
+    </div>
+
+    <div id="sentenceDisplay" class="sentence-display"></div>
+
+    <div id="wordBlocks"></div>
+
+    <div class="btn-row">
+      <button class="btn" id="checkParsingBtn" type="button">✔ Check parsing &amp; usage</button>
+      <button class="btn btn-secondary" id="revealParsingBtn" type="button">👁 Reveal parsing &amp; usage</button>
+      <button class="btn btn-secondary" id="resetBtn" type="button">🧹 Reset this sentence</button>
+    </div>
+
+    <div class="card translation-box" style="background:var(--color-bg); box-shadow:none;">
+      <label for="translationInput">Your English translation</label>
+      <textarea id="translationInput" placeholder="Type your full translation of the sentence…"></textarea>
+      <div class="btn-row">
+        <button class="btn" id="checkTranslationBtn" type="button">✔ Check translation</button>
+      </div>
+      <div id="translationFeedback"></div>
+      <div id="modelAnswers" class="model-answers" style="display:none;"></div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  Latin Study Tools &middot; built for Latin for the New Millennium, Level 1
+</footer>
+
+<script src="js/main.js"></script>
+<script src="data/sentences.js"></script>
+<script src="js/translation.js"></script>
+</body>
+</html>

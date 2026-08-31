@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashcards — Latin Study Tools</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%8F%9B%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="site-title" href="index.html">
+      🏛️ Latin Study Tools
+      <span class="site-title-sub">Latin for the New Millennium — Level 1</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="flashcards.html">Flashcards</a>
+      <a href="grammar.html">Grammar Charts</a>
+      <a href="translation.html">Translation</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <h1>Flashcards</h1>
+  <p>Study your vocabulary list. Choose a chapter, a direction, and a mode below.</p>
+
+  <div class="card">
+    <div class="flashcard-toolbar">
+      <div class="field">
+        <label for="chapterSelect">Chapter / list</label>
+        <select id="chapterSelect"></select>
+      </div>
+      <div class="field">
+        <label for="directionSelect">Direction</label>
+        <select id="directionSelect">
+          <option value="latin-to-english">Latin → English</option>
+          <option value="english-to-latin">English → Latin</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="modeSelect">Mode</label>
+        <select id="modeSelect">
+          <option value="flip">Flip Cards</option>
+          <option value="choice">Multiple Choice Quiz</option>
+          <option value="typing">Typing Quiz</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="unknownOnly">&nbsp;</label>
+        <label style="display:flex; align-items:center; gap:0.4rem; font-weight:400;">
+          <input type="checkbox" id="unknownOnly"> Study "still learning" only
+        </label>
+      </div>
+      <div class="field">
+        <button class="btn btn-secondary" id="shuffleBtn" type="button">🔀 Shuffle</button>
+      </div>
+      <div class="field">
+        <button class="btn btn-secondary" id="resetProgressBtn" type="button">↺ Reset progress</button>
+      </div>
+    </div>
+
+    <div class="progress-line">
+      <span id="progressText">Card 1 of 1</span>
+      <span id="knownText">Know it: 0 &middot; Still learning: 0</span>
+    </div>
+
+    <div id="deckEmpty" style="display:none;" class="helper-callout">
+      No cards match the current filters. Try a different chapter, or turn off "still learning only".
+    </div>
+
+    <div id="flashcardArea"></div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  Latin Study Tools &middot; built for Latin for the New Millennium, Level 1
+</footer>
+
+<script src="js/main.js"></script>
+<script src="data/vocabulary.js"></script>
+<script src="js/flashcards.js"></script>
+</body>
+</html>
