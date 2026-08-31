@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocabulary Import Helper — Latin Study Tools</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%8F%9B%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="site-title" href="index.html">
+      🏛️ Latin Study Tools
+      <span class="site-title-sub">Teacher tool — not linked from student navigation</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <h1>Vocabulary Import Helper</h1>
+  <p>This page turns a pasted word list into properly formatted entries for <code>data/vocabulary.js</code>. It doesn't save anything automatically — it just generates text for you to copy and paste into the file yourself. Nothing here is shown to students; it's a convenience for building new chapter lists.</p>
+
+  <div class="card">
+    <h3>1. Choose a paste format</h3>
+    <div class="btn-row">
+      <label style="font-weight:400;"><input type="radio" name="fmt" value="simple" checked> Simple (Term + Definition pairs — e.g. a Quizlet export)</label>
+      <label style="font-weight:400;"><input type="radio" name="fmt" value="csv"> Full CSV (all fields, with a header row)</label>
+    </div>
+
+    <div id="simpleOptions">
+      <div class="flashcard-toolbar">
+        <div class="field">
+          <label for="simpleOrder">Column order</label>
+          <select id="simpleOrder">
+            <option value="latin-first">Latin, then English</option>
+            <option value="english-first">English, then Latin</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="simplePos">Part of speech (applied to all rows)</label>
+          <select id="simplePos">
+            <option value="noun">noun</option>
+            <option value="verb">verb</option>
+            <option value="adjective">adjective</option>
+            <option value="pronoun">pronoun</option>
+            <option value="preposition">preposition</option>
+            <option value="adverb">adverb</option>
+            <option value="conjunction">conjunction</option>
+            <option value="other" selected>other / mixed</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="simpleChapter">Chapter / list label</label>
+          <input type="text" id="simpleChapter" placeholder="e.g. Chapter 3">
+        </div>
+      </div>
+      <p class="answer-reveal" style="font-family:inherit;">Paste one word pair per line. Separate Latin and English with a <strong>tab</strong> or a <strong>comma</strong> (a Quizlet plain-text export using tabs works directly).</p>
+    </div>
+
+    <div id="csvOptions" style="display:none;">
+      <p class="answer-reveal" style="font-family:inherit;">First row must be a header using these column names (any order, extras ignored): <code>latin, english, pos, gender, declension, conjugation, chapter, notes</code>. Only <code>latin</code> and <code>english</code> are required.</p>
+    </div>
+
+    <label for="pasteArea">Paste your list here</label>
+    <textarea id="pasteArea" rows="10" placeholder="puella, puellae&#9;girl&#10;agricola, agricolae&#9;farmer"></textarea>
+
+    <div class="btn-row">
+      <button class="btn" id="generateBtn" type="button">Generate entries →</button>
+    </div>
+  </div>
+
+  <div class="card" id="outputCard" style="display:none;">
+    <h3>2. Copy into data/vocabulary.js</h3>
+    <p>Paste the block below <strong>inside</strong> the <code>window.VOCAB_DATA = [ ... ]</code> array in <code>data/vocabulary.js</code> — right before the closing <code>];</code>. Double-check the generated <code>chapter</code>, <code>pos</code>, and any macron spelling before saving.</p>
+    <textarea id="outputArea" rows="14" readonly></textarea>
+    <div class="btn-row">
+      <button class="btn btn-secondary" id="copyBtn" type="button">📋 Copy to clipboard</button>
+      <span id="copyStatus" class="answer-reveal" style="font-family:inherit;"></span>
+    </div>
+  </div>
+
+  <div class="card" id="errorCard" style="display:none;">
+    <p style="color:var(--color-incorrect);" id="errorText"></p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  Latin Study Tools &middot; teacher utility
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/csv-helper.js"></script>
+</body>
+</html>
