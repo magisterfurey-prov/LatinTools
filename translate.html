@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Translation &amp; Analysis — Latin Practice</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <h1><a href="index.html">Latin Practice</a></h1>
+  <nav class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="flashcards.html">Vocabulary</a>
+    <a href="grammar.html">Grammar Charts</a>
+    <a href="translate.html" class="active">Translation</a>
+  </nav>
+</header>
+
+<main>
+  <div class="card" id="listCard">
+    <h2>Sentence Analysis</h2>
+    <p>Pick a sentence. Above nouns and pronouns, set case / number / gender; above verbs, set person / number. Below each word, choose how it's used in the sentence — for adjectives, choose which noun it agrees with instead.</p>
+    <div id="chapterPicker" class="chapter-picker"></div>
+    <div id="sentenceList" class="sentence-list"></div>
+  </div>
+
+  <div id="analysisCard" class="card" style="display:none;">
+    <button class="secondary" id="backBtn">&larr; Back to sentence list</button>
+    <div id="analysisArea"></div>
+  </div>
+</main>
+
+<footer class="site-footer"></footer>
+
+<script type="module" src="js/translate.js"></script>
+</body>
+</html>

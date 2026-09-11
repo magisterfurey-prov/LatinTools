@@ -1,260 +1,231 @@
-/* ==========================================================================
-   Flashcards page logic.
-   Reads window.VOCAB_DATA (data/vocabulary.js) and LatinTools (js/main.js).
-   ========================================================================== */
+import { VOCAB } from '../data/vocabulary.js';
+import { shuffle } from './util.js';
 
-(function () {
-  const { qs, qsa, el, shuffle, loadJSON, saveJSON, normalizeLatin, normalizeEnglish } = LatinTools;
+const CHAPTERS = [...new Set(VOCAB.map(v => v.chapter))].sort((a, b) => a - b);
 
-  const ALL_CARDS = Array.isArray(window.VOCAB_DATA) ? window.VOCAB_DATA : [];
-  const PROGRESS_KEY = "flashcardProgress"; // { [cardId]: "known" | "unknown" }
+const state = {
+  chapters: new Set(CHAPTERS), // all selected by default
+  mode: 'flashcards', // or 'learn'
+};
 
-  let progress = loadJSON(PROGRESS_KEY, {});
-  let deck = [];
-  let index = 0;
-  let flipped = false;
+const chapterPicker = document.getElementById('chapterPicker');
+const studyArea = document.getElementById('studyArea');
+const modeFlashcardsBtn = document.getElementById('modeFlashcards');
+const modeLearnBtn = document.getElementById('modeLearn');
 
-  const chapterSelect = qs("#chapterSelect");
-  const directionSelect = qs("#directionSelect");
-  const modeSelect = qs("#modeSelect");
-  const unknownOnly = qs("#unknownOnly");
-  const shuffleBtn = qs("#shuffleBtn");
-  const resetBtn = qs("#resetProgressBtn");
-  const area = qs("#flashcardArea");
-  const progressText = qs("#progressText");
-  const knownText = qs("#knownText");
-  const deckEmpty = qs("#deckEmpty");
+function renderChapterPicker() {
+  chapterPicker.innerHTML = '';
+  const allChip = document.createElement('div');
+  allChip.className = 'chapter-chip' + (state.chapters.size === CHAPTERS.length ? ' selected' : '');
+  allChip.textContent = 'All';
+  allChip.onclick = () => {
+    if (state.chapters.size === CHAPTERS.length) state.chapters = new Set();
+    else state.chapters = new Set(CHAPTERS);
+    renderChapterPicker();
+    restart();
+  };
+  chapterPicker.appendChild(allChip);
 
-  function primaryLatinHeadword(card) {
-    // "puella, puellae" -> "puella"; "amō, amāre, amāvī, amātum" -> "amō"
-    return card.latin.split(",")[0].trim();
-  }
-
-  function saveProgress() { saveJSON(PROGRESS_KEY, progress); }
-
-  function populateChapters() {
-    const chapters = Array.from(new Set(ALL_CARDS.map((c) => c.chapter).filter(Boolean)));
-    chapterSelect.innerHTML = "";
-    chapterSelect.appendChild(el("option", { value: "__all__", text: `All chapters (${ALL_CARDS.length} words)` }));
-    chapters.forEach((ch) => {
-      const count = ALL_CARDS.filter((c) => c.chapter === ch).length;
-      chapterSelect.appendChild(el("option", { value: ch, text: `${ch} (${count} words)` }));
-    });
-  }
-
-  function buildDeck() {
-    const chosenChapter = chapterSelect.value;
-    let cards = ALL_CARDS.filter((c) => chosenChapter === "__all__" || c.chapter === chosenChapter);
-    if (unknownOnly.checked) {
-      cards = cards.filter((c) => progress[c.id] !== "known");
-    }
-    deck = cards;
-    index = 0;
-    flipped = false;
-    updateProgressLine();
-    render();
-  }
-
-  function updateProgressLine() {
-    const total = deck.length;
-    progressText.textContent = total ? `Card ${Math.min(index + 1, total)} of ${total}` : "No cards";
-    const chosenChapter = chapterSelect.value;
-    const scope = ALL_CARDS.filter((c) => chosenChapter === "__all__" || c.chapter === chosenChapter);
-    const knownCount = scope.filter((c) => progress[c.id] === "known").length;
-    const unknownCount = scope.length - knownCount;
-    knownText.textContent = `Know it: ${knownCount} · Still learning: ${unknownCount}`;
-    deckEmpty.style.display = total ? "none" : "block";
-  }
-
-  function markKnown(card, known) {
-    progress[card.id] = known ? "known" : "unknown";
-    saveProgress();
-    updateProgressLine();
-  }
-
-  function render() {
-    area.innerHTML = "";
-    if (!deck.length) return;
-    const mode = modeSelect.value;
-    if (mode === "flip") renderFlip();
-    else if (mode === "choice") renderChoice();
-    else renderTyping();
-  }
-
-  // ---------------- Flip mode ----------------
-
-  function renderFlip() {
-    const card = deck[index];
-    const direction = directionSelect.value;
-    const front = direction === "latin-to-english" ? primaryLatinHeadword(card) : card.english;
-    const frontMeta = direction === "latin-to-english" ? "" : "";
-    const back = direction === "latin-to-english" ? card.english : card.latin;
-
-    const scene = el("div", { class: "flip-card-scene" });
-    const cardEl = el("div", { class: "flip-card" + (flipped ? " is-flipped" : "") });
-    const frontFace = el("div", { class: "flip-face front" }, [
-      el("div", { class: "term", text: front }),
-      frontMeta ? el("div", { class: "meta", text: frontMeta }) : null,
-      el("div", { class: "hint", text: "click to flip" })
-    ]);
-    const backFace = el("div", { class: "flip-face back" }, [
-      el("div", { class: "term", text: back }),
-      el("div", { class: "meta", text: metaLine(card) }),
-      card.notes ? el("div", { class: "meta", text: card.notes }) : null,
-      el("div", { class: "hint", text: "click to flip" })
-    ]);
-    cardEl.appendChild(frontFace);
-    cardEl.appendChild(backFace);
-    cardEl.addEventListener("click", () => { flipped = !flipped; cardEl.classList.toggle("is-flipped"); });
-    scene.appendChild(cardEl);
-    area.appendChild(scene);
-
-    const controls = el("div", { class: "flashcard-controls" }, [
-      el("button", { class: "pill-btn unknown", text: "😕 Still learning", onclick: () => { markKnown(card, false); goNext(); } }),
-      el("button", { class: "pill-btn", text: "⬅ Prev", onclick: () => goPrev() }),
-      el("button", { class: "pill-btn", text: "Next ➡", onclick: () => goNext() }),
-      el("button", { class: "pill-btn known", text: "✅ Know it", onclick: () => { markKnown(card, true); goNext(); } })
-    ]);
-    area.appendChild(controls);
-  }
-
-  function metaLine(card) {
-    const parts = [];
-    if (card.pos) parts.push(card.pos);
-    if (card.declension) parts.push(`${ordinal(card.declension)} declension`);
-    if (card.conjugation) parts.push(`${card.conjugation === "irregular" ? "irregular" : ordinal(card.conjugation).replace("th", "").replace("st","1st").replace("nd","2nd").replace("rd","3rd")} conjugation`);
-    if (card.gender) parts.push(card.gender);
-    return parts.join(" · ");
-  }
-
-  function ordinal(n) {
-    const s = String(n);
-    if (s === "3io") return "3rd -iō";
-    const num = Number(n);
-    if (Number.isNaN(num)) return s;
-    const suffixes = ["th", "st", "nd", "rd"];
-    const v = num % 100;
-    return num + (suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0]);
-  }
-
-  function goNext() {
-    if (!deck.length) return;
-    index = (index + 1) % deck.length;
-    flipped = false;
-    updateProgressLine();
-    render();
-  }
-
-  function goPrev() {
-    if (!deck.length) return;
-    index = (index - 1 + deck.length) % deck.length;
-    flipped = false;
-    updateProgressLine();
-    render();
-  }
-
-  // ---------------- Multiple choice mode ----------------
-
-  function renderChoice() {
-    const card = deck[index];
-    const direction = directionSelect.value;
-    const prompt = direction === "latin-to-english" ? primaryLatinHeadword(card) : card.english;
-    const correctAnswer = direction === "latin-to-english" ? card.english : primaryLatinHeadword(card);
-
-    const pool = ALL_CARDS.filter((c) => c.id !== card.id);
-    const distractorPool = shuffle(pool).slice(0, 12);
-    const distractors = [];
-    for (const c of distractorPool) {
-      const val = direction === "latin-to-english" ? c.english : primaryLatinHeadword(c);
-      if (val && val !== correctAnswer && !distractors.includes(val)) distractors.push(val);
-      if (distractors.length === 3) break;
-    }
-    const options = shuffle([correctAnswer, ...distractors]);
-
-    area.appendChild(el("div", { class: "sentence-display", text: prompt }));
-    const list = el("div");
-    options.forEach((opt) => {
-      const btn = el("button", { class: "quiz-choice", text: opt });
-      btn.addEventListener("click", () => {
-        qsa(".quiz-choice", list).forEach((b) => b.disabled = true);
-        if (opt === correctAnswer) {
-          btn.classList.add("correct");
-          markKnown(card, true);
-        } else {
-          btn.classList.add("incorrect");
-          markKnown(card, false);
-          list.querySelectorAll(".quiz-choice").forEach((b2) => {
-            if (b2.textContent === correctAnswer) b2.classList.add("correct");
-          });
-        }
-        area.appendChild(el("div", { class: "btn-row" }, [
-          el("button", { class: "btn", text: "Next word →", onclick: () => goNext() })
-        ]));
-      });
-      list.appendChild(btn);
-    });
-    area.appendChild(list);
-  }
-
-  // ---------------- Typing mode ----------------
-
-  function renderTyping() {
-    const card = deck[index];
-    const direction = directionSelect.value;
-    const prompt = direction === "latin-to-english" ? primaryLatinHeadword(card) : card.english;
-    const correctAnswer = direction === "latin-to-english" ? card.english : primaryLatinHeadword(card);
-
-    area.appendChild(el("div", { class: "sentence-display", text: prompt }));
-
-    const input = el("input", { type: "text", placeholder: direction === "latin-to-english" ? "Type the English meaning…" : "Type the Latin word…" });
-    input.style.width = "100%";
-    input.style.marginBottom = "0.75rem";
-
-    const feedback = el("div", { class: "parse-feedback" });
-
-    function check() {
-      let isCorrect;
-      if (direction === "latin-to-english") {
-        isCorrect = LatinTools.englishAnswerMatches(input.value, [correctAnswer]);
-      } else {
-        isCorrect = LatinTools.latinAnswersMatch(input.value, correctAnswer);
-      }
-      feedback.textContent = isCorrect
-        ? "✅ Correct!"
-        : `❌ Not quite. Correct answer: ${correctAnswer}`;
-      feedback.className = "parse-feedback " + (isCorrect ? "correct" : "incorrect");
-      markKnown(card, isCorrect);
-      input.disabled = true;
-      area.appendChild(el("div", { class: "btn-row" }, [
-        el("button", { class: "btn", text: "Next word →", onclick: () => goNext() })
-      ]));
-    }
-
-    input.addEventListener("keydown", (e) => { if (e.key === "Enter" && !input.disabled) check(); });
-
-    area.appendChild(input);
-    area.appendChild(el("div", { class: "btn-row" }, [
-      el("button", { class: "btn", text: "Check", onclick: () => { if (!input.disabled) check(); } })
-    ]));
-    area.appendChild(feedback);
-    input.focus();
-  }
-
-  // ---------------- Wiring ----------------
-
-  chapterSelect.addEventListener("change", buildDeck);
-  unknownOnly.addEventListener("change", buildDeck);
-  directionSelect.addEventListener("change", () => { flipped = false; render(); });
-  modeSelect.addEventListener("change", () => { flipped = false; render(); });
-  shuffleBtn.addEventListener("click", () => { deck = shuffle(deck); index = 0; flipped = false; updateProgressLine(); render(); });
-  resetBtn.addEventListener("click", () => {
-    if (!confirm("Reset known/still-learning progress for all flashcards?")) return;
-    progress = {};
-    saveProgress();
-    updateProgressLine();
-    render();
+  CHAPTERS.forEach(ch => {
+    const chip = document.createElement('div');
+    chip.className = 'chapter-chip' + (state.chapters.has(ch) ? ' selected' : '');
+    chip.textContent = 'Ch. ' + ch;
+    chip.onclick = () => {
+      if (state.chapters.has(ch)) state.chapters.delete(ch);
+      else state.chapters.add(ch);
+      renderChapterPicker();
+      restart();
+    };
+    chapterPicker.appendChild(chip);
   });
+}
 
-  populateChapters();
-  buildDeck();
-})();
+function currentWords() {
+  return VOCAB.filter(v => state.chapters.has(v.chapter));
+}
+
+// ---------------- Flashcards mode ----------------
+const fcState = { deck: [], index: 0, flipped: false };
+
+function startFlashcards() {
+  fcState.deck = shuffle(currentWords());
+  fcState.index = 0;
+  fcState.flipped = false;
+  renderFlashcards();
+}
+
+function renderFlashcards() {
+  if (fcState.deck.length === 0) {
+    studyArea.innerHTML = '<div class="empty-state">Select at least one chapter to begin.</div>';
+    return;
+  }
+  const entry = fcState.deck[fcState.index];
+  const genderPill = entry.gender ? `<span class="pill">${entry.gender}</span>` : '';
+  studyArea.innerHTML = `
+    <div class="flashcard-stage">
+      <div class="progress-text">Card ${fcState.index + 1} of ${fcState.deck.length} &middot; Chapter ${entry.chapter}</div>
+      <div class="flashcard ${fcState.flipped ? 'flipped' : ''}" id="fcCard">
+        <div class="flashcard-inner">
+          <div class="flashcard-face front">
+            <div class="word latin">${entry.latin}</div>
+            <div class="sub">${entry.pos}</div>
+            <div class="hint">Click card to flip</div>
+          </div>
+          <div class="flashcard-face back">
+            <div class="word">${entry.english}</div>
+            <div class="sub">${genderPill}</div>
+            <div class="hint">Click card to flip</div>
+          </div>
+        </div>
+      </div>
+      <div class="flashcard-controls">
+        <button class="secondary" id="fcPrev">&larr; Prev</button>
+        <button id="fcShuffle">Shuffle</button>
+        <button class="secondary" id="fcNext">Next &rarr;</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('fcCard').onclick = () => {
+    fcState.flipped = !fcState.flipped;
+    renderFlashcards();
+  };
+  document.getElementById('fcPrev').onclick = () => {
+    fcState.index = (fcState.index - 1 + fcState.deck.length) % fcState.deck.length;
+    fcState.flipped = false;
+    renderFlashcards();
+  };
+  document.getElementById('fcNext').onclick = () => {
+    fcState.index = (fcState.index + 1) % fcState.deck.length;
+    fcState.flipped = false;
+    renderFlashcards();
+  };
+  document.getElementById('fcShuffle').onclick = () => {
+    fcState.deck = shuffle(fcState.deck);
+    fcState.index = 0;
+    fcState.flipped = false;
+    renderFlashcards();
+  };
+}
+
+// ---------------- Learning mode ----------------
+const lmState = { queue: [], total: 0, mastered: new Set(), current: null, direction: null, options: [], answered: false };
+
+function startLearn() {
+  const words = currentWords();
+  lmState.queue = shuffle(words);
+  lmState.total = words.length;
+  lmState.mastered = new Set();
+  nextQuestion();
+}
+
+function nextQuestion() {
+  lmState.answered = false;
+  if (lmState.queue.length === 0) {
+    renderLearnComplete();
+    return;
+  }
+  const entry = lmState.queue[0];
+  const direction = Math.random() < 0.5 ? 'l2e' : 'e2l'; // latin-to-english or english-to-latin
+  const pool = currentWords().filter(w => w.id !== entry.id);
+  const distractors = shuffle(pool).slice(0, 3);
+  const options = shuffle([entry, ...distractors]);
+  lmState.current = entry;
+  lmState.direction = direction;
+  lmState.options = options;
+  renderLearn();
+}
+
+function displayFront(entry, direction) {
+  return direction === 'l2e' ? entry.latin : entry.english;
+}
+function displayOption(entry, direction) {
+  if (direction === 'l2e') {
+    return entry.english + (entry.gender ? ` (${entry.gender})` : '');
+  }
+  return entry.latin;
+}
+
+function renderLearn() {
+  if (lmState.total === 0) {
+    studyArea.innerHTML = '<div class="empty-state">Select at least one chapter to begin.</div>';
+    return;
+  }
+  const { current, direction, options } = lmState;
+  const masteredCount = lmState.mastered.size;
+  const promptLabel = direction === 'l2e' ? 'What does this word mean?' : 'Which Latin word matches?';
+  studyArea.innerHTML = `
+    <div class="stat-row">
+      <div class="stat"><div class="num">${masteredCount}/${lmState.total}</div><div class="label">Mastered</div></div>
+      <div class="stat"><div class="num">${lmState.queue.length}</div><div class="label">Remaining in queue</div></div>
+    </div>
+    <div class="mc-sub">${promptLabel}</div>
+    <div class="mc-prompt latin">${displayFront(current, direction)}</div>
+    <div class="mc-options" id="mcOptions"></div>
+  `;
+  const optionsDiv = document.getElementById('mcOptions');
+  options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'mc-option latin';
+    btn.textContent = displayOption(opt, direction);
+    btn.onclick = () => handleAnswer(opt, btn, optionsDiv);
+    optionsDiv.appendChild(btn);
+  });
+}
+
+function handleAnswer(selected, btnEl, optionsDiv) {
+  if (lmState.answered) return;
+  lmState.answered = true;
+  const correct = selected.id === lmState.current.id;
+  const buttons = [...optionsDiv.children];
+  buttons.forEach(b => (b.disabled = true));
+  if (correct) {
+    btnEl.classList.add('correct');
+  } else {
+    btnEl.classList.add('incorrect');
+    const correctBtn = buttons.find(b => b.textContent === displayOption(lmState.current, lmState.direction));
+    if (correctBtn) correctBtn.classList.add('correct');
+  }
+
+  const finishedWord = lmState.queue.shift();
+  if (correct) {
+    lmState.mastered.add(finishedWord.id);
+  } else {
+    lmState.queue.push(finishedWord);
+  }
+
+  setTimeout(nextQuestion, 900);
+}
+
+function renderLearnComplete() {
+  studyArea.innerHTML = `
+    <div class="empty-state">
+      <div style="font-size:2.4rem;">🎉</div>
+      <h2 style="color:var(--maroon-dark);">Activity complete!</h2>
+      <p>You answered all ${lmState.total} words correctly.</p>
+      <button id="lmRestart">Study again</button>
+    </div>
+  `;
+  document.getElementById('lmRestart').onclick = startLearn;
+}
+
+// ---------------- Mode switching ----------------
+function restart() {
+  if (state.mode === 'flashcards') startFlashcards();
+  else startLearn();
+}
+
+modeFlashcardsBtn.onclick = () => {
+  state.mode = 'flashcards';
+  modeFlashcardsBtn.classList.add('active');
+  modeLearnBtn.classList.remove('active');
+  startFlashcards();
+};
+modeLearnBtn.onclick = () => {
+  state.mode = 'learn';
+  modeLearnBtn.classList.add('active');
+  modeFlashcardsBtn.classList.remove('active');
+  startLearn();
+};
+
+renderChapterPicker();
+startFlashcards();
