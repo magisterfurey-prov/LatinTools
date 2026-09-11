@@ -170,7 +170,14 @@ function openSentence(id) {
   analysisArea.innerHTML = `
     <p class="pill">Chapter ${sentence.chapter}</p>
     <div class="analysis-sentence">${wordsHTML}</div>
-    <p><strong>English:</strong> ${escapeHtml(sentence.english)}</p>
+
+    <div class="translation-box">
+      <label for="translationInput"><strong>Your translation:</strong></label>
+      <textarea id="translationInput" rows="2" placeholder="Type your English translation of the sentence…"></textarea>
+      <button class="secondary" id="revealTranslationBtn" disabled>Show Model Translation</button>
+      <div id="modelTranslation" style="display:none;" class="model-translation"></div>
+    </div>
+
     ${sourceLine}
     <div class="chart-toolbar">
       <button id="checkSentenceBtn">Check My Work</button>
@@ -180,6 +187,18 @@ function openSentence(id) {
     <div class="legend">Adjectives only need the agreement dropdown. Everything else (prepositions, conjunctions, adverbs, infinitives) is shown for context and doesn't need to be tagged.</div>
   `;
 
+  const translationInput = document.getElementById('translationInput');
+  const revealBtn = document.getElementById('revealTranslationBtn');
+  const modelTranslation = document.getElementById('modelTranslation');
+
+  translationInput.addEventListener('input', () => {
+    revealBtn.disabled = !translationInput.value.trim();
+  });
+  revealBtn.onclick = () => {
+    modelTranslation.style.display = 'block';
+    modelTranslation.innerHTML = `<strong>Model translation:</strong> ${escapeHtml(sentence.english)}`;
+  };
+
   document.getElementById('checkSentenceBtn').onclick = () => checkSentence(sentence);
   document.getElementById('clearSentenceBtn').onclick = () => {
     analysisArea.querySelectorAll('select').forEach(sel => {
@@ -187,6 +206,10 @@ function openSentence(id) {
       sel.classList.remove('field-good', 'field-bad');
     });
     document.getElementById('scoreBanner').innerHTML = '';
+    translationInput.value = '';
+    revealBtn.disabled = true;
+    modelTranslation.style.display = 'none';
+    modelTranslation.innerHTML = '';
   };
 }
 

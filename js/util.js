@@ -1,11 +1,16 @@
-// Macrons (vowel length marks) are compared exactly -- they're the ONLY thing
-// distinguishing some forms (e.g. 1st decl. nom. sg. "agricola" vs. abl. sg.
-// "agricolā"), so stripping them would make a chart ungradable. We only
-// normalize case and surrounding whitespace; macron-entry buttons in the UI
-// make typing them practical.
+// Macrons (vowel length marks) are ignored by default so students aren't
+// penalized for not typing long marks. The one place that's NOT safe is 1st
+// declension abl. sg. ("agricolā"), which is otherwise spelled identically to
+// the nom. sg. ("agricola") -- see sameLatinRequireFinalMacron below.
+const MACRON_MAP = { ā: 'a', ē: 'e', ī: 'i', ō: 'o', ū: 'u', ȳ: 'y', Ā: 'A', Ē: 'E', Ī: 'I', Ō: 'O', Ū: 'U', Ȳ: 'Y' };
+
+function stripMacrons(str) {
+  return str.split('').map(ch => MACRON_MAP[ch] || ch).join('');
+}
+
 export function normalizeLatin(str) {
   if (!str) return '';
-  return str.toLowerCase().trim().replace(/\s+/g, ' ');
+  return stripMacrons(str).toLowerCase().trim().replace(/\s+/g, ' ');
 }
 
 export function insertAtCursor(input, text) {
@@ -20,6 +25,19 @@ export function insertAtCursor(input, text) {
 
 export function sameLatin(a, b) {
   return normalizeLatin(a) === normalizeLatin(b);
+}
+
+// Same as sameLatin, but the final letter must match exactly (macron and
+// all) -- used for 1st declension ablative singular, where the macron is the
+// only thing distinguishing it from the nominative singular.
+export function sameLatinRequireFinalMacron(a, b) {
+  if (!a || !b) return false;
+  const at = a.trim(), bt = b.trim();
+  if (!at || !bt) return false;
+  const lastA = at.slice(-1).toLowerCase();
+  const lastB = bt.slice(-1).toLowerCase();
+  if (lastA !== lastB) return false;
+  return normalizeLatin(at.slice(0, -1)) === normalizeLatin(bt.slice(0, -1));
 }
 
 export function shuffle(arr) {

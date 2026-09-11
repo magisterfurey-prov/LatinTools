@@ -1,6 +1,6 @@
 import { VOCAB } from '../data/vocabulary.js';
 import { declineNoun, nounCategory, declineAdjective, adjectiveCategory, conjugateVerb, verbCategory } from './morphology.js';
-import { sameLatin, insertAtCursor } from './util.js';
+import { sameLatin, sameLatinRequireFinalMacron, insertAtCursor } from './util.js';
 
 const MACRONS = ['ā', 'ē', 'ī', 'ō', 'ū'];
 let lastFocusedInput = null;
@@ -98,7 +98,7 @@ function renderChart() {
       <span class="legend" style="margin:0;">Insert macron:</span>
     </div>
     <div id="tableWrap"></div>
-    <div class="legend">Green = correct, red = incorrect. Macrons (long marks) matter here — some forms (like nominative vs. ablative singular) differ only by vowel length.</div>
+    <div class="legend">Green = correct, red = incorrect. Macrons (long marks) are optional almost everywhere — except the 1st declension ablative singular, which needs the macron on the final letter to tell it apart from the nominative singular.</div>
   `;
 
   const macronBar = document.getElementById('macronBar');
@@ -202,14 +202,20 @@ function checkChart(entry) {
     wrap.querySelectorAll('input').forEach(inp => {
       const c = inp.dataset.case, n = inp.dataset.num;
       const expected = forms[n][c];
-      markCell(inp, expected);
+      // 1st decl. abl. sg. ("agricolā") is spelled identically to nom. sg.
+      // ("agricola") without the macron, so the macron must be typed there.
+      const strict = activeChart.cat === '1st' && c === 'abl' && n === 'sg';
+      markCell(inp, expected, strict);
     });
   } else if (activeChart.kind === 'adjective') {
     const result = declineAdjective(entry);
     wrap.querySelectorAll('input').forEach(inp => {
       const c = inp.dataset.case, n = inp.dataset.num, g = inp.dataset.gender;
       const expected = result.forms[g][n][c];
-      markCell(inp, expected);
+      // Same 1st-declension ambiguity, but only the feminine column uses the
+      // "-a"/"-ā" pattern (masc./neut. abl. sg. is "-ō", never ambiguous).
+      const strict = activeChart.cat === '12decl' && g === 'F' && c === 'abl' && n === 'sg';
+      markCell(inp, expected, strict);
     });
   } else {
     const forms = conjugateVerb(entry);
@@ -221,13 +227,16 @@ function checkChart(entry) {
   }
 }
 
-function markCell(inp, expected) {
+function markCell(inp, expected, requireFinalMacron) {
   const td = inp.parentElement;
   td.classList.remove('correct', 'incorrect');
   if (!inp.value.trim()) {
     return; // leave blank cells unmarked
   }
-  if (sameLatin(inp.value, expected)) td.classList.add('correct');
+  const ok = requireFinalMacron
+    ? sameLatinRequireFinalMacron(inp.value, expected)
+    : sameLatin(inp.value, expected);
+  if (ok) td.classList.add('correct');
   else td.classList.add('incorrect');
 }
 

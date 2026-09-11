@@ -61,13 +61,15 @@ function renderFlashcards() {
   }
   const entry = fcState.deck[fcState.index];
   const genderPill = entry.gender ? `<span class="pill">${entry.gender}</span>` : '';
+  const isNounWithGenitive = entry.pos === 'Noun' && entry.genitive;
+  const frontText = isNounWithGenitive ? `${entry.latin}, ${entry.genitive}` : entry.latin;
   studyArea.innerHTML = `
     <div class="flashcard-stage">
       <div class="progress-text">Card ${fcState.index + 1} of ${fcState.deck.length} &middot; Chapter ${entry.chapter}</div>
       <div class="flashcard ${fcState.flipped ? 'flipped' : ''}" id="fcCard">
         <div class="flashcard-inner">
           <div class="flashcard-face front">
-            <div class="word latin">${entry.latin}</div>
+            <div class="word latin${isNounWithGenitive ? ' compact' : ''}">${frontText}</div>
             <div class="sub">${entry.pos}</div>
             <div class="hint">Click card to flip</div>
           </div>

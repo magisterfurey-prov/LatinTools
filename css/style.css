@@ -232,6 +232,7 @@ footer.site-footer {
 .flashcard-face.back { transform: rotateY(180deg); background: #fff7ea; }
 
 .flashcard-face .word { font-size: 2rem; font-family: Georgia, serif; color: var(--maroon-dark); }
+.flashcard-face .word.compact { font-size: 1.5rem; max-width: 90%; }
 .flashcard-face .sub { color: var(--ink-soft); margin-top: 10px; font-size: 1rem; }
 .flashcard-face .hint { position: absolute; bottom: 14px; color: var(--ink-soft); font-size: 0.78rem; }
 
@@ -395,3 +396,24 @@ select.field-good { border-color: var(--good); background: #e5f4ea; }
   margin-bottom: 14px;
 }
 .score-banner.all-correct { background: #e5f4ea; border-color: var(--good); }
+
+.translation-box textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin: 8px 0;
+  resize: vertical;
+  background: #fff;
+  color: var(--ink);
+}
+
+.model-translation {
+  background: #fff7ea;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 10px 0;
+}
