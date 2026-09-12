@@ -233,6 +233,7 @@ footer.site-footer {
 
 .flashcard-face .word { font-size: 2rem; font-family: Georgia, serif; color: var(--maroon-dark); }
 .flashcard-face .word.compact { font-size: 1.5rem; max-width: 90%; }
+.flashcard-face .card-emoji { font-size: 3rem; line-height: 1; margin-bottom: 6px; }
 .flashcard-face .sub { color: var(--ink-soft); margin-top: 10px; font-size: 1rem; }
 .flashcard-face .hint { position: absolute; bottom: 14px; color: var(--ink-soft); font-size: 0.78rem; }
 

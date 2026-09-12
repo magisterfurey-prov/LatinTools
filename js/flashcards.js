@@ -1,4 +1,5 @@
 import { VOCAB } from '../data/vocabulary.js';
+import { EMOJI } from '../data/emoji.js';
 import { shuffle } from './util.js';
 
 const CHAPTERS = [...new Set(VOCAB.map(v => v.chapter))].sort((a, b) => a - b);
@@ -63,6 +64,8 @@ function renderFlashcards() {
   const genderPill = entry.gender ? `<span class="pill">${entry.gender}</span>` : '';
   const isNounWithGenitive = entry.pos === 'Noun' && entry.genitive;
   const frontText = isNounWithGenitive ? `${entry.latin}, ${entry.genitive}` : entry.latin;
+  const emoji = EMOJI[entry.id];
+  const emojiHTML = emoji ? `<div class="card-emoji">${emoji}</div>` : '';
   studyArea.innerHTML = `
     <div class="flashcard-stage">
       <div class="progress-text">Card ${fcState.index + 1} of ${fcState.deck.length} &middot; Chapter ${entry.chapter}</div>
@@ -74,6 +77,7 @@ function renderFlashcards() {
             <div class="hint">Click card to flip</div>
           </div>
           <div class="flashcard-face back">
+            ${emojiHTML}
             <div class="word">${entry.english}</div>
             <div class="sub">${genderPill}</div>
             <div class="hint">Click card to flip</div>
