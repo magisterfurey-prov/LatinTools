@@ -63,7 +63,18 @@ function renderFlashcards() {
   const entry = fcState.deck[fcState.index];
   const genderPill = entry.gender ? `<span class="pill">${entry.gender}</span>` : '';
   const isNounWithGenitive = entry.pos === 'Noun' && entry.genitive;
-  const frontText = isNounWithGenitive ? `${entry.latin}, ${entry.genitive}` : entry.latin;
+  // Principal parts aren't introduced as a concept until Chapter 2 (Ch. 1
+  // verbs are taught via their bare inflected form), so only show them from
+  // Ch. 2 on -- matching the textbook's own sequencing.
+  const isVerbWithParts = entry.pos === 'Verb' && entry.chapter >= 2 && entry.principal_parts;
+  const frontText = isNounWithGenitive
+    ? `${entry.latin}, ${entry.genitive}`
+    : isVerbWithParts
+    ? `${entry.latin}, ${entry.principal_parts}`
+    : entry.latin;
+  let frontClass = '';
+  if (isNounWithGenitive) frontClass = ' compact';
+  else if (isVerbWithParts) frontClass = frontText.length > 40 ? ' compact-sm' : ' compact';
   const emoji = EMOJI[entry.id];
   const emojiHTML = emoji ? `<div class="card-emoji">${emoji}</div>` : '';
   studyArea.innerHTML = `
@@ -72,7 +83,7 @@ function renderFlashcards() {
       <div class="flashcard ${fcState.flipped ? 'flipped' : ''}" id="fcCard">
         <div class="flashcard-inner">
           <div class="flashcard-face front">
-            <div class="word latin${isNounWithGenitive ? ' compact' : ''}">${frontText}</div>
+            <div class="word latin${frontClass}">${frontText}</div>
             <div class="sub">${entry.pos}</div>
             <div class="hint">Click card to flip</div>
           </div>

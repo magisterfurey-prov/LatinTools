@@ -76,6 +76,9 @@ function renderChartPicker() {
 }
 
 function wordLabel(entry) {
+  if (activeChart.kind === 'noun' && entry.genitive) {
+    return `${entry.latin}, ${entry.genitive} — ${entry.english}`;
+  }
   return `${entry.latin} — ${entry.english}`;
 }
 
@@ -97,6 +100,7 @@ function renderChart() {
     <div class="chart-toolbar" id="macronBar">
       <span class="legend" style="margin:0;">Insert macron:</span>
     </div>
+    <div id="wordPrompt"></div>
     <div id="tableWrap"></div>
     <div class="legend">Green = correct, red = incorrect. Macrons (long marks) are optional almost everywhere — except the 1st declension ablative singular, which needs the macron on the final letter to tell it apart from the nominative singular.</div>
   `;
@@ -120,6 +124,12 @@ function renderChart() {
   });
 
   function renderTableFor(entry) {
+    const prompt = document.getElementById('wordPrompt');
+    if (activeChart.kind === 'noun' && entry.genitive) {
+      prompt.innerHTML = `<p><strong>${entry.latin}, ${entry.genitive}</strong> <span style="color:var(--ink-soft);">— ${entry.english}</span> (genitive singular shown so you can find the stem)</p>`;
+    } else {
+      prompt.innerHTML = '';
+    }
     const wrap = document.getElementById('tableWrap');
     if (activeChart.kind === 'noun') wrap.innerHTML = nounTableHTML();
     else if (activeChart.kind === 'adjective') wrap.innerHTML = adjTableHTML(activeChart.cat);
