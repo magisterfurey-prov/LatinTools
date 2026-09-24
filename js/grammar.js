@@ -75,11 +75,17 @@ function renderChartPicker() {
   });
 }
 
+// Full citation form shown for a word: adds the genitive singular for nouns
+// (needed to find the stem, especially for 3rd declension) and all principal
+// parts for verbs (needed to find the present stem and know the conjugation).
+function citationText(entry) {
+  if (activeChart.kind === 'noun' && entry.genitive) return `${entry.latin}, ${entry.genitive}`;
+  if (activeChart.kind === 'verb' && entry.principal_parts) return `${entry.latin}, ${entry.principal_parts}`;
+  return entry.latin;
+}
+
 function wordLabel(entry) {
-  if (activeChart.kind === 'noun' && entry.genitive) {
-    return `${entry.latin}, ${entry.genitive} — ${entry.english}`;
-  }
-  return `${entry.latin} — ${entry.english}`;
+  return `${citationText(entry)} — ${entry.english}`;
 }
 
 function renderChart() {
@@ -127,6 +133,8 @@ function renderChart() {
     const prompt = document.getElementById('wordPrompt');
     if (activeChart.kind === 'noun' && entry.genitive) {
       prompt.innerHTML = `<p><strong>${entry.latin}, ${entry.genitive}</strong> <span style="color:var(--ink-soft);">— ${entry.english}</span> (genitive singular shown so you can find the stem)</p>`;
+    } else if (activeChart.kind === 'verb' && entry.principal_parts) {
+      prompt.innerHTML = `<p><strong>${entry.latin}, ${entry.principal_parts}</strong> <span style="color:var(--ink-soft);">— ${entry.english}</span> (all principal parts shown so you can find the correct stem)</p>`;
     } else {
       prompt.innerHTML = '';
     }

@@ -9,7 +9,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "farmer",
-  "notes": "Chapter 1 words are meant to be learned via their English cognates; gloss added for the flashcards.",
+  "notes": null,
   "id": "v1"
  },
  {
@@ -22,7 +22,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "water",
-  "notes": "Chapter 1 words are meant to be learned via their English cognates; gloss added for the flashcards.",
+  "notes": null,
   "id": "v2"
  },
  {
@@ -35,7 +35,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "athlete",
-  "notes": "Chapter 1 words are meant to be learned via their English cognates; gloss added for the flashcards.",
+  "notes": null,
   "id": "v3"
  },
  {
@@ -48,7 +48,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "daughter",
-  "notes": "Chapter 1 words are meant to be learned via their English cognates; gloss added for the flashcards.",
+  "notes": null,
   "id": "v4"
  },
  {
@@ -61,7 +61,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "she-wolf",
-  "notes": "Chapter 1 words are meant to be learned via their English cognates; gloss added for the flashcards.",
+  "notes": null,
   "id": "v5"
  },
  {
@@ -74,7 +74,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "sailor",
-  "notes": "Chapter 1 words are meant to be learned via their English cognates; gloss added for the flashcards.",
+  "notes": null,
   "id": "v6"
  },
  {
@@ -87,7 +87,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "poet",
-  "notes": "Chapter 1 words are meant to be learned via their English cognates; gloss added for the flashcards.",
+  "notes": null,
   "id": "v7"
  },
  {
@@ -100,7 +100,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "girl",
-  "notes": "Chapter 1 words are meant to be learned via their English cognates; gloss added for the flashcards.",
+  "notes": null,
   "id": "v8"
  },
  {
@@ -113,7 +113,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "Rome",
-  "notes": "Chapter 1 words are meant to be learned via their English cognates; gloss added for the flashcards. Proper noun.",
+  "notes": null,
   "id": "v9"
  },
  {
@@ -126,7 +126,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "land, earth",
-  "notes": "Chapter 1 words are meant to be learned via their English cognates; gloss added for the flashcards.",
+  "notes": null,
   "id": "v10"
  },
  {
@@ -139,7 +139,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "1st",
   "english": "(he/she/it) loves",
-  "notes": "The textbook's own Chapter 1 list gives only the inflected form \"amat\" (he/she/it ...) since principal parts aren't introduced as a concept until Chapter 2 — full principal parts added here from this word's Chapter 2 entry for completeness. Chapter 1 words are meant to be learned via their English cognates; gloss added for the flashcards. 3rd sg. present active form (principal parts come in Ch. 2).",
+  "notes": null,
   "id": "v11"
  },
  {
@@ -152,7 +152,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "1st",
   "english": "(he/she/it) walks",
-  "notes": "The textbook's own Chapter 1 list gives only the inflected form \"ambulat\" (he/she/it ...) since principal parts aren't introduced as a concept until Chapter 2 — full principal parts added here from this word's Chapter 2 entry for completeness. Chapter 1 words are meant to be learned via their English cognates; gloss added for the flashcards. 3rd sg. present active form.",
+  "notes": null,
   "id": "v12"
  },
  {
@@ -165,7 +165,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "1st",
   "english": "(he/she/it) takes care (of), heals",
-  "notes": "The textbook's own Chapter 1 list gives only the inflected form \"cūrat\" (he/she/it ...) since principal parts aren't introduced as a concept until Chapter 2 — full principal parts added here from this word's Chapter 2 entry for completeness. Chapter 1 words are meant to be learned via their English cognates; gloss added for the flashcards. 3rd sg. present active form.",
+  "notes": null,
   "id": "v13"
  },
  {
@@ -178,7 +178,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "irregular",
   "english": "(he/she/it) is",
-  "notes": "The textbook's own Chapter 1 list gives only the inflected form \"est\" (he/she/it ...) since principal parts aren't introduced as a concept until Chapter 2 — full principal parts added here from this word's Chapter 6 entry for completeness. Chapter 1 words are meant to be learned via their English cognates; gloss added for the flashcards. 3rd sg. present of sum.",
+  "notes": null,
   "id": "v14"
  },
  {
@@ -191,7 +191,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": null,
   "english": "well",
-  "notes": "Chapter 1 words are meant to be learned via their English cognates; gloss added for the flashcards.",
+  "notes": null,
   "id": "v15"
  },
  {
@@ -204,7 +204,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": null,
   "english": "afterward, later",
-  "notes": "Chapter 1 words are meant to be learned via their English cognates; gloss added for the flashcards.",
+  "notes": null,
   "id": "v16"
  },
  {
@@ -217,7 +217,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": null,
   "english": "and",
-  "notes": "Chapter 1 words are meant to be learned via their English cognates; gloss added for the flashcards.",
+  "notes": null,
   "id": "v17"
  },
  {
@@ -230,7 +230,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": null,
   "english": "and so, therefore",
-  "notes": "Chapter 1 words are meant to be learned via their English cognates; gloss added for the flashcards.",
+  "notes": null,
   "id": "v18"
  },
  {
@@ -243,7 +243,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "story",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 2 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v19"
  },
  {
@@ -256,7 +256,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "form, appearance",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 2 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v20"
  },
  {
@@ -269,7 +269,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "fatherland",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 2 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v21"
  },
  {
@@ -282,7 +282,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "1st",
   "english": "to love",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 2 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v22"
  },
  {
@@ -295,7 +295,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "1st",
   "english": "to walk",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 2 \"Vocabulary to Learn\" list. Source spelled the 4th part \"ambulātu\" (missing the final m) — corrected here.",
+  "notes": null,
   "id": "v23"
  },
  {
@@ -308,7 +308,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "1st",
   "english": "to care for, to take care of",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 2 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v24"
  },
  {
@@ -321,7 +321,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "2nd",
   "english": "ought, must, should; to owe",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 2 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v25"
  },
  {
@@ -334,7 +334,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "1st",
   "english": "to wait for, to await, to expect",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 2 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v26"
  },
  {
@@ -347,7 +347,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "2nd",
   "english": "to have",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 2 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v27"
  },
  {
@@ -360,7 +360,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "1st",
   "english": "to live, to dwell",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 2 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v28"
  },
  {
@@ -373,7 +373,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "1st",
   "english": "to tell",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 2 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v29"
  },
  {
@@ -386,7 +386,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "1st",
   "english": "to prepare, to get ready",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 2 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v30"
  },
  {
@@ -399,7 +399,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "irregular",
   "english": "to be",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 2 \"Vocabulary to Learn\" list. \"——\" marks that this verb has no 4th principal part, matching how it's shown later in Ch. 6.",
+  "notes": null,
   "id": "v31"
  },
  {
@@ -412,7 +412,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "2nd",
   "english": "to hold",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 2 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v32"
  },
  {
@@ -425,7 +425,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "2nd",
   "english": "to see",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 2 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v33"
  },
  {
@@ -438,7 +438,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "1st",
   "english": "to call",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 2 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v34"
  },
  {
@@ -451,7 +451,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": null,
   "english": "for a long time",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 2 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v35"
  },
  {
@@ -542,7 +542,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": null,
   "english": "at home",
-  "notes": "Locative form of domus.",
+  "notes": null,
   "id": "v42"
  },
  {
@@ -620,7 +620,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": null,
   "english": "I",
-  "notes": "Personal pronoun.",
+  "notes": null,
   "id": "v48"
  },
  {
@@ -633,7 +633,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": null,
   "english": "you (singular)",
-  "notes": "Personal pronoun.",
+  "notes": null,
   "id": "v49"
  },
  {
@@ -646,7 +646,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "2nd",
   "english": "to fear, to be afraid",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 3 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v50"
  },
  {
@@ -724,7 +724,7 @@ export const VOCAB = [
   "declension": "2nd",
   "conjugation": null,
   "english": "camp",
-  "notes": "Plural only (n. pl.).",
+  "notes": null,
   "id": "v56"
  },
  {
@@ -854,7 +854,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "famous, distinguished",
-  "notes": "Source wrapped this word across two cells (\"distin-\" / \"guished\") — rejoined here.",
+  "notes": null,
   "id": "v66"
  },
  {
@@ -880,7 +880,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "1st",
   "english": "to give",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 4 \"Vocabulary to Learn\" list. Textbook note: “note the unusual short stem vowel in this first conjugation verb.”",
+  "notes": null,
   "id": "v68"
  },
  {
@@ -906,7 +906,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "2nd",
   "english": "to order somebody (acc.) to do something (inf.)",
-  "notes": "Source wrapped this definition across two cells — rejoined here.",
+  "notes": null,
   "id": "v70"
  },
  {
@@ -1088,7 +1088,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "wretched, sad, miserable",
-  "notes": "-er adjective.",
+  "notes": null,
   "id": "v84"
  },
  {
@@ -1114,7 +1114,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "beautiful, nice",
-  "notes": "-er adjective.",
+  "notes": null,
   "id": "v86"
  },
  {
@@ -1153,7 +1153,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "1st",
   "english": "to design (an additional meaning of the Ch. 2 verb parō — you already know \"to prepare, to get ready\")",
-  "notes": "Same verb as the Chapter 2 parō — this chapter just adds a new meaning. Source wrapped this note across two cells — rejoined here.",
+  "notes": null,
   "id": "v89"
  },
  {
@@ -1231,7 +1231,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": null,
   "english": "not only . . . but also",
-  "notes": "Source cut off before \"sed etiam\" (missing final \"m\") — corrected here.",
+  "notes": null,
   "id": "v95"
  },
  {
@@ -1244,7 +1244,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": null,
   "english": "however",
-  "notes": "Present in the textbook's official Chapter 5 vocabulary list but missing from your uploaded spreadsheet — added from the textbook.",
+  "notes": null,
   "id": "v96"
  },
  {
@@ -1283,7 +1283,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "letter of the alphabet; (pl.) literature, letter (epistle)",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 6 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v99"
  },
  {
@@ -1309,7 +1309,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "shadows, darkness",
-  "notes": "Plural only (f. pl.).",
+  "notes": null,
   "id": "v101"
  },
  {
@@ -1439,7 +1439,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "2nd",
   "english": "to be accustomed",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 6 \"Vocabulary to Learn\" list. Semi-deponent verb — its third principal part is the perfect participle + sum (solitus sum) rather than a separate supine.",
+  "notes": null,
   "id": "v111"
  },
  {
@@ -1491,7 +1491,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": null,
   "english": "while",
-  "notes": "Present in the textbook's official Chapter 6 vocabulary list but missing from your uploaded spreadsheet — added from the textbook.",
+  "notes": null,
   "id": "v115"
  },
  {
@@ -1517,7 +1517,7 @@ export const VOCAB = [
   "declension": "3rd",
   "conjugation": null,
   "english": "delight, pet",
-  "notes": "Plural only (f. pl.).",
+  "notes": null,
   "id": "v117"
  },
  {
@@ -1647,7 +1647,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": null,
   "english": "s/he (her/himself) / they (themselves) — used in an indirect statement",
-  "notes": "Reflexive pronoun, accusative. Source wrapped this definition across two cells — rejoined here.",
+  "notes": null,
   "id": "v127"
  },
  {
@@ -1660,7 +1660,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "my",
-  "notes": "Possessive adjective.",
+  "notes": null,
   "id": "v128"
  },
  {
@@ -1686,7 +1686,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "1st",
   "english": "to regard, to esteem",
-  "notes": "Source wrapped this definition across two cells — rejoined here.",
+  "notes": null,
   "id": "v130"
  },
  {
@@ -1699,7 +1699,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "1st",
   "english": "I do not care a bit",
-  "notes": "Idiom built on aestimō.",
+  "notes": null,
   "id": "v131"
  },
  {
@@ -1712,7 +1712,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "2nd",
   "english": "to envy someone",
-  "notes": "Source wrapped this definition across two cells — rejoined here.",
+  "notes": null,
   "id": "v132"
  },
  {
@@ -1764,7 +1764,7 @@ export const VOCAB = [
   "declension": "3rd",
   "conjugation": null,
   "english": "man (i.e., human being); (pl.) people",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 8 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v136"
  },
  {
@@ -1842,7 +1842,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "3rd",
   "english": "to decide, determine (often + infinitive)",
-  "notes": "Source wrapped this definition across two cells — rejoined here.",
+  "notes": null,
   "id": "v142"
  },
  {
@@ -1881,7 +1881,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "1st",
   "english": "to free someone from something",
-  "notes": "Source wrapped this definition across two cells — rejoined here.",
+  "notes": null,
   "id": "v145"
  },
  {
@@ -1907,7 +1907,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "3rd",
   "english": "to seek, head for, go to, rush at",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 8 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v147"
  },
  {
@@ -1985,7 +1985,7 @@ export const VOCAB = [
   "declension": "2nd",
   "conjugation": null,
   "english": "weapons",
-  "notes": "Plural only (n. pl.).",
+  "notes": null,
   "id": "v153"
  },
  {
@@ -2167,7 +2167,7 @@ export const VOCAB = [
   "declension": null,
   "conjugation": "3rd",
   "english": "to carry; sē gerit – s/he/it behaves",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 9 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v167"
  },
  {
@@ -2310,7 +2310,7 @@ export const VOCAB = [
   "declension": "3rd",
   "conjugation": null,
   "english": "keen, fierce",
-  "notes": "3rd declension, 3-termination.",
+  "notes": null,
   "id": "v178"
  },
  {
@@ -2323,7 +2323,7 @@ export const VOCAB = [
   "declension": "3rd",
   "conjugation": null,
   "english": "renowned, well-known, crowded",
-  "notes": "Cross-checked and corrected against the textbook's own Chapter 10 \"Vocabulary to Learn\" list.",
+  "notes": null,
   "id": "v179"
  },
  {
@@ -2336,7 +2336,7 @@ export const VOCAB = [
   "declension": "3rd",
   "conjugation": null,
   "english": "fortunate, happy",
-  "notes": "3rd declension, 1-termination.",
+  "notes": null,
   "id": "v180"
  },
  {
@@ -2349,7 +2349,7 @@ export const VOCAB = [
   "declension": "3rd",
   "conjugation": null,
   "english": "brave, strong",
-  "notes": "3rd declension, 2-termination.",
+  "notes": null,
   "id": "v181"
  },
  {
@@ -2362,7 +2362,7 @@ export const VOCAB = [
   "declension": "1st",
   "conjugation": null,
   "english": "few",
-  "notes": "Usually used in the plural.",
+  "notes": null,
   "id": "v182"
  },
  {

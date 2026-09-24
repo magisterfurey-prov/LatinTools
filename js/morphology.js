@@ -157,11 +157,6 @@ function adjectiveCategory(entry) {
 }
 
 // ---------- VERBS ----------
-function firstPrincipalPart(entry) {
-  if (entry.conjugation === '1st') return entry.latin.replace(/t$|ō$/, '') ; // not used directly
-  return null;
-}
-
 function infinitiveOf(entry) {
   if (!entry.principal_parts) return null;
   return entry.principal_parts.split(',')[0].trim();

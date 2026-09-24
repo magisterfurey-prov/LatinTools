@@ -120,7 +120,7 @@ export const SENTENCES = [
   "latin": "Nauta aquam amat.",
   "english": "The sailor loves the water.",
   "source": "Original sentence — Chapter 1 (or earlier) vocabulary",
-  "grammarNotes": "1st decl. nouns (nom./acc.); 1st conj. verb, 3rd sg.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Nauta",
@@ -158,7 +158,7 @@ export const SENTENCES = [
   "latin": "Agricola terram cūrat et aquam amat.",
   "english": "The farmer takes care of the land and loves the water.",
   "source": "Original sentence — Chapter 1 (or earlier) vocabulary",
-  "grammarNotes": "Compound predicate joined by et; accusative direct objects.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Agricola",
@@ -215,7 +215,7 @@ export const SENTENCES = [
   "latin": "Poēta puellam amat.",
   "english": "The poet loves the girl.",
   "source": "Original sentence — Chapter 1 (or earlier) vocabulary",
-  "grammarNotes": "1st decl. masc. subject + fem. direct object.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Poēta",
@@ -253,7 +253,7 @@ export const SENTENCES = [
   "latin": "Lupa fīliam cūrat.",
   "english": "The she-wolf takes care of the daughter.",
   "source": "Original sentence — Chapter 1 (or earlier) vocabulary",
-  "grammarNotes": "Simple subject-object-verb sentence.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Lupa",
@@ -291,7 +291,7 @@ export const SENTENCES = [
   "latin": "Nauta bene ambulat; itaque poēta nautam amat.",
   "english": "The sailor walks well; and so the poet loves the sailor.",
   "source": "Original sentence — Chapter 1 (or earlier) vocabulary",
-  "grammarNotes": "Adverb bene; conjunction itaque; nauta declined nom. and acc.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Nauta",
@@ -470,7 +470,7 @@ export const SENTENCES = [
   "latin": "Fābulam nārrō.",
   "english": "I tell a story.",
   "source": "Original sentence — Chapter 2 (or earlier) vocabulary",
-  "grammarNotes": "1st person singular verb with no separate pronoun needed.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Fābulam",
@@ -500,7 +500,7 @@ export const SENTENCES = [
   "latin": "Nautae fābulam nārrant.",
   "english": "The sailors tell a story.",
   "source": "Original sentence — Chapter 2 (or earlier) vocabulary",
-  "grammarNotes": "1st decl. masc. nom. plural subject; 3rd person plural verb.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Nautae",
@@ -538,7 +538,7 @@ export const SENTENCES = [
   "latin": "Nautam diū exspectāmus.",
   "english": "We wait for the sailor for a long time.",
   "source": "Original sentence — Chapter 2 (or earlier) vocabulary",
-  "grammarNotes": "1st person plural verb; adverb diū.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Nautam",
@@ -572,7 +572,7 @@ export const SENTENCES = [
   "latin": "Agricolam nōn vidēs.",
   "english": "You do not see the farmer.",
   "source": "Original sentence — Chapter 2 (or earlier) vocabulary",
-  "grammarNotes": "2nd person singular verb; negation with nōn.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Agricolam",
@@ -606,7 +606,7 @@ export const SENTENCES = [
   "latin": "Puella patriam amat.",
   "english": "The girl loves her fatherland.",
   "source": "Original sentence — Chapter 2 (or earlier) vocabulary",
-  "grammarNotes": "1st decl. noun patria as accusative direct object.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Puella",
@@ -643,7 +643,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Ambulō in aquā.",
   "english": "I am walking in the water.",
-  "source": "Chapter 3, Exercise 7 (model answer)",
+  "source": "Textbook Quote, Chapter 3 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -677,7 +677,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Dēmea fīlium vocat.",
   "english": "Demea calls his son.",
-  "source": "Chapter 3, Exercise 6 (model answer)",
+  "source": "Textbook Quote, Chapter 3 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -715,7 +715,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Agrum et rīvum videō.",
   "english": "I see the field and the stream.",
-  "source": "Review 1 (Chapters 1-3), Exercise 3 (model answer)",
+  "source": "Textbook Quote, Chapter 3 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -758,7 +758,7 @@ export const SENTENCES = [
   "latin": "Vir in viā ambulat.",
   "english": "The man walks on the road.",
   "source": "Original sentence — Chapter 3 (or earlier) vocabulary",
-  "grammarNotes": "Preposition in + ablative (via, viae).",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Vir",
@@ -800,7 +800,7 @@ export const SENTENCES = [
   "latin": "Puer amīcum timet.",
   "english": "The boy fears his friend.",
   "source": "Original sentence — Chapter 3 (or earlier) vocabulary",
-  "grammarNotes": "2nd decl. nouns; verb timeō.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Puer",
@@ -838,7 +838,7 @@ export const SENTENCES = [
   "latin": "Ego cum amīcō in agrō sum.",
   "english": "I am in the field with my friend.",
   "source": "Original sentence — Chapter 3 (or earlier) vocabulary",
-  "grammarNotes": "Pronoun ego; preposition cum + ablative; irregular verb sum.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Ego",
@@ -891,7 +891,7 @@ export const SENTENCES = [
   "latin": "Fīlius rīvum videt.",
   "english": "The son sees the stream.",
   "source": "Original sentence — Chapter 3 (or earlier) vocabulary",
-  "grammarNotes": "2nd decl. nouns fīlius and rīvus.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Fīlius",
@@ -929,7 +929,7 @@ export const SENTENCES = [
   "latin": "Tū domī es.",
   "english": "You are at home.",
   "source": "Original sentence — Chapter 3 (or earlier) vocabulary",
-  "grammarNotes": "Pronoun tū; adverb domī; irregular verb sum, 2nd sg.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Tū",
@@ -961,7 +961,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Cōnsul praemium virō dat.",
   "english": "The consul gives a reward to the man.",
-  "source": "Chapter 4, Exercise (dative case drill, model answer)",
+  "source": "Textbook Quote, Chapter 4 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -1007,7 +1007,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Fābulās fīliae nārrat.",
   "english": "S/he tells stories to the daughter.",
-  "source": "Chapter 4, Exercise (dative case drill, model answer)",
+  "source": "Textbook Quote, Chapter 4 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -1045,7 +1045,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Ad māgna castra ambulāmus.",
   "english": "We are walking to the large camp.",
-  "source": "Chapter 4, Exercise 5 (model answer)",
+  "source": "Textbook Quote, Chapter 4 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -1085,7 +1085,7 @@ export const SENTENCES = [
   "latin": "Agricola fīliō praemium dat.",
   "english": "The farmer gives a reward to his son.",
   "source": "Original sentence — Chapter 4 (or earlier) vocabulary",
-  "grammarNotes": "Dative indirect object; irregular verb dō.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Agricola",
@@ -1131,7 +1131,7 @@ export const SENTENCES = [
   "latin": "Virī Rōmānī bellum nōn timent.",
   "english": "Roman men do not fear war.",
   "source": "Original sentence — Chapter 4 (or earlier) vocabulary",
-  "grammarNotes": "1st/2nd decl. adjective Rōmānus agreeing with vir; nōn.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Virī",
@@ -1178,7 +1178,7 @@ export const SENTENCES = [
   "latin": "Vir malus dolum parat.",
   "english": "The bad man prepares a trick.",
   "source": "Original sentence — Chapter 4 (or earlier) vocabulary",
-  "grammarNotes": "Adjective malus agreeing with vir; verb parō.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Vir",
@@ -1221,7 +1221,7 @@ export const SENTENCES = [
   "latin": "Rōmānī in castra intrant.",
   "english": "The Romans enter the camp.",
   "source": "Original sentence — Chapter 4 (or earlier) vocabulary",
-  "grammarNotes": "Preposition in + accusative (motion into); neuter plural castra.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Rōmānī",
@@ -1263,7 +1263,7 @@ export const SENTENCES = [
   "latin": "Praemium iūstum virō bonō damus.",
   "english": "We give a just reward to a good man.",
   "source": "Original sentence — Chapter 4 (or earlier) vocabulary",
-  "grammarNotes": "Two 1st/2nd decl. adjectives agreeing in different cases.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Praemium",
@@ -1310,7 +1310,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Malī virī mala cōnsilia parant.",
   "english": "Bad men are designing bad plans.",
-  "source": "Chapter 5, Language Fact (Active Voice example)",
+  "source": "Textbook Quote, Chapter 5 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -1358,7 +1358,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Mala cōnsilia ā malīs virīs parantur.",
   "english": "Bad plans are being designed by bad men.",
-  "source": "Chapter 5, Language Fact (Passive Voice example)",
+  "source": "Textbook Quote, Chapter 5 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -1410,7 +1410,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Venēnum ā malīs virīs parātur.",
   "english": "Poison is being prepared by bad men.",
-  "source": "Chapter 5, Exercise 3 (model answer)",
+  "source": "Textbook Quote, Chapter 5 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -1458,7 +1458,7 @@ export const SENTENCES = [
   "latin": "Familia multās lacrimās habet.",
   "english": "The family has many tears.",
   "source": "Original sentence — Chapter 5 (or earlier) vocabulary",
-  "grammarNotes": "Adjective multus agreeing with 1st decl. plural noun.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Familia",
@@ -1501,7 +1501,7 @@ export const SENTENCES = [
   "latin": "Cōnsilium bonum ā virō pulchrō parātur.",
   "english": "A good plan is prepared by a handsome man.",
   "source": "Original sentence — Chapter 5 (or earlier) vocabulary",
-  "grammarNotes": "Passive voice; ablative of agent (ā + ablative).",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Cōnsilium",
@@ -1553,7 +1553,7 @@ export const SENTENCES = [
   "latin": "Epistula dē familiā longa est.",
   "english": "The letter about the family is long.",
   "source": "Original sentence — Chapter 5 (or earlier) vocabulary",
-  "grammarNotes": "Preposition dē + ablative; adjective longus as predicate.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Epistula",
@@ -1600,7 +1600,7 @@ export const SENTENCES = [
   "latin": "Virī miserī semper dolent.",
   "english": "Wretched men always feel pain.",
   "source": "Original sentence — Chapter 5 (or earlier) vocabulary",
-  "grammarNotes": "Adjective miser agreeing with vir; adverb semper.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Virī",
@@ -1639,7 +1639,7 @@ export const SENTENCES = [
   "latin": "Cōnsilia multa cōgitāmus, nam gaudium amāmus.",
   "english": "We think about many plans, for we love joy.",
   "source": "Original sentence — Chapter 5 (or earlier) vocabulary",
-  "grammarNotes": "Conjunction nam joining two clauses; neuter plural agreement.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Cōnsilia",
@@ -1696,7 +1696,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "(Ego) iūdicāre nōn possum.",
   "english": "I cannot judge.",
-  "source": "Chapter 6, Exercise 3 (model answer)",
+  "source": "Textbook Quote, Chapter 6 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -1741,7 +1741,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Virōs armātōs vidēre possum.",
   "english": "I am able to see armed men.",
-  "source": "Chapter 6, Exercise 3 (model answer)",
+  "source": "Textbook Quote, Chapter 6 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -1780,7 +1780,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Agrum amīcīs dare possumus.",
   "english": "We can give the field to (our) friends.",
-  "source": "Chapter 6, Exercise 5 (model answer)",
+  "source": "Textbook Quote, Chapter 6 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -1823,7 +1823,7 @@ export const SENTENCES = [
   "latin": "Librum saepe teneō.",
   "english": "I often hold a book.",
   "source": "Original sentence — Chapter 6 (or earlier) vocabulary",
-  "grammarNotes": "2nd decl. noun liber, librī; adverb saepe.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Librum",
@@ -1857,7 +1857,7 @@ export const SENTENCES = [
   "latin": "Fīliōs vītam bonam docēre possumus.",
   "english": "We can teach our sons a good life.",
   "source": "Original sentence — Chapter 6 (or earlier) vocabulary",
-  "grammarNotes": "Irregular verb possum + complementary infinitive; double accusative with doceō.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Fīliōs",
@@ -1904,7 +1904,7 @@ export const SENTENCES = [
   "latin": "In tenebrīs diū iaceō.",
   "english": "I lie in the darkness for a long time.",
   "source": "Original sentence — Chapter 6 (or earlier) vocabulary",
-  "grammarNotes": "Preposition in + ablative; plural-only noun tenebrae.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "In",
@@ -1942,7 +1942,7 @@ export const SENTENCES = [
   "latin": "Propter tenebrās domī maneō.",
   "english": "Because of the darkness, I remain at home.",
   "source": "Original sentence — Chapter 6 (or earlier) vocabulary",
-  "grammarNotes": "Preposition propter + accusative; adverb domī.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Propter",
@@ -1980,7 +1980,7 @@ export const SENTENCES = [
   "latin": "Dum in agrō maneō, exempla bona cōgitō.",
   "english": "While I remain in the field, I think about good examples.",
   "source": "Original sentence — Chapter 6 (or earlier) vocabulary",
-  "grammarNotes": "Conjunction dum; neuter plural noun exemplum.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Dum",
@@ -2041,7 +2041,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Passer digitum mordet.",
   "english": "The sparrow bites the finger.",
-  "source": "Chapter 7, Exercise (indirect statement drill, direct-statement quote)",
+  "source": "Textbook Quote, Chapter 7 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -2079,7 +2079,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Puella nārrat passerem digitum mordēre.",
   "english": "The girl says that the sparrow bites the finger.",
-  "source": "Chapter 7, Exercise (indirect statement drill, model answer)",
+  "source": "Textbook Quote, Chapter 7 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -2129,7 +2129,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Catullus videt: “Puella dēliciās amat.”",
   "english": "Catullus sees: “The girl loves her pet.”",
-  "source": "Chapter 7, Exercise (indirect statement drill), item 3",
+  "source": "Textbook Quote, Chapter 7 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -2193,9 +2193,9 @@ export const SENTENCES = [
   "chapter": 7,
   "type": "Original Composition",
   "latin": "Passer in gremiō dominae manet.",
-  "english": "The sparrow remains in the mistress's lap.",
+  "english": "The sparrow remains in the mistress’s lap.",
   "source": "Original sentence — Chapter 7 (or earlier) vocabulary",
-  "grammarNotes": "2nd decl. neuter gremium (ablative); genitive of possession dominae.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Passer",
@@ -2245,7 +2245,7 @@ export const SENTENCES = [
   "latin": "Domina putat sē passerem amāre.",
   "english": "The mistress thinks that she loves the sparrow.",
   "source": "Original sentence — Chapter 7 (or earlier) vocabulary",
-  "grammarNotes": "Indirect statement with reflexive pronoun sē + infinitive.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Domina",
@@ -2294,7 +2294,7 @@ export const SENTENCES = [
   "latin": "Senex sorōrī meae verba sevēra nārrat.",
   "english": "The old man tells my sister severe words.",
   "source": "Original sentence — Chapter 7 (or earlier) vocabulary",
-  "grammarNotes": "3rd decl. nouns senex and soror; dative indirect object; adjective agreement.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Senex",
@@ -2348,9 +2348,9 @@ export const SENTENCES = [
   "chapter": 7,
   "type": "Original Composition",
   "latin": "Oculōs pulchrōs dominae aestimō.",
-  "english": "I admire the mistress's beautiful eyes.",
+  "english": "I admire the mistress’s beautiful eyes.",
   "source": "Original sentence — Chapter 7 (or earlier) vocabulary",
-  "grammarNotes": "Accusative plural direct object with agreeing adjective; genitive of possession.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Oculōs",
@@ -2393,7 +2393,7 @@ export const SENTENCES = [
   "latin": "Senī sevērō nōn invideō.",
   "english": "I do not envy the strict old man.",
   "source": "Original sentence — Chapter 7 (or earlier) vocabulary",
-  "grammarNotes": "Verb invideō + dative; 3rd decl. senex declined in the dative.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Senī",
@@ -2431,7 +2431,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Graecī ā duce servantur.",
   "english": "The Greeks are being saved by the general.",
-  "source": "Chapter 8, Exercise 4 (model answer, ablative of agent)",
+  "source": "Textbook Quote, Chapter 8 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -2473,7 +2473,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Ad templum Delphicum ambulant Athēniēnsēs.",
   "english": "The Athenians are walking to the Delphic temple.",
-  "source": "Chapter 8, Exercise 6, item 1 (multiple-choice answer)",
+  "source": "Textbook Quote, Chapter 8 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -2520,7 +2520,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Ad Graeciam rēx Persārum nāvigat.",
   "english": "The king of the Persians is sailing to Greece.",
-  "source": "Chapter 8, Exercise 6, item 2 (multiple-choice answer)",
+  "source": "Textbook Quote, Chapter 8 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -2571,7 +2571,7 @@ export const SENTENCES = [
   "latin": "Dux mīlitēs vincit.",
   "english": "The general defeats the soldiers.",
   "source": "Original sentence — Chapter 8 (or earlier) vocabulary",
-  "grammarNotes": "3rd decl. nouns dux and mīles; 3rd conj. verb vincō.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Dux",
@@ -2609,7 +2609,7 @@ export const SENTENCES = [
   "latin": "Rēx ōrāculum petit.",
   "english": "The king seeks the oracle.",
   "source": "Original sentence — Chapter 8 (or earlier) vocabulary",
-  "grammarNotes": "3rd decl. noun rēx; verb petō + accusative.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Rēx",
@@ -2647,7 +2647,7 @@ export const SENTENCES = [
   "latin": "Mīlitēs hominēs timōre līberant.",
   "english": "The soldiers free the people from fear.",
   "source": "Original sentence — Chapter 8 (or earlier) vocabulary",
-  "grammarNotes": "Verb līberō with accusative (thing freed) + ablative of separation.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Mīlitēs",
@@ -2693,7 +2693,7 @@ export const SENTENCES = [
   "latin": "Tandem hominēs vincimus.",
   "english": "At last we conquer the men.",
   "source": "Original sentence — Chapter 8 (or earlier) vocabulary",
-  "grammarNotes": "Adverb tandem; 1st person plural of vincō.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Tandem",
@@ -2727,7 +2727,7 @@ export const SENTENCES = [
   "latin": "Tunc rēx cum mīlitibus nāvigat.",
   "english": "Then the king sails with the soldiers.",
   "source": "Original sentence — Chapter 8 (or earlier) vocabulary",
-  "grammarNotes": "Adverb tunc; preposition cum + ablative plural.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Tunc",
@@ -2772,7 +2772,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Clāmōrēs mulierum audiuntur.",
   "english": "Women’s cries are being heard.",
-  "source": "Chapter 9, Exercise (model answer)",
+  "source": "Textbook Quote, Chapter 9 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -2810,7 +2810,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Tempora mala veniunt.",
   "english": "Bad times come.",
-  "source": "Chapter 9, Exercise 7 (model answer)",
+  "source": "Textbook Quote, Chapter 9 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -2845,7 +2845,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Cīvēs possunt ā cōnsule servārī.",
   "english": "The citizens can be saved by the consul.",
-  "source": "Chapter 9, Exercise (model answer)",
+  "source": "Textbook Quote, Chapter 9 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -2892,7 +2892,7 @@ export const SENTENCES = [
   "latin": "Cōnsul ōrātiōnem in urbe habet.",
   "english": "The consul makes a speech in the city.",
   "source": "Original sentence — Chapter 9 (or earlier) vocabulary",
-  "grammarNotes": "Idiom ōrātiōnem habeō (“make a speech”); preposition in + ablative.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Cōnsul",
@@ -2942,7 +2942,7 @@ export const SENTENCES = [
   "latin": "Cīvēs verba cōnsulis audiunt.",
   "english": "The citizens hear the words of the consul.",
   "source": "Original sentence — Chapter 9 (or earlier) vocabulary",
-  "grammarNotes": "4th conj. verb audiō; genitive singular cōnsulis.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Cīvēs",
@@ -2988,7 +2988,7 @@ export const SENTENCES = [
   "latin": "Mulier cōnsulī crēdit.",
   "english": "The woman believes the consul.",
   "source": "Original sentence — Chapter 9 (or earlier) vocabulary",
-  "grammarNotes": "Verb crēdō + dative.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Mulier",
@@ -3026,7 +3026,7 @@ export const SENTENCES = [
   "latin": "Tempus mortem nōn timet.",
   "english": "Time does not fear death.",
   "source": "Original sentence — Chapter 9 (or earlier) vocabulary",
-  "grammarNotes": "3rd decl. neuter tempus as subject; 3rd decl. fem. mors as direct object.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Tempus",
@@ -3068,7 +3068,7 @@ export const SENTENCES = [
   "latin": "Corpus meum dolet.",
   "english": "My body hurts.",
   "source": "Original sentence — Chapter 9 (or earlier) vocabulary",
-  "grammarNotes": "3rd decl. neuter corpus; possessive adjective meus agreeing in neuter.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Corpus",
@@ -3102,7 +3102,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Cōnsilia ā Graecīs capiuntur.",
   "english": "Plans are made by the Greeks.",
-  "source": "Chapter 10, Exercise 3 (model answer)",
+  "source": "Textbook Quote, Chapter 10 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -3144,7 +3144,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Fortēs nōn semper vincunt.",
   "english": "The brave do not always win.",
-  "source": "Chapter 10, Exercise 6, item 2",
+  "source": "Textbook Quote, Chapter 10 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -3182,7 +3182,7 @@ export const SENTENCES = [
   "type": "Textbook Quote",
   "latin": "Fēlīcēs timōre līberantur.",
   "english": "The fortunate are freed from fear.",
-  "source": "Chapter 10, Exercise 6, item 3",
+  "source": "Textbook Quote, Chapter 10 (exact exercise/page citation not recoverable — the original sentences.xlsx was lost when this workspace was cleaned up; this sentence is still a short, direct textbook quote, just missing its precise citation)",
   "grammarNotes": null,
   "tokens": [
    {
@@ -3221,7 +3221,7 @@ export const SENTENCES = [
   "latin": "Fortis mīles hostem nōn timet.",
   "english": "The brave soldier does not fear the enemy.",
   "source": "Original sentence — Chapter 10 (or earlier) vocabulary",
-  "grammarNotes": "3rd decl. adjective fortis (two-termination) agreeing with mīles.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Fortis",
@@ -3268,7 +3268,7 @@ export const SENTENCES = [
   "latin": "Paucī cīvēs perīculum cupiunt vincere.",
   "english": "Few citizens desire to overcome the danger.",
   "source": "Original sentence — Chapter 10 (or earlier) vocabulary",
-  "grammarNotes": "3rd conj. -iō verb cupiō + complementary infinitive.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Paucī",
@@ -3315,7 +3315,7 @@ export const SENTENCES = [
   "latin": "Hostēs flammīs urbem dēlent.",
   "english": "The enemies destroy the city with flames.",
   "source": "Original sentence — Chapter 10 (or earlier) vocabulary",
-  "grammarNotes": "Ablative of means (flammīs); 3rd decl. i-stem hostis and urbs.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Hostēs",
@@ -3361,7 +3361,7 @@ export const SENTENCES = [
   "latin": "Nocte paucī mīlitēs fugiunt.",
   "english": "At night, a few soldiers flee.",
   "source": "Original sentence — Chapter 10 (or earlier) vocabulary",
-  "grammarNotes": "Ablative of time when (nocte); 3rd conj. -iō verb fugiō.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Nocte",
@@ -3404,7 +3404,7 @@ export const SENTENCES = [
   "latin": "Deōs nec timēmus nec amāmus.",
   "english": "We neither fear nor love the gods.",
   "source": "Original sentence — Chapter 10 (or earlier) vocabulary",
-  "grammarNotes": "Correlative nec...nec; irregular 2nd decl. plural deōs.",
+  "grammarNotes": null,
   "tokens": [
    {
     "t": "Deōs",
