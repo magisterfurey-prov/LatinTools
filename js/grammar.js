@@ -43,10 +43,22 @@ const chartArea = document.getElementById('chartArea');
 
 let activeChart = ALL_CHARTS[0];
 
+// Chapter 1 verbs are listed in the vocab data as their bare 3rd person
+// singular form (e.g. "amat"), matching how the textbook itself introduces
+// them before principal parts exist as a concept -- the same verb reappears
+// in Chapter 2 under its real 1st sg. citation form ("amō"). A conjugation
+// chart needs the real citation form, so exclude any verb entry whose
+// headword isn't actually the 1st sg. present the chart itself would derive.
+function isVerbCitationForm(entry) {
+  const forms = conjugateVerb(entry);
+  if (!forms) return false;
+  return sameLatin(entry.latin, forms.sg1);
+}
+
 function wordsForChart(chart) {
   if (chart.kind === 'noun') return VOCAB.filter(v => nounCategory(v) === chart.cat);
   if (chart.kind === 'adjective') return VOCAB.filter(v => adjectiveCategory(v) === chart.cat);
-  return VOCAB.filter(v => verbCategory(v) === chart.cat);
+  return VOCAB.filter(v => verbCategory(v) === chart.cat && isVerbCitationForm(v));
 }
 
 function renderChartPicker() {

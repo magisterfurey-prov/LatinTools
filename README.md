@@ -1,4 +1,6 @@
-# Latin Practice — LFNM Level 1
+# Latin Practice — LFNM Level 1 (static edition)
+
+> **This is the static, backend-free fork.** It runs entirely in the browser on GitHub Pages: no login, no class rosters, no server. Progress is saved only in each student's own browser (`localStorage`). The full version with Google sign-in and teacher dashboards lives in a separate project.
 
 A free, static practice site for *Latin for the New Millennium*, Level 1 (Chapters 1–10): vocabulary flashcards, grammar charts, and sentence analysis. No backend, no build step, no dependencies — just HTML/CSS/JS, so it runs directly on GitHub Pages.
 
@@ -26,8 +28,8 @@ then visit `http://localhost:8000`.
 
 ## Deploying to GitHub Pages
 
-1. Push this folder to a GitHub repository (as the repo root, or under `/docs`).
-2. In the repo's **Settings → Pages**, set the source to the branch/folder you used.
+1. Push this repository to GitHub.
+2. In the repo's **Settings → Pages**, set the source to **Deploy from a branch** → `main` / root. Every push to `main` redeploys automatically.
 3. The site will be live at `https://<username>.github.io/<repo-name>/` within a few minutes.
 
 ## Extending it
