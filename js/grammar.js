@@ -1,8 +1,10 @@
-import { VOCAB } from '../data/vocabulary.js';
+import { BOOK, loadChartVocab } from './book.js';
 import {
   declineNoun, nounCategory, declineAdjective, adjectiveCategory, conjugateVerb, verbCategory, verbHasForms, PERFECT_TENSES,
 } from './morphology.js';
 import { sameLatin, sameLatinRequireFinalMacron, insertAtCursor } from './util.js';
+
+const VOCAB = await loadChartVocab();
 
 const MACRONS = ['ā', 'ē', 'ī', 'ō', 'ū'];
 let lastFocusedInput = null;

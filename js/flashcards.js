@@ -1,6 +1,7 @@
-import { VOCAB } from '../data/vocabulary.js';
-import { EMOJI } from '../data/emoji.js';
+import { loadVocab, loadEmoji } from './book.js';
 import { shuffle } from './util.js';
+
+const [VOCAB, EMOJI] = await Promise.all([loadVocab(), loadEmoji()]);
 
 const CHAPTERS = [...new Set(VOCAB.map(v => v.chapter))].sort((a, b) => a - b);
 

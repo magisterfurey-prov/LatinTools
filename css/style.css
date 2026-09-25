@@ -67,6 +67,27 @@ nav.site-nav a:hover, nav.site-nav a.active {
   background: rgba(255,255,255,0.22);
 }
 
+/* Level 1 / Level 2 textbook switch in the header */
+.book-switch {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.08);
+}
+.book-switch-label { font-size: 0.82rem; opacity: 0.85; padding: 0 6px 0 8px; }
+.book-switch button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 7px;
+  font-size: 0.88rem;
+}
+.book-switch button:hover { background: rgba(255,255,255,0.16); }
+.book-switch button[aria-pressed="true"] { background: #fff; color: var(--maroon-dark); font-weight: 600; }
+
 main {
   max-width: 980px;
   margin: 0 auto;

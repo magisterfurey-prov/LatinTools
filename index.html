@@ -9,6 +9,11 @@
 <body>
 <header class="site-header">
   <h1><a href="index.html">Latin Practice</a></h1>
+  <div class="book-switch" role="group" aria-label="Textbook">
+    <span class="book-switch-label">Book:</span>
+    <button type="button" data-book="1">Level 1</button>
+    <button type="button" data-book="2">Level 2</button>
+  </div>
   <nav class="site-nav">
     <a href="index.html" class="active">Home</a>
     <a href="flashcards.html">Vocabulary</a>
@@ -19,15 +24,15 @@
 
 <main>
   <div class="card">
-    <h2>Latin for the New Millennium — Level 1</h2>
-    <p>Practice vocabulary, grammar forms, and sentence analysis for Chapters 1–21. Pick a section below to get started.</p>
+    <h2 id="bookTitle">Latin for the New Millennium — Level 1</h2>
+    <p id="bookIntro">Practice vocabulary, grammar forms, and sentence analysis for Chapters 1–21. Pick a section below to get started.</p>
   </div>
 
   <div class="section-grid">
     <a class="section-tile" href="flashcards.html">
       <div class="icon">🗂️</div>
       <h3>Vocabulary</h3>
-      <p>Flashcards, a multiple-choice learning mode, and a 10-question test, organized by chapter. 425 words across Chapters 1–21.</p>
+      <p id="vocabTileText">Flashcards, a multiple-choice learning mode, and a 10-question test, organized by chapter. 425 words across Chapters 1–21.</p>
     </a>
     <a class="section-tile" href="grammar.html">
       <div class="icon">📐</div>
@@ -37,11 +42,12 @@
     <a class="section-tile" href="translate.html">
       <div class="icon">📜</div>
       <h3>Translation &amp; Analysis</h3>
-      <p>Tag case, number, gender, person, tense, agreement, and syntactic role for 168 practice sentences.</p>
+      <p id="translateTileText">Tag case, number, gender, person, tense, agreement, and syntactic role for 168 practice sentences.</p>
     </a>
   </div>
 </main>
 
-<footer class="site-footer">Built for Latin for the New Millennium, Level 1 (Chapters 1–21). Textbook sentences quoted briefly and attributed; all other content is original practice material.</footer>
+<footer class="site-footer" id="footerText">Built for Latin for the New Millennium, Level 1 (Chapters 1–21). Textbook sentences quoted briefly and attributed; all other content is original practice material.</footer>
+<script type="module" src="js/home.js"></script>
 </body>
 </html>

@@ -1,4 +1,6 @@
-import { SENTENCES } from '../data/sentences.js';
+import { BOOK, loadSentences } from './book.js';
+
+const SENTENCES = await loadSentences();
 
 const CASE_OPTIONS = [
   ['nom', 'Nominative'], ['gen', 'Genitive'], ['dat', 'Dative'],
