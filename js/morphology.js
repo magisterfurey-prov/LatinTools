@@ -196,40 +196,148 @@ function adjectiveCategory(entry) {
 }
 
 // ---------- VERBS ----------
-function infinitiveOf(entry) {
-  if (!entry.principal_parts) return null;
-  return entry.principal_parts.split(',')[0].trim();
+// Verbs left out of passive charts because real Latin doesn't form their
+// passive the regular way: intransitive verbs ("ambulor" would be "I am
+// walked"), and faciō, whose present-system passive is the irregular fīō
+// (not taught in Level 1). faciō's perfect passive (factus sum) is regular.
+const INTRANSITIVE_VERBS = new Set([
+  'ambulō', 'habitō', 'intrō', 'nāvigō', 'pugnō', 'exclāmō', 'abundō', 'errō',
+  'doleō', 'iaceō', 'maneō', 'invideō', 'ārdeō', 'respondeō', 'studeō', 'sedeō', 'egeō',
+  'crēdō', 'discēdō', 'cadō', 'fluō', 'currō', 'crēscō', 'vīvō', 'lūdō', 'dēscendō',
+  'fugiō', 'veniō', 'conveniō', 'dormiō',
+]);
+const NO_PRESENT_PASSIVE = new Set(['faciō']);
+// soleō, solēre, solitus sum is semi-deponent (its perfect is passive in
+// form), so it's left out of the perfect-system charts.
+const SEMI_DEPONENT = new Set(['soleō']);
+
+const PERFECT_TENSES = ['perf', 'plup', 'futperf'];
+
+// sum and possum, as tabulated in the textbook's Appendix C.
+const IRREGULAR_VERBS = {
+  'sum': {
+    pres: ['sum', 'es', 'est', 'sumus', 'estis', 'sunt'],
+    impf: ['eram', 'erās', 'erat', 'erāmus', 'erātis', 'erant'],
+    fut: ['erō', 'eris', 'erit', 'erimus', 'eritis', 'erunt'],
+    perf: ['fuī', 'fuistī', 'fuit', 'fuimus', 'fuistis', 'fuērunt'],
+    plup: ['fueram', 'fuerās', 'fuerat', 'fuerāmus', 'fuerātis', 'fuerant'],
+    futperf: ['fuerō', 'fueris', 'fuerit', 'fuerimus', 'fueritis', 'fuerint'],
+  },
+  'possum': {
+    pres: ['possum', 'potes', 'potest', 'possumus', 'potestis', 'possunt'],
+    impf: ['poteram', 'poterās', 'poterat', 'poterāmus', 'poterātis', 'poterant'],
+    fut: ['poterō', 'poteris', 'poterit', 'poterimus', 'poteritis', 'poterunt'],
+    perf: ['potuī', 'potuistī', 'potuit', 'potuimus', 'potuistis', 'potuērunt'],
+    plup: ['potueram', 'potuerās', 'potuerat', 'potuerāmus', 'potuerātis', 'potuerant'],
+    futperf: ['potuerō', 'potueris', 'potuerit', 'potuerimus', 'potueritis', 'potuerint'],
+  },
+};
+
+const PRESENT_ENDINGS = {
+  act: {
+    '1st': ['ō', 'ās', 'at', 'āmus', 'ātis', 'ant'],
+    '2nd': ['eō', 'ēs', 'et', 'ēmus', 'ētis', 'ent'],
+    '3rd': ['ō', 'is', 'it', 'imus', 'itis', 'unt'],
+    '3rd (-iō)': ['iō', 'is', 'it', 'imus', 'itis', 'iunt'],
+    '4th': ['iō', 'īs', 'it', 'īmus', 'ītis', 'iunt'],
+  },
+  pass: {
+    '1st': ['or', 'āris', 'ātur', 'āmur', 'āminī', 'antur'],
+    '2nd': ['eor', 'ēris', 'ētur', 'ēmur', 'ēminī', 'entur'],
+    '3rd': ['or', 'eris', 'itur', 'imur', 'iminī', 'untur'],
+    '3rd (-iō)': ['ior', 'eris', 'itur', 'imur', 'iminī', 'iuntur'],
+    '4th': ['ior', 'īris', 'ītur', 'īmur', 'īminī', 'iuntur'],
+  },
+};
+// Imperfect: vowel before -ba-, the same for both voices (parābam, capiēbar).
+const IMPERFECT_VOWEL = { '1st': 'ā', '2nd': 'ē', '3rd': 'ē', '3rd (-iō)': 'iē', '4th': 'iē' };
+const IMPERFECT_ENDINGS = {
+  act: ['bam', 'bās', 'bat', 'bāmus', 'bātis', 'bant'],
+  pass: ['bar', 'bāris', 'bātur', 'bāmur', 'bāminī', 'bantur'],
+};
+// Future: -bō/-bor for 1st and 2nd conjugation; -am/-ar (with -i- for
+// 3rd -iō and 4th) for the others.
+const FUTURE_B = {
+  act: ['bō', 'bis', 'bit', 'bimus', 'bitis', 'bunt'],
+  pass: ['bor', 'beris', 'bitur', 'bimur', 'biminī', 'buntur'],
+};
+const FUTURE_A = {
+  act: ['am', 'ēs', 'et', 'ēmus', 'ētis', 'ent'],
+  pass: ['ar', 'ēris', 'ētur', 'ēmur', 'ēminī', 'entur'],
+};
+const PERFECT_ACTIVE_ENDINGS = {
+  perf: ['ī', 'istī', 'it', 'imus', 'istis', 'ērunt'],
+  plup: ['eram', 'erās', 'erat', 'erāmus', 'erātis', 'erant'],
+  futperf: ['erō', 'eris', 'erit', 'erimus', 'eritis', 'erint'],
+};
+// Tense of sum used as the auxiliary in each perfect-system passive.
+const PASSIVE_AUXILIARY = { perf: 'pres', plup: 'impf', futperf: 'fut' };
+
+const PERSON_KEYS = ['sg1', 'sg2', 'sg3', 'pl1', 'pl2', 'pl3'];
+
+function sixForms(list) {
+  return Object.fromEntries(PERSON_KEYS.map((k, i) => [k, list[i]]));
 }
 
-function conjugateVerb(entry) {
-  const inf = infinitiveOf(entry);
-  if (!inf) return null;
-  const conj = entry.conjugation;
-  let base, endings;
+// Principal parts after the headword, minus construction notes such as
+// "+ dative" or "(+ accusative + ablative)": ['parāre', 'parāvī', 'parātum'].
+function principalParts(entry) {
+  if (!entry.principal_parts) return [];
+  return entry.principal_parts.replace(/\s*\(.*?\)/g, '').split(' + ')[0].split(',').map(s => s.trim());
+}
 
-  if (conj === '1st') {
-    base = inf.slice(0, -3); // strip "āre"
-    endings = ['ō', 'ās', 'at', 'āmus', 'ātis', 'ant'];
-  } else if (conj === '2nd') {
-    base = inf.slice(0, -3); // strip "ēre"
-    endings = ['eō', 'ēs', 'et', 'ēmus', 'ētis', 'ent'];
-  } else if (conj === '3rd') {
-    base = inf.slice(0, -3); // strip "ere"
-    endings = ['ō', 'is', 'it', 'imus', 'itis', 'unt'];
-  } else if (conj === '3rd (-iō)') {
-    base = inf.slice(0, -3); // strip "ere"
-    endings = ['iō', 'is', 'it', 'imus', 'itis', 'iunt'];
-  } else if (conj === '4th') {
-    base = inf.slice(0, -3); // strip "īre"
-    endings = ['iō', 'īs', 'it', 'īmus', 'ītis', 'iunt'];
-  } else {
-    return null; // irregular (sum, possum) -- not used in regular conjugation charts
+function infinitiveOf(entry) {
+  return principalParts(entry)[0] || null;
+}
+
+// Returns { sg1, sg2, sg3, pl1, pl2, pl3 } for the given tense and voice, or
+// null if the verb has no such forms. A value is an array when several
+// answers are right: perfect-system passives accept any gender of the
+// participle (parātus / parāta / parātum est).
+function conjugateVerb(entry, tense = 'pres', voice = 'act') {
+  const irregular = IRREGULAR_VERBS[entry.latin];
+  if (irregular) return voice === 'act' && irregular[tense] ? sixForms(irregular[tense]) : null;
+
+  const [inf, perfect, supine] = principalParts(entry);
+  const conj = entry.conjugation;
+  if (!inf || !PRESENT_ENDINGS.act[conj]) return null; // irregular -- not charted
+  const base = inf.slice(0, -3); // strip "āre" / "ēre" / "ere" / "īre"
+
+  if (PERFECT_TENSES.includes(tense)) {
+    if (voice === 'act') {
+      if (!perfect || perfect === '——') return null;
+      const stem = perfect.slice(0, -1); // parāvī -> parāv
+      return sixForms(PERFECT_ACTIVE_ENDINGS[tense].map(e => stem + e));
+    }
+    if (!supine || supine === '——') return null;
+    const stems = supine.split('/').map(s => s.slice(0, -2)); // parātum -> parāt (alō: altum/alitum)
+    const aux = IRREGULAR_VERBS['sum'][PASSIVE_AUXILIARY[tense]];
+    return sixForms(aux.map((a, i) => {
+      const endings = i < 3 ? ['us', 'a', 'um'] : ['ī', 'ae', 'a'];
+      return stems.flatMap(st => endings.map(e => `${st}${e} ${a}`));
+    }));
   }
 
-  return {
-    sg1: base + endings[0], sg2: base + endings[1], sg3: base + endings[2],
-    pl1: base + endings[3], pl2: base + endings[4], pl3: base + endings[5],
-  };
+  let endings;
+  if (tense === 'pres') endings = PRESENT_ENDINGS[voice][conj];
+  else if (tense === 'impf') endings = IMPERFECT_ENDINGS[voice].map(e => IMPERFECT_VOWEL[conj] + e);
+  else if (tense === 'fut' && (conj === '1st' || conj === '2nd')) {
+    endings = FUTURE_B[voice].map(e => (conj === '1st' ? 'ā' : 'ē') + e);
+  } else if (tense === 'fut') {
+    endings = FUTURE_A[voice].map(e => (conj === '3rd' ? '' : 'i') + e);
+  } else return null;
+  return sixForms(endings.map(e => base + e));
+}
+
+// Whether a chart should offer this verb for the given tense and voice.
+function verbHasForms(entry, tense, voice) {
+  const latin = entry.latin;
+  if (voice === 'pass') {
+    if (INTRANSITIVE_VERBS.has(latin) || SEMI_DEPONENT.has(latin)) return false;
+    if (NO_PRESENT_PASSIVE.has(latin) && !PERFECT_TENSES.includes(tense)) return false;
+  }
+  if (SEMI_DEPONENT.has(latin) && PERFECT_TENSES.includes(tense)) return false;
+  return !!conjugateVerb(entry, tense, voice);
 }
 
 function verbCategory(entry) {
@@ -238,4 +346,7 @@ function verbCategory(entry) {
   return null;
 }
 
-export { declineNoun, nounCategory, declineAdjective, adjectiveCategory, conjugateVerb, verbCategory, PLURAL_ONLY, PLURAL_ONLY_ADJ };
+export {
+  declineNoun, nounCategory, declineAdjective, adjectiveCategory, conjugateVerb, verbCategory, verbHasForms,
+  PERFECT_TENSES, PLURAL_ONLY, PLURAL_ONLY_ADJ,
+};

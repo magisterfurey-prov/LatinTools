@@ -2,7 +2,11 @@
 // penalized for not typing long marks. The one place that's NOT safe is 1st
 // declension abl. sg. ("agricolā"), which is otherwise spelled identically to
 // the nom. sg. ("agricola") -- see sameLatinRequireFinalMacron below.
-const MACRON_MAP = { ā: 'a', ē: 'e', ī: 'i', ō: 'o', ū: 'u', ȳ: 'y', Ā: 'A', Ē: 'E', Ī: 'I', Ō: 'O', Ū: 'U', Ȳ: 'Y' };
+// Breves (short marks, as in the vocabulary's "dăre, dătum") are ignored too.
+const MACRON_MAP = {
+  ā: 'a', ē: 'e', ī: 'i', ō: 'o', ū: 'u', ȳ: 'y', Ā: 'A', Ē: 'E', Ī: 'I', Ō: 'O', Ū: 'U', Ȳ: 'Y',
+  ă: 'a', ĕ: 'e', ĭ: 'i', ŏ: 'o', ŭ: 'u', Ă: 'A', Ĕ: 'E', Ĭ: 'I', Ŏ: 'O', Ŭ: 'U',
+};
 
 function stripMacrons(str) {
   return str.split('').map(ch => MACRON_MAP[ch] || ch).join('');

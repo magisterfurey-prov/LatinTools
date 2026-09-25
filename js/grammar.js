@@ -1,5 +1,7 @@
 import { VOCAB } from '../data/vocabulary.js';
-import { declineNoun, nounCategory, declineAdjective, adjectiveCategory, conjugateVerb, verbCategory } from './morphology.js';
+import {
+  declineNoun, nounCategory, declineAdjective, adjectiveCategory, conjugateVerb, verbCategory, verbHasForms, PERFECT_TENSES,
+} from './morphology.js';
 import { sameLatin, sameLatinRequireFinalMacron, insertAtCursor } from './util.js';
 
 const MACRONS = ['ā', 'ē', 'ī', 'ō', 'ū'];
@@ -28,12 +30,19 @@ const ADJ_CHARTS = [
 ];
 
 const VERB_CHARTS = [
-  { id: 'v-1st', label: '1st Conjugation Verbs (Present)', cat: '1st' },
-  { id: 'v-2nd', label: '2nd Conjugation Verbs (Present)', cat: '2nd' },
-  { id: 'v-3rd', label: '3rd Conjugation Verbs (Present)', cat: '3rd' },
-  { id: 'v-3rdio', label: '3rd Conjugation -iō Verbs (Present)', cat: '3rd (-iō)' },
-  { id: 'v-4th', label: '4th Conjugation Verbs (Present)', cat: '4th' },
+  { id: 'v-1st', label: '1st Conjugation Verbs', cat: '1st' },
+  { id: 'v-2nd', label: '2nd Conjugation Verbs', cat: '2nd' },
+  { id: 'v-3rd', label: '3rd Conjugation Verbs', cat: '3rd' },
+  { id: 'v-3rdio', label: '3rd Conjugation -iō Verbs', cat: '3rd (-iō)' },
+  { id: 'v-4th', label: '4th Conjugation Verbs', cat: '4th' },
+  { id: 'v-irr', label: 'sum and possum (Irregular)', cat: 'irregular' },
 ];
+
+const TENSES = [
+  ['pres', 'Present'], ['impf', 'Imperfect'], ['fut', 'Future'],
+  ['perf', 'Perfect'], ['plup', 'Pluperfect'], ['futperf', 'Future Perfect'],
+];
+const VOICES = [['act', 'Active'], ['pass', 'Passive']];
 
 const ALL_CHARTS = [
   ...NOUN_CHARTS.map(c => ({ ...c, kind: 'noun' })),
@@ -45,6 +54,28 @@ const chartPicker = document.getElementById('chartPicker');
 const chartArea = document.getElementById('chartArea');
 
 let activeChart = ALL_CHARTS[0];
+// Verb charts share one tense/voice choice, kept while switching charts.
+let verbTense = 'pres';
+let verbVoice = 'act';
+// Latin headword of the word last shown, so re-rendering keeps it selected.
+let currentWord = null;
+
+// sum and possum have no passive.
+function activeVoice() {
+  return activeChart.cat === 'irregular' ? 'act' : verbVoice;
+}
+
+// Chapter of LFNM Level 1 that introduces each set of verb forms.
+function textbookChapter(conj, tense, voice) {
+  if (conj === 'irregular') return { pres: 6, impf: 11, fut: 14, perf: 16, plup: 17, futperf: 18 }[tense];
+  if (tense === 'pres') {
+    if (voice === 'pass' && (conj === '1st' || conj === '2nd')) return 5;
+    return { '1st': 2, '2nd': 2, '3rd': 8, '4th': 9, '3rd (-iō)': 10 }[conj];
+  }
+  if (tense === 'impf') return 11;
+  if (tense === 'fut') return conj === '1st' || conj === '2nd' ? 14 : 15;
+  return (voice === 'act' ? { perf: 16, plup: 17, futperf: 18 } : { perf: 19, plup: 20, futperf: 21 })[tense];
+}
 
 // Chapter 1 verbs are listed in the vocab data as their bare 3rd person
 // singular form (e.g. "amat"), matching how the textbook itself introduces
@@ -58,10 +89,54 @@ function isVerbCitationForm(entry) {
   return sameLatin(entry.latin, forms.sg1);
 }
 
+// The vocabulary repeats a few words in later chapters (parō, multus, sum);
+// list each headword once.
+function uniqueByLatin(words) {
+  const seen = new Set();
+  return words.filter(v => !seen.has(v.latin) && seen.add(v.latin));
+}
+
 function wordsForChart(chart) {
-  if (chart.kind === 'noun') return VOCAB.filter(v => nounCategory(v) === chart.cat);
-  if (chart.kind === 'adjective') return VOCAB.filter(v => adjectiveCategory(v) === chart.cat);
-  return VOCAB.filter(v => verbCategory(v) === chart.cat && isVerbCitationForm(v));
+  let words;
+  if (chart.kind === 'noun') words = VOCAB.filter(v => nounCategory(v) === chart.cat);
+  else if (chart.kind === 'adjective') words = VOCAB.filter(v => adjectiveCategory(v) === chart.cat);
+  else if (chart.cat === 'irregular') words = VOCAB.filter(v => v.pos === 'Verb' && (v.latin === 'sum' || v.latin === 'possum'));
+  else {
+    words = VOCAB.filter(v => verbCategory(v) === chart.cat && isVerbCitationForm(v)
+      && verbHasForms(v, verbTense, verbVoice));
+  }
+  return uniqueByLatin(words);
+}
+
+function optionsHTML(options, selected) {
+  return options.map(([v, l]) => `<option value="${v}"${v === selected ? ' selected' : ''}>${l}</option>`).join('');
+}
+
+function chartTitle(chart) {
+  if (chart.kind !== 'verb') return chart.label;
+  const tense = TENSES.find(([v]) => v === verbTense)[1];
+  const voice = chart.cat === 'irregular' ? '' : ' ' + VOICES.find(([v]) => v === verbVoice)[1];
+  return `${chart.label} — ${tense}${voice}`;
+}
+
+function tenseBarHTML(chart) {
+  if (chart.kind !== 'verb') return '';
+  const voiceDisabled = chart.cat === 'irregular' ? ' disabled title="sum and possum have no passive"' : '';
+  return `
+    <div class="chart-toolbar">
+      <label for="tenseSelect">Tense:</label>
+      <select id="tenseSelect">${optionsHTML(TENSES, verbTense)}</select>
+      <label for="voiceSelect">Voice:</label>
+      <select id="voiceSelect"${voiceDisabled}>${optionsHTML(VOICES, activeVoice())}</select>
+      <span class="legend" style="margin:0;">Introduced in Chapter ${textbookChapter(chart.cat, verbTense, activeVoice())}</span>
+    </div>`;
+}
+
+function wireTenseBar() {
+  const tenseSelect = document.getElementById('tenseSelect');
+  if (!tenseSelect) return;
+  tenseSelect.onchange = () => { verbTense = tenseSelect.value; renderChart(); };
+  document.getElementById('voiceSelect').onchange = e => { verbVoice = e.target.value; renderChart(); };
 }
 
 function renderChartPicker() {
@@ -106,11 +181,14 @@ function wordLabel(entry) {
 function renderChart() {
   const words = wordsForChart(activeChart);
   if (words.length === 0) {
-    chartArea.innerHTML = '<div class="empty-state">No vocabulary words fit this chart yet.</div>';
+    chartArea.innerHTML = `<h2>${chartTitle(activeChart)}</h2>${tenseBarHTML(activeChart)}
+      <div class="empty-state">No vocabulary words fit this chart yet.</div>`;
+    wireTenseBar();
     return;
   }
   chartArea.innerHTML = `
-    <h2>${activeChart.label}</h2>
+    <h2>${chartTitle(activeChart)}</h2>
+    ${tenseBarHTML(activeChart)}
     <div class="chart-toolbar">
       <label for="wordSelect">Word:</label>
       <select id="wordSelect"></select>
@@ -126,6 +204,7 @@ function renderChart() {
     <div class="legend">${legendText(activeChart)}</div>
   `;
 
+  wireTenseBar();
   const macronBar = document.getElementById('macronBar');
   MACRONS.forEach(ch => {
     const btn = document.createElement('button');
@@ -145,6 +224,7 @@ function renderChart() {
   });
 
   function renderTableFor(entry) {
+    currentWord = entry.latin;
     const prompt = document.getElementById('wordPrompt');
     if (activeChart.kind === 'noun' && entry.genitive) {
       prompt.innerHTML = `<p><strong>${entry.latin}, ${entry.genitive}</strong> <span style="color:var(--ink-soft);">— ${entry.english}</span> (genitive singular shown so you can find the stem)</p>`;
@@ -179,10 +259,19 @@ function renderChart() {
     renderTableFor(words[idx]);
   };
 
-  renderTableFor(words[0]);
+  const start = Math.max(0, words.findIndex(w => w.latin === currentWord));
+  select.value = start;
+  renderTableFor(words[start]);
 }
 
 function legendText(chart) {
+  if (chart.kind === 'verb') {
+    let text = 'Green = correct, red = incorrect. Macrons (long marks) are optional.';
+    if (activeVoice() === 'pass' && PERFECT_TENSES.includes(verbTense)) {
+      text += ' Type both words — the participle and the form of sum (e.g. parātus est); any gender of the participle is accepted.';
+    }
+    return text;
+  }
   const base = 'Green = correct, red = incorrect. Macrons (long marks) are optional almost everywhere';
   if (chart.cat === '4th') {
     return `${base} — except the -ūs endings (genitive singular, nominative and accusative plural), which need the macron to tell them apart from the nominative singular -us.`;
@@ -266,7 +355,7 @@ function checkChart(entry) {
       markCell(inp, expected, strict ? 1 : 0);
     });
   } else {
-    const forms = conjugateVerb(entry);
+    const forms = conjugateVerb(entry, verbTense, activeVoice());
     wrap.querySelectorAll('input').forEach(inp => {
       const p = inp.dataset.person, n = inp.dataset.num;
       const expected = forms[n === 'sg' ? 'sg' + p : 'pl' + p];
@@ -281,9 +370,11 @@ function markCell(inp, expected, strictEndingLen = 0) {
   if (!inp.value.trim()) {
     return; // leave blank cells unmarked
   }
-  const ok = strictEndingLen
-    ? sameLatinRequireFinalMacron(inp.value, expected, strictEndingLen)
-    : sameLatin(inp.value, expected);
+  // `expected` may list several right answers (parātus / parāta / parātum est).
+  const accepted = Array.isArray(expected) ? expected : [expected];
+  const ok = accepted.some(e => (strictEndingLen
+    ? sameLatinRequireFinalMacron(inp.value, e, strictEndingLen)
+    : sameLatin(inp.value, e)));
   if (ok) td.classList.add('correct');
   else td.classList.add('incorrect');
 }
