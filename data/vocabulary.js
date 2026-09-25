@@ -626,7 +626,7 @@ export const VOCAB = [
  {
   "chapter": 3,
   "pos": "Pronoun",
-  "latin": "tu",
+  "latin": "tū",
   "genitive": null,
   "principal_parts": null,
   "gender": null,

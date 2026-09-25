@@ -7,13 +7,23 @@ const CASE_OPTIONS = [
 const NUM_OPTIONS = [['sg', 'Singular'], ['pl', 'Plural']];
 const GENDER_OPTIONS = [['m', 'Masc.'], ['f', 'Fem.'], ['n', 'Neut.']];
 const PERSON_OPTIONS = [['1', '1st'], ['2', '2nd'], ['3', '3rd']];
+// Only asked for sentences whose verb tokens carry a `tense` (Ch. 11+, where
+// the textbook introduces tenses beyond the present).
+const TENSE_OPTIONS = [
+  ['pres', 'Present'], ['impf', 'Imperfect'], ['fut', 'Future'],
+  ['perf', 'Perfect'], ['plup', 'Pluperfect'], ['futperf', 'Future perfect'],
+  ['imper', 'Imperative'],
+];
 
 const NOUN_ROLE_OPTIONS = [
   ['subject', 'subject'],
   ['direct-object', 'direct object'],
   ['subject-complement', 'subject complement'],
   ['possessive', 'possessive'],
+  ['partitive', 'partitive genitive'],
+  ['objective-genitive', 'objective genitive'],
   ['indirect-object', 'indirect object'],
+  ['dat-possession', 'dative of possession'],
   ['object-of-prep', 'object of a preposition'],
   ['abl-instrument', 'ablative of instrument'],
   ['abl-manner', 'ablative of manner'],
@@ -110,16 +120,20 @@ function selectHTML(cls, options, placeholder) {
   return `<select class="${cls}"><option value="">${placeholder}</option>${opts}</select>`;
 }
 
+function nounOptionsHTML(tokens) {
+  return tokens
+    .map((t, i) => ({ t, i }))
+    .filter(x => x.t.p === 'n')
+    .map(x => `<option value="${x.i}">${escapeHtml(x.t.t)}</option>`).join('');
+}
+
 function renderWordHTML(token, idx, tokens) {
   if (token.p === 'punct') return `<span class="punct-inline">${escapeHtml(token.t)}</span>`;
   if (token.p === 'prep' || token.p === 'conj' || token.p === 'adv' || token.p === 'vinf') {
     return `<span class="plain-word latin">${escapeHtml(token.t)}</span>`;
   }
   if (token.p === 'adj') {
-    const nounOpts = tokens
-      .map((t, i) => ({ t, i }))
-      .filter(x => x.t.p === 'n')
-      .map(x => `<option value="${x.i}">${escapeHtml(x.t.t)}</option>`).join('');
+    const nounOpts = nounOptionsHTML(tokens);
     return `
       <span class="analysis-word" data-idx="${idx}" data-type="adj">
         <span class="word-text latin">${escapeHtml(token.t)}</span>
@@ -135,20 +149,25 @@ function renderWordHTML(token, idx, tokens) {
     const numSel = selectHTML('f-num', NUM_OPTIONS, 'num.');
     const genderSel = token.p === 'n' ? selectHTML('f-gender', GENDER_OPTIONS, 'gender') : '';
     const roleSel = selectHTML('f-role', NOUN_ROLE_OPTIONS, 'usage…');
+    // Relative pronouns (Ch. 14+) also ask which noun is their antecedent.
+    const antecedentSel = token.antecedent !== undefined
+      ? `<select class="f-antecedent"><option value="">refers to…</option>${nounOptionsHTML(tokens)}</select>`
+      : '';
     return `
       <span class="analysis-word" data-idx="${idx}" data-type="${token.p}">
         <span class="field-row">${caseSel}${numSel}${genderSel}</span>
         <span class="word-text latin">${escapeHtml(token.t)}</span>
-        ${roleSel}
+        ${roleSel}${antecedentSel}
       </span>`;
   }
   if (token.p === 'v') {
     const personSel = selectHTML('f-person', PERSON_OPTIONS, 'person');
     const numSel = selectHTML('f-num', NUM_OPTIONS, 'num.');
+    const tenseSel = token.tense !== undefined ? selectHTML('f-tense', TENSE_OPTIONS, 'tense') : '';
     const roleSel = selectHTML('f-role', VERB_ROLE_OPTIONS, 'usage…');
     return `
       <span class="analysis-word" data-idx="${idx}" data-type="v">
-        <span class="field-row">${personSel}${numSel}</span>
+        <span class="field-row">${personSel}${numSel}${tenseSel}</span>
         <span class="word-text latin">${escapeHtml(token.t)}</span>
         ${roleSel}
       </span>`;
@@ -184,7 +203,7 @@ function openSentence(id) {
       <button class="secondary" id="clearSentenceBtn">Clear</button>
     </div>
     <div id="scoreBanner"></div>
-    <div class="legend">Adjectives only need the agreement dropdown. Everything else (prepositions, conjunctions, adverbs, infinitives) is shown for context and doesn't need to be tagged.</div>
+    <div class="legend">Adjectives only need the agreement dropdown; relative pronouns also ask which noun they refer to. Everything else (prepositions, conjunctions, adverbs, infinitives) is shown for context and doesn't need to be tagged.</div>
   `;
 
   const translationInput = document.getElementById('translationInput');
@@ -228,7 +247,10 @@ function checkSentence(sentence) {
       sel.classList.remove('field-good', 'field-bad');
       if (!sel.value) return;
       filled++;
-      if (sel.value === String(expected)) {
+      // `expected` may list several acceptable answers (e.g. "ex urbe" is
+      // both an object of a preposition and an ablative of place from which).
+      const accepted = Array.isArray(expected) ? expected.map(String) : [String(expected)];
+      if (accepted.includes(sel.value)) {
         sel.classList.add('field-good');
         correct++;
       } else {
@@ -241,9 +263,11 @@ function checkSentence(sentence) {
       checkField('.f-num', token.num);
       if (type === 'n') checkField('.f-gender', token.gender);
       checkField('.f-role', token.role);
+      if (token.antecedent !== undefined) checkField('.f-antecedent', token.antecedent);
     } else if (type === 'v') {
       checkField('.f-person', token.person);
       checkField('.f-num', token.num);
+      if (token.tense !== undefined) checkField('.f-tense', token.tense);
       checkField('.f-role', token.role);
     } else if (type === 'adj') {
       const expected = (token.agrees === null || token.agrees === undefined) ? 'none' : token.agrees;
