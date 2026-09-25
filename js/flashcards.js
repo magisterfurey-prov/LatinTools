@@ -144,13 +144,29 @@ function nextQuestion() {
   }
   const entry = lmState.queue[0];
   const direction = Math.random() < 0.5 ? 'l2e' : 'e2l'; // latin-to-english or english-to-latin
-  const pool = currentWords().filter(w => w.id !== entry.id);
-  const distractors = shuffle(pool).slice(0, 3);
-  const options = shuffle([entry, ...distractors]);
+  const options = buildOptions(entry, direction);
   lmState.current = entry;
   lmState.direction = direction;
   lmState.options = options;
   renderLearn();
+}
+
+// The correct answer plus up to 3 distractors. A distractor is skipped if it
+// shares the prompt with the correct word (e.g. "and" = et / atque / -que, or
+// ita = "yes" / "so"), since it would also be a right answer, or if it would
+// display the same text as another option.
+function buildOptions(entry, direction) {
+  const prompt = displayFront(entry, direction);
+  const seen = new Set([displayOption(entry, direction)]);
+  const distractors = [];
+  for (const w of shuffle(currentWords())) {
+    if (distractors.length === 3) break;
+    const text = displayOption(w, direction);
+    if (w.id === entry.id || seen.has(text) || displayFront(w, direction) === prompt) continue;
+    seen.add(text);
+    distractors.push(w);
+  }
+  return shuffle([entry, ...distractors]);
 }
 
 function displayFront(entry, direction) {
@@ -246,9 +262,7 @@ function nextTestQuestion() {
   }
   const entry = testState.questions[testState.index];
   const direction = Math.random() < 0.5 ? 'l2e' : 'e2l';
-  const pool = currentWords().filter(w => w.id !== entry.id);
-  const distractors = shuffle(pool).slice(0, 3);
-  const options = shuffle([entry, ...distractors]);
+  const options = buildOptions(entry, direction);
   testState.current = entry;
   testState.direction = direction;
   testState.options = options;

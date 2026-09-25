@@ -27,17 +27,18 @@ export function sameLatin(a, b) {
   return normalizeLatin(a) === normalizeLatin(b);
 }
 
-// Same as sameLatin, but the final letter must match exactly (macron and
-// all) -- used for 1st declension ablative singular, where the macron is the
-// only thing distinguishing it from the nominative singular.
-export function sameLatinRequireFinalMacron(a, b) {
+// Same as sameLatin, but the final `n` letters must match exactly (macrons
+// and all) -- used where the macron is the only thing distinguishing a form
+// from the nominative singular: 1st declension abl. sg. "-ā" (n = 1) and
+// 4th declension "-ūs" (n = 2).
+export function sameLatinRequireFinalMacron(a, b, n = 1) {
   if (!a || !b) return false;
   const at = a.trim(), bt = b.trim();
-  if (!at || !bt) return false;
-  const lastA = at.slice(-1).toLowerCase();
-  const lastB = bt.slice(-1).toLowerCase();
-  if (lastA !== lastB) return false;
-  return normalizeLatin(at.slice(0, -1)) === normalizeLatin(bt.slice(0, -1));
+  if (at.length < n || bt.length < n) return false;
+  const endA = at.slice(-n).toLowerCase();
+  const endB = bt.slice(-n).toLowerCase();
+  if (endA !== endB) return false;
+  return normalizeLatin(at.slice(0, -n)) === normalizeLatin(bt.slice(0, -n));
 }
 
 export function shuffle(arr) {

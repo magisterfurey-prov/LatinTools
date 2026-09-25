@@ -6,15 +6,30 @@
 // mechanically derivable). LFNM-level simplification: i-stems differ from
 // regular 3rd declension only in gen. pl. -ium (masc/fem) and, for neuters,
 // abl. sg. -i, nom./acc. pl. -ia, gen. pl. -ium.
-const ISTEM_NOUNS_MF = new Set(['cīvis', 'hostis', 'urbs', 'mors', 'nox']);
+const ISTEM_NOUNS_MF = new Set([
+  'cīvis', 'hostis', 'urbs', 'mors', 'nox',
+  'ignis', 'clādēs', 'classis', 'nāvis', 'nūbēs', 'pellis', 'axis', 'carō', 'mōns', 'pars',
+]);
 const ISTEM_NOUNS_N = new Set(['mare', 'animal', 'exemplar']);
 
-const PLURAL_ONLY = new Set(['castra', 'arma', 'dēliciae', 'tenebrae']);
+const PLURAL_ONLY = new Set(['castra', 'arma', 'dēliciae', 'tenebrae', 'dīvitiae']);
+
+// Nouns that don't follow their declension's regular paradigm, or whose
+// full paradigm is theoretical -- excluded from chart word-pickers:
+// domus mixes 2nd/4th declension forms; iussus occurs only as abl. sg.
+// iussū; merīdiēs has no plural in practice; adulēscēns (gen. pl.
+// adulēscentium/-um) and cor (gen. pl. rare) have unsettled genitive plurals.
+const IRREGULAR_NOUNS = new Set(['domus', 'iussus', 'merīdiēs', 'adulēscēns', 'cor']);
 
 // Cited in the plural because the singular is rarely/never used (e.g. paucī,
 // paucae, pauca "few") -- excluded from chart word-pickers since a "singular"
 // paradigm for these would be purely theoretical.
 const PLURAL_ONLY_ADJ = new Set(['paucī, paucae, pauca']);
+
+// Adjectives the regular generators would decline wrongly: alius and ūllus
+// take the pronominal gen. sg. -īus / dat. sg. -ī; dīves and pauper are
+// consonant stems (abl. sg. -e, gen. pl. -um) despite being 3rd declension.
+const IRREGULAR_ADJ = new Set(['alius, alia, aliud', 'ūllus, ūlla, ūllum', 'dīves, dīvitis', 'pauper, pauperis']);
 
 function isNeuterGender(g) {
   return !!g && g.replace(/\./g, '').split('/').includes('n');
@@ -65,11 +80,33 @@ function declineNoun(entry) {
     return forms;
   }
 
+  if (declension === '4th') {
+    const stem = stemFromGenitive(genitive, 2); // strip "ūs"
+    if (neuter) {
+      // cornū: dat. sg. is -ū, not -uī (the -uī dative is masc./fem. only)
+      forms.sg = { nom: latin, gen: stem + 'ūs', dat: stem + 'ū', acc: latin, abl: stem + 'ū' };
+      forms.pl = { nom: stem + 'ua', gen: stem + 'uum', dat: stem + 'ibus', acc: stem + 'ua', abl: stem + 'ibus' };
+    } else {
+      forms.sg = { nom: latin, gen: stem + 'ūs', dat: stem + 'uī', acc: stem + 'um', abl: stem + 'ū' };
+      forms.pl = { nom: stem + 'ūs', gen: stem + 'uum', dat: stem + 'ibus', acc: stem + 'ūs', abl: stem + 'ibus' };
+    }
+    return forms;
+  }
+
+  if (declension === '5th') {
+    // Gen./dat. sg. come straight from the genitive, since the -ēī/-eī
+    // length depends on whether a vowel precedes it (diēī vs. reī).
+    const stem = latin.slice(0, -2); // strip "ēs"
+    forms.sg = { nom: latin, gen: genitive, dat: genitive, acc: stem + 'em', abl: stem + 'ē' };
+    forms.pl = { nom: latin, gen: stem + 'ērum', dat: stem + 'ēbus', acc: latin, abl: stem + 'ēbus' };
+    return forms;
+  }
+
   return null;
 }
 
 function nounCategory(entry) {
-  if (PLURAL_ONLY.has(entry.latin)) return null;
+  if (PLURAL_ONLY.has(entry.latin) || IRREGULAR_NOUNS.has(entry.latin)) return null;
   const { declension, gender, latin, genitive } = entry;
   const neuter = isNeuterGender(gender);
   if (declension === '1st') return '1st';
@@ -86,6 +123,8 @@ function nounCategory(entry) {
     if (gender === 'f.') return '3rd-fem';
     return '3rd-masc';
   }
+  if (declension === '4th') return neuter ? '4th-neuter' : '4th';
+  if (declension === '5th') return '5th';
   return null;
 }
 
@@ -150,7 +189,7 @@ function declineAdjective(entry) {
 
 function adjectiveCategory(entry) {
   if (entry.pos !== 'Adjective') return null;
-  if (PLURAL_ONLY_ADJ.has(entry.latin)) return null;
+  if (PLURAL_ONLY_ADJ.has(entry.latin) || IRREGULAR_ADJ.has(entry.latin)) return null;
   if (entry.declension === '1st') return '12decl';
   if (entry.declension === '3rd') return '3decl';
   return null;

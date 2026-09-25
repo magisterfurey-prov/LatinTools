@@ -17,6 +17,9 @@ const NOUN_CHARTS = [
   { id: 'n-3rd-fem', label: '3rd Declension Nouns (Fem.)', cat: '3rd-fem' },
   { id: 'n-3rd-neuter', label: '3rd Declension Nouns (Neuter)', cat: '3rd-neuter' },
   { id: 'n-3rd-istem', label: '3rd Declension Nouns (i-stem)', cat: '3rd-istem' },
+  { id: 'n-4th', label: '4th Declension Nouns (Masc./Fem.)', cat: '4th' },
+  { id: 'n-4th-neuter', label: '4th Declension Nouns (Neuter)', cat: '4th-neuter' },
+  { id: 'n-5th', label: '5th Declension Nouns', cat: '5th' },
 ];
 
 const ADJ_CHARTS = [
@@ -120,7 +123,7 @@ function renderChart() {
     </div>
     <div id="wordPrompt"></div>
     <div id="tableWrap"></div>
-    <div class="legend">Green = correct, red = incorrect. Macrons (long marks) are optional almost everywhere — except the 1st declension ablative singular, which needs the macron on the final letter to tell it apart from the nominative singular.</div>
+    <div class="legend">${legendText(activeChart)}</div>
   `;
 
   const macronBar = document.getElementById('macronBar');
@@ -179,6 +182,24 @@ function renderChart() {
   renderTableFor(words[0]);
 }
 
+function legendText(chart) {
+  const base = 'Green = correct, red = incorrect. Macrons (long marks) are optional almost everywhere';
+  if (chart.cat === '4th') {
+    return `${base} — except the -ūs endings (genitive singular, nominative and accusative plural), which need the macron to tell them apart from the nominative singular -us.`;
+  }
+  return `${base} — except the 1st declension ablative singular, which needs the macron on the final letter to tell it apart from the nominative singular.`;
+}
+
+// Cells where the macron is the only thing distinguishing the form from the
+// nominative singular; returns how many final letters must match exactly.
+function strictEndingLength(cat, c, n) {
+  // 1st decl. abl. sg. "agricolā" vs. nom. sg. "agricola"
+  if (cat === '1st' && c === 'abl' && n === 'sg') return 1;
+  // 4th decl. "manūs" (gen. sg., nom./acc. pl.) vs. nom. sg. "manus"
+  if (cat === '4th' && ((c === 'gen' && n === 'sg') || (n === 'pl' && (c === 'nom' || c === 'acc')))) return 2;
+  return 0;
+}
+
 function nounTableHTML() {
   let rows = CASES.map(c => `
     <tr>
@@ -232,10 +253,7 @@ function checkChart(entry) {
     wrap.querySelectorAll('input').forEach(inp => {
       const c = inp.dataset.case, n = inp.dataset.num;
       const expected = forms[n][c];
-      // 1st decl. abl. sg. ("agricolā") is spelled identically to nom. sg.
-      // ("agricola") without the macron, so the macron must be typed there.
-      const strict = activeChart.cat === '1st' && c === 'abl' && n === 'sg';
-      markCell(inp, expected, strict);
+      markCell(inp, expected, strictEndingLength(activeChart.cat, c, n));
     });
   } else if (activeChart.kind === 'adjective') {
     const result = declineAdjective(entry);
@@ -245,7 +263,7 @@ function checkChart(entry) {
       // Same 1st-declension ambiguity, but only the feminine column uses the
       // "-a"/"-ā" pattern (masc./neut. abl. sg. is "-ō", never ambiguous).
       const strict = activeChart.cat === '12decl' && g === 'F' && c === 'abl' && n === 'sg';
-      markCell(inp, expected, strict);
+      markCell(inp, expected, strict ? 1 : 0);
     });
   } else {
     const forms = conjugateVerb(entry);
@@ -257,14 +275,14 @@ function checkChart(entry) {
   }
 }
 
-function markCell(inp, expected, requireFinalMacron) {
+function markCell(inp, expected, strictEndingLen = 0) {
   const td = inp.parentElement;
   td.classList.remove('correct', 'incorrect');
   if (!inp.value.trim()) {
     return; // leave blank cells unmarked
   }
-  const ok = requireFinalMacron
-    ? sameLatinRequireFinalMacron(inp.value, expected)
+  const ok = strictEndingLen
+    ? sameLatinRequireFinalMacron(inp.value, expected, strictEndingLen)
     : sameLatin(inp.value, expected);
   if (ok) td.classList.add('correct');
   else td.classList.add('incorrect');
