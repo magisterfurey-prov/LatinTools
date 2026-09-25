@@ -12,9 +12,11 @@ function stripMacrons(str) {
   return str.split('').map(ch => MACRON_MAP[ch] || ch).join('');
 }
 
+// NFC first, so a macron typed as a separate combining mark counts the same
+// as a precomposed one.
 export function normalizeLatin(str) {
   if (!str) return '';
-  return stripMacrons(str).toLowerCase().trim().replace(/\s+/g, ' ');
+  return stripMacrons(str.normalize('NFC')).toLowerCase().trim().replace(/\s+/g, ' ');
 }
 
 export function insertAtCursor(input, text) {
@@ -37,7 +39,7 @@ export function sameLatin(a, b) {
 // 4th declension "-ūs" (n = 2).
 export function sameLatinRequireFinalMacron(a, b, n = 1) {
   if (!a || !b) return false;
-  const at = a.trim(), bt = b.trim();
+  const at = a.normalize('NFC').trim(), bt = b.normalize('NFC').trim();
   if (at.length < n || bt.length < n) return false;
   const endA = at.slice(-n).toLowerCase();
   const endB = bt.slice(-n).toLowerCase();
