@@ -5,6 +5,8 @@ const SENTENCES = await loadSentences();
 const CASE_OPTIONS = [
   ['nom', 'Nominative'], ['gen', 'Genitive'], ['dat', 'Dative'],
   ['acc', 'Accusative'], ['abl', 'Ablative'], ['voc', 'Vocative'],
+  // Level 2, Ch. 2: place constructions with the names of towns
+  ...(BOOK.id === 2 ? [['loc', 'Locative']] : []),
 ];
 const NUM_OPTIONS = [['sg', 'Singular'], ['pl', 'Plural']];
 const GENDER_OPTIONS = [['m', 'Masc.'], ['f', 'Fem.'], ['n', 'Neut.']];
@@ -16,6 +18,10 @@ const TENSE_OPTIONS = [
   ['perf', 'Perfect'], ['plup', 'Pluperfect'], ['futperf', 'Future perfect'],
   ['imper', 'Imperative'],
 ];
+// Level 2 sentences ask for the mood separately, so their tense list has no
+// "Imperative" (an imperative is present tense, imperative mood).
+const TENSE_OPTIONS_WITH_MOOD = TENSE_OPTIONS.filter(([v]) => v !== 'imper');
+const MOOD_OPTIONS = [['ind', 'Indicative'], ['subj', 'Subjunctive'], ['imp', 'Imperative']];
 
 const NOUN_ROLE_OPTIONS = [
   ['subject', 'subject'],
@@ -34,6 +40,16 @@ const NOUN_ROLE_OPTIONS = [
   ['abl-separation', 'ablative of separation'],
   ['abl-time', 'ablative of time'],
   ['vocative', 'vocative (direct address)'],
+  // Level 2 (names from its syntax appendix)
+  ...(BOOK.id === 2 ? [
+    ['abl-accompaniment', 'ablative of accompaniment'],
+    ['abl-place-where', 'ablative of place where'],
+    ['acc-place-to-which', 'accusative of place to which'],
+    ['locative', 'locative (place where)'],
+    ['abl-comparison', 'ablative of comparison'],
+    ['abl-absolute', 'ablative absolute'],
+    ['dat-agent', 'dative of agent'],
+  ] : []),
 ];
 
 const VERB_ROLE_OPTIONS = [
@@ -43,6 +59,21 @@ const VERB_ROLE_OPTIONS = [
   ['main-verb-complementary-infinitive', 'main verb + complementary infinitive'],
   ['passive-verb', 'passive verb'],
   ['head-verb', 'head verb'],
+  // Level 2: deponents, and why a verb is subjunctive
+  ...(BOOK.id === 2 ? [
+    ['deponent-verb', 'deponent verb'],
+    ['passive-periphrastic', 'passive periphrastic'],
+    ['volitive', 'volitive subjunctive (command, exhortation)'],
+    ['optative', 'optative subjunctive (wish)'],
+    ['purpose-clause', 'purpose clause'],
+    ['result-clause', 'result clause'],
+    ['indirect-question', 'indirect question'],
+    ['indirect-command', 'indirect command'],
+    ['cum-clause', 'cum clause'],
+    ['causal-clause', 'causal clause (subjunctive)'],
+    ['concessive-clause', 'concessive clause (subjunctive)'],
+    ['conditional', 'conditional clause (subjunctive)'],
+  ] : []),
 ];
 
 const PROGRESS_KEY = 'latin-translate-progress-v1';
@@ -53,6 +84,10 @@ function loadProgress() {
 }
 function saveProgress(p) {
   try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(p)); } catch (e) {}
+}
+
+if (BOOK.id === 2) {
+  document.querySelector('#listCard > p').textContent = 'Pick a sentence. Above nouns and pronouns, set case / number / gender; above verbs, set person / number / tense / mood. Below each word, choose how it’s used in the sentence — for a subjunctive verb, choose why it is subjunctive (purpose clause, indirect question, …); for adjectives, choose which noun it agrees with, and for relative pronouns, the noun they refer to.';
 }
 
 const CHAPTERS = [...new Set(SENTENCES.map(s => s.chapter))].sort((a, b) => a - b);
@@ -165,11 +200,14 @@ function renderWordHTML(token, idx, tokens) {
   if (token.p === 'v') {
     const personSel = selectHTML('f-person', PERSON_OPTIONS, 'person');
     const numSel = selectHTML('f-num', NUM_OPTIONS, 'num.');
-    const tenseSel = token.tense !== undefined ? selectHTML('f-tense', TENSE_OPTIONS, 'tense') : '';
+    const withMood = token.mood !== undefined;
+    const tenseSel = token.tense !== undefined
+      ? selectHTML('f-tense', withMood ? TENSE_OPTIONS_WITH_MOOD : TENSE_OPTIONS, 'tense') : '';
+    const moodSel = withMood ? selectHTML('f-mood', MOOD_OPTIONS, 'mood') : '';
     const roleSel = selectHTML('f-role', VERB_ROLE_OPTIONS, 'usage…');
     return `
       <span class="analysis-word" data-idx="${idx}" data-type="v">
-        <span class="field-row">${personSel}${numSel}${tenseSel}</span>
+        <span class="field-row">${personSel}${numSel}${tenseSel}${moodSel}</span>
         <span class="word-text latin">${escapeHtml(token.t)}</span>
         ${roleSel}
       </span>`;
@@ -270,6 +308,7 @@ function checkSentence(sentence) {
       checkField('.f-person', token.person);
       checkField('.f-num', token.num);
       if (token.tense !== undefined) checkField('.f-tense', token.tense);
+      if (token.mood !== undefined) checkField('.f-mood', token.mood);
       checkField('.f-role', token.role);
     } else if (type === 'adj') {
       const expected = (token.agrees === null || token.agrees === undefined) ? 'none' : token.agrees;

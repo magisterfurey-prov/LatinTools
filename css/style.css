@@ -376,7 +376,8 @@ table.chart td.case-label { font-weight: 600; background: #faf6ee; }
   padding: 3px 4px;
   max-width: 128px;
 }
-.analysis-word .field-row { display: flex; gap: 3px; }
+/* Wraps when a verb has four fields (person / number / tense / mood). */
+.analysis-word .field-row { display: flex; gap: 3px; flex-wrap: wrap; justify-content: center; max-width: 280px; }
 .analysis-sentence {
   display: flex;
   flex-wrap: wrap;
