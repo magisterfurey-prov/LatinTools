@@ -8,6 +8,14 @@ A free, static practice site for *Latin for the New Millennium*, Level 1 (Chapte
 
 A **Book: Level 1 / Level 2** switch in the header of every page chooses which textbook all three sections use. The choice is remembered in the browser, and a link ending in `?book=2` (e.g. `flashcards.html?book=2`) opens straight into Level 2 — handy for sharing with a class. `js/book.js` handles the switch and loads that book's data.
 
+## Sharing a link to a specific setup
+
+Every page keeps its address bar in step with what's selected, so to send students to an exact setup, pick the options and copy the link. Links can also be typed by hand; macrons in a word are optional, and anything a link gets wrong falls back to the page's usual starting point.
+
+- Vocabulary: `flashcards.html?book=1&ch=3-5,8&mode=test` opens Chapters 3–5 and 8 in Test mode. The modes are `learn` and `test`, and leaving `mode` out means flashcards; leaving `ch` out means every chapter.
+- Grammar Charts: `grammar.html?book=1&chart=v-1st&tense=perf&voice=pass&word=amo` opens the 1st conjugation perfect passive chart for amō, scrolled to the chart. Level 2 links can add `mood=subj`.
+- Translation: `translate.html?book=1&ch=12` lists the Chapter 12 sentences, and `&sentence=s91` opens one of them directly.
+
 ## Sections
 
 - **Vocabulary** (`flashcards.html`) — Quizlet-style flashcards (Latin front, English + gender on the back, with a small emoji visual mnemonic) and a multiple-choice Learning Mode. Wrong answers are re-queued until every word in the chosen chapters has been answered correctly once. A **Test** mode gives a fixed 10-question multiple-choice quiz (no re-queuing, mixed Latin→English and English→Latin) and shows the score at the end. Noun fronts show the genitive singular; verb fronts (Ch. 2+) show all principal parts, matching standard dictionary citation form.

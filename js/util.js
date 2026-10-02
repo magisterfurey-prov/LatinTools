@@ -47,6 +47,33 @@ export function sameLatinRequireFinalMacron(a, b, n = 1) {
   return normalizeLatin(at.slice(0, -n)) === normalizeLatin(bt.slice(0, -n));
 }
 
+// Chapters in a link: "3", "1-5,8", or "none"; no value means every chapter.
+export function parseChapterList(text, available) {
+  if (text == null) return new Set(available);
+  if (text.trim().toLowerCase() === 'none') return new Set();
+  const first = Math.min(...available), last = Math.max(...available);
+  const wanted = new Set();
+  for (const part of text.split(',')) {
+    const [a, b = a] = part.split('-').map(n => parseInt(n, 10));
+    if (Number.isNaN(a) || Number.isNaN(b)) continue;
+    for (let ch = Math.max(first, Math.min(a, b)); ch <= Math.min(last, Math.max(a, b)); ch++) wanted.add(ch);
+  }
+  const chosen = available.filter(ch => wanted.has(ch));
+  return new Set(chosen.length ? chosen : available);
+}
+
+export function formatChapterList(chosen, available) {
+  if (chosen.size === available.length) return null;
+  if (chosen.size === 0) return 'none';
+  const runs = [];
+  for (const ch of available.filter(c => chosen.has(c))) {
+    const run = runs[runs.length - 1];
+    if (run && ch === run[1] + 1) run[1] = ch;
+    else runs.push([ch, ch]);
+  }
+  return runs.map(([a, b]) => (a === b ? `${a}` : `${a}-${b}`)).join(',');
+}
+
 export function shuffle(arr) {
   const a = arr.slice();
   for (let i = a.length - 1; i > 0; i--) {

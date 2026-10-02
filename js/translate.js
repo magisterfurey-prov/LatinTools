@@ -1,4 +1,5 @@
-import { BOOK, loadSentences } from './book.js';
+import { BOOK, loadSentences, linkParam, updateLink } from './book.js';
+import { parseChapterList, formatChapterList } from './util.js';
 
 const SENTENCES = await loadSentences();
 
@@ -91,7 +92,16 @@ if (BOOK.id === 2) {
 }
 
 const CHAPTERS = [...new Set(SENTENCES.map(s => s.chapter))].sort((a, b) => a - b);
-const state = { chapters: new Set(CHAPTERS), activeSentence: null };
+// A link can preselect the chapters and open a sentence: translate.html?ch=12&sentence=s40
+const state = { chapters: parseChapterList(linkParam('ch'), CHAPTERS), activeSentence: null };
+const linkedSentence = SENTENCES.find(s => s.id === linkParam('sentence'));
+
+function syncLink() {
+  updateLink({
+    ch: formatChapterList(state.chapters, CHAPTERS),
+    sentence: state.activeSentence ? state.activeSentence.id : null,
+  });
+}
 
 const chapterPicker = document.getElementById('chapterPicker');
 const sentenceListEl = document.getElementById('sentenceList');
@@ -129,6 +139,7 @@ function renderChapterPicker() {
 }
 
 function renderSentenceList() {
+  syncLink();
   const progress = loadProgress();
   const filtered = SENTENCES.filter(s => state.chapters.has(s.chapter));
   sentenceListEl.innerHTML = '';
@@ -218,6 +229,7 @@ function renderWordHTML(token, idx, tokens) {
 function openSentence(id) {
   const sentence = SENTENCES.find(s => s.id === id);
   state.activeSentence = sentence;
+  syncLink();
   listCard.style.display = 'none';
   analysisCard.style.display = 'block';
 
@@ -329,6 +341,7 @@ function checkSentence(sentence) {
 }
 
 backBtn.onclick = () => {
+  state.activeSentence = null;
   listCard.style.display = 'block';
   analysisCard.style.display = 'none';
   renderSentenceList();
@@ -336,3 +349,4 @@ backBtn.onclick = () => {
 
 renderChapterPicker();
 renderSentenceList();
+if (linkedSentence) openSentence(linkedSentence.id);

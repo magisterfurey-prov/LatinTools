@@ -43,11 +43,26 @@ export async function loadChartVocab() {
   return [...level2, ...level1];
 }
 
+// Each page keeps the address bar in step with its options (chapters, chart,
+// word, ...), so copying the link shares that exact setup. The link always
+// names the book, since whoever opens it may have the other book saved.
+export function linkParam(name) {
+  return new URLSearchParams(location.search).get(name);
+}
+
+export function updateLink(params = {}) {
+  const query = Object.entries({ book: BOOK.id, ...params })
+    .filter(([, v]) => v !== null && v !== undefined && v !== '')
+    .map(([k, v]) => `${k}=${encodeURIComponent(v).replace(/%2C/g, ',')}`)
+    .join('&');
+  try { history.replaceState(null, '', `${location.pathname}?${query}`); } catch (e) {}
+}
+
+// The other book has different chapters, charts, and sentences, so switching
+// starts the page fresh.
 function switchTo(id) {
   try { localStorage.setItem(STORAGE_KEY, String(id)); } catch (e) {}
-  const url = new URL(location.href);
-  url.searchParams.set('book', id);
-  location.href = url.href;
+  location.href = `${location.pathname}?book=${id}`;
 }
 
 function wireHeader() {

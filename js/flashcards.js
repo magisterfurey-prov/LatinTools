@@ -1,14 +1,23 @@
-import { loadVocab, loadEmoji } from './book.js';
-import { shuffle } from './util.js';
+import { loadVocab, loadEmoji, linkParam, updateLink } from './book.js';
+import { shuffle, parseChapterList, formatChapterList } from './util.js';
 
 const [VOCAB, EMOJI] = await Promise.all([loadVocab(), loadEmoji()]);
 
 const CHAPTERS = [...new Set(VOCAB.map(v => v.chapter))].sort((a, b) => a - b);
 
+const MODES = ['flashcards', 'learn', 'test'];
+// A link can preselect the chapters and mode: flashcards.html?ch=3-5&mode=test
 const state = {
-  chapters: new Set(CHAPTERS), // all selected by default
-  mode: 'flashcards', // 'flashcards' | 'learn' | 'test'
+  chapters: parseChapterList(linkParam('ch'), CHAPTERS), // all selected by default
+  mode: MODES.includes(linkParam('mode')) ? linkParam('mode') : 'flashcards',
 };
+
+function syncLink() {
+  updateLink({
+    ch: formatChapterList(state.chapters, CHAPTERS),
+    mode: state.mode === 'flashcards' ? null : state.mode,
+  });
+}
 
 const chapterPicker = document.getElementById('chapterPicker');
 const studyArea = document.getElementById('studyArea');
@@ -329,23 +338,23 @@ function renderTestComplete() {
 }
 
 function restart() {
+  syncLink();
   if (state.mode === 'flashcards') startFlashcards();
   else if (state.mode === 'learn') startLearn();
   else startTest();
 }
 
 const modeButtons = [
-  [modeFlashcardsBtn, 'flashcards', startFlashcards],
-  [modeLearnBtn, 'learn', startLearn],
-  [modeTestBtn, 'test', startTest],
+  [modeFlashcardsBtn, 'flashcards'],
+  [modeLearnBtn, 'learn'],
+  [modeTestBtn, 'test'],
 ];
-modeButtons.forEach(([btn, mode, start]) => {
-  btn.onclick = () => {
-    state.mode = mode;
-    modeButtons.forEach(([b]) => b.classList.toggle('active', b === btn));
-    start();
-  };
-});
+function setMode(mode) {
+  state.mode = mode;
+  modeButtons.forEach(([b, m]) => b.classList.toggle('active', m === mode));
+  restart();
+}
+modeButtons.forEach(([btn, mode]) => { btn.onclick = () => setMode(mode); });
 
 renderChapterPicker();
-startFlashcards();
+setMode(state.mode);

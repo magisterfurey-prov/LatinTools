@@ -1,4 +1,4 @@
-import { BOOK, loadChartVocab } from './book.js';
+import { BOOK, loadChartVocab, linkParam, updateLink } from './book.js';
 import {
   declineNoun, nounCategory, declineAdjective, adjectiveCategory, declineComparative, comparisonOf,
   pronounCategory, declinePronoun, conjugateVerb, verbCategory, verbHasForms, isIrregularVerb,
@@ -56,13 +56,17 @@ const MOODS = [['ind', 'Indicative'], ['subj', 'Subjunctive']];
 const chartPicker = document.getElementById('chartPicker');
 const chartArea = document.getElementById('chartArea');
 
-let activeChart = CHARTS[0];
+// A link can preselect the chart, its verb settings, and the word:
+// grammar.html?chart=v-1st&tense=perf&voice=pass&word=amō
+const openedAtChart = linkParam('chart') !== null;
+let activeChart = CHARTS.find(c => c.id === linkParam('chart')) || CHARTS[0];
 // Verb charts share one tense/voice/mood choice, kept while switching charts.
-let verbTense = 'pres';
-let verbVoice = 'act';
-let verbMood = 'ind';
+let verbMood = BOOK.id === 2 && linkParam('mood') === 'subj' ? 'subj' : 'ind';
+let verbTense = TENSES.some(([v]) => v === linkParam('tense')) ? linkParam('tense') : 'pres';
+if (verbMood === 'subj' && !SUBJUNCTIVE_TENSES.includes(verbTense)) verbTense = 'pres';
+let verbVoice = linkParam('voice') === 'pass' ? 'pass' : 'act';
 // Latin headword of the word last shown, so re-rendering keeps it selected.
-let currentWord = null;
+let currentWord = linkParam('word');
 
 // Level 1 has no subjunctive; sum and possum (Level 1's irregular chart)
 // have no passive; deponents are always passive in form.
@@ -302,12 +306,36 @@ function promptHTML(entry) {
   return '';
 }
 
+// The word to show: the headword as given (full or just its first part,
+// "bonus" for "bonus, bona, bonum"), macrons optional in a typed link.
+function findWordIndex(words, wanted) {
+  if (!wanted) return -1;
+  const head = s => s.split(',')[0].trim();
+  let i = words.findIndex(w => w.latin === wanted);
+  if (i < 0) i = words.findIndex(w => head(w.latin) === head(wanted));
+  if (i < 0) i = words.findIndex(w => sameLatin(head(w.latin), head(wanted)));
+  return i;
+}
+
+function syncLink() {
+  const verb = activeChart.kind === 'verb';
+  const hasVoiceMenu = verb && activeChart.cat !== 'deponent' && !(activeChart.cat === 'irregular' && BOOK.id === 1);
+  updateLink({
+    chart: activeChart.id,
+    mood: verb && BOOK.id === 2 ? activeMood() : null,
+    tense: verb ? verbTense : null,
+    voice: hasVoiceMenu ? activeVoice() : null,
+    word: currentWord ? currentWord.split(',')[0].trim() : null,
+  });
+}
+
 function renderChart() {
   const words = wordsForChart(activeChart);
   if (words.length === 0) {
     chartArea.innerHTML = `<h2>${chartTitle(activeChart)}</h2>${tenseBarHTML(activeChart)}
       <div class="empty-state">No vocabulary words fit this chart yet.</div>`;
     wireTenseBar();
+    syncLink();
     return;
   }
   chartArea.innerHTML = `
@@ -370,6 +398,7 @@ function renderChart() {
         inp.parentElement.classList.remove('correct', 'incorrect');
       });
     };
+    syncLink();
   }
 
   select.onchange = () => renderTableFor(words[select.value]);
@@ -379,7 +408,7 @@ function renderChart() {
     renderTableFor(words[idx]);
   };
 
-  const start = Math.max(0, words.findIndex(w => w.latin === currentWord));
+  const start = Math.max(0, findWordIndex(words, currentWord));
   select.value = start;
   renderTableFor(words[start]);
 }
@@ -697,3 +726,5 @@ function markCell(inp, expected, strictEndingLen = 0) {
 
 renderChartPicker();
 renderChart();
+// Opened from a link to a particular chart: start at the chart, below the picker.
+if (openedAtChart) chartArea.scrollIntoView();
