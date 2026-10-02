@@ -335,6 +335,16 @@ table.chart td.correct input { background: #e5f4ea; }
 table.chart td.incorrect input { background: #fbe8e6; }
 table.chart td.case-label { font-weight: 600; background: #faf6ee; }
 
+/* Translating a correctly conjugated verb chart */
+.translate-offer { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 12px; color: var(--good); font-weight: 600; }
+.translate-cell { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+.translate-latin { font-weight: 700; color: var(--maroon-dark); min-width: 5.5em; text-align: left; overflow-wrap: anywhere; }
+table.chart td .translate-cell input { flex: 1 1 8em; text-align: left; border-bottom: 1px dashed var(--border); }
+@media (max-width: 560px) {
+  .translate-latin { font-size: 0.9rem; }
+  table.chart.translate-chart td { padding: 5px 4px; }
+}
+
 .chart-toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
 /* A select sizes itself to its longest option (e.g. full principal parts
    plus meaning); keep it inside the card on narrow screens. */

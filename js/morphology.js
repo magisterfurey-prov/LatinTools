@@ -378,7 +378,7 @@ const INTRANSITIVE_VERBS = new Set([
   'fugiō', 'veniō', 'conveniō', 'dormiō',
   // Level 2
   'valeō', 'furō', 'invādō', 'parcō', 'resistō', 'placeō', 'perveniō', 'taceō', 'appropinquō',
-  'clāmō', 'rīdeō',
+  'clāmō', 'rīdeō', 'stō',
 ]);
 const NO_PRESENT_PASSIVE = new Set(['faciō']);
 // soleō, solēre, solitus sum is semi-deponent (its perfect is passive in

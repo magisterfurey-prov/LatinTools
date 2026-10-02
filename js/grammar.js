@@ -5,6 +5,7 @@ import {
   presentParticiple, declineParticiple, gerundOf, PERFECT_TENSES, SUBJUNCTIVE_TENSES,
 } from './morphology.js';
 import { sameLatin, sameLatinRequireFinalMacron, insertAtCursor } from './util.js';
+import { translationsFor, isAcceptedTranslation } from './english.js';
 
 const VOCAB = await loadChartVocab();
 
@@ -324,6 +325,7 @@ function renderChart() {
     </div>
     <div id="wordPrompt"></div>
     <div id="tableWrap"></div>
+    <div id="translateArea"></div>
     <div class="legend">${legendText(activeChart)}</div>
   `;
 
@@ -348,6 +350,8 @@ function renderChart() {
 
   function renderTableFor(entry) {
     currentWord = entry.latin;
+    showLatinChart = () => renderTableFor(entry);
+    document.getElementById('translateArea').innerHTML = '';
     const note = chapterNote(activeChart, entry);
     document.getElementById('wordPrompt').innerHTML = promptHTML(entry)
       + (note ? `<p class="legend" style="margin-top:-6px;">${note}</p>` : '');
@@ -561,8 +565,119 @@ function checkChart(entry) {
         const p = inp.dataset.person, n = inp.dataset.num;
         markCell(inp, forms[n === 'sg' ? 'sg' + p : 'pl' + p]);
       });
+      offerTranslation(entry, forms);
     }
   }
+}
+
+// ---------- Translating a correctly conjugated verb chart ----------
+// After every form in a verb chart is right, the student can translate each
+// form into English (any meaning of the word, in any of the textbook's
+// translations for that tense -- see js/english.js).
+
+// Re-shows the Latin chart for the current word (set by renderTableFor).
+let showLatinChart = () => {};
+
+const PERSON_LABELS = { 1: '1st', 2: '2nd', 3: '3rd' };
+const TRANSLATION_PATTERNS = {
+  'pres-act': 'I ___ / I am ___ing / I do ___',
+  'impf-act': 'I was ___ing / I used to ___ / I kept (on) ___ing — or the simple past, I ___ed',
+  'fut-act': 'I will (shall) ___',
+  'perf-act': 'I ___ed / I did ___ / I have ___ed',
+  'plup-act': 'I had ___ed',
+  'futperf-act': 'I will (shall) have ___ed',
+  'pres-pass': 'I am ___ed / I am being ___ed',
+  'impf-pass': 'I was being ___ed / I used to be ___ed',
+  'fut-pass': 'I will (shall) be ___ed',
+  'perf-pass': 'I was ___ed / I have been ___ed',
+  'plup-pass': 'I had been ___ed',
+  'futperf-pass': 'I will (shall) have been ___ed',
+};
+
+// Deponents are passive in form but active in meaning.
+function translationVoice() {
+  return activeChart.cat === 'deponent' ? 'act' : activeVoice();
+}
+
+// Every meaning the vocabulary gives the word, including entries that list
+// it again with another meaning (gerō "to carry" / "to wear").
+function glossFor(entry) {
+  return VOCAB.filter(v => v.pos === 'Verb' && v.latin === entry.latin).map(v => v.english).join('; ');
+}
+
+function cellKey(inp) {
+  return (inp.dataset.num === 'sg' ? 'sg' : 'pl') + inp.dataset.person;
+}
+
+function offerTranslation(entry, forms) {
+  const area = document.getElementById('translateArea');
+  area.innerHTML = '';
+  const inputs = [...document.querySelectorAll('#tableWrap input')];
+  if (!inputs.length || !inputs.every(i => i.parentElement.classList.contains('correct'))) return;
+  if (activeMood() === 'subj') {
+    area.innerHTML = `<div class="translate-offer">✓ All correct! <span class="legend" style="margin:0;">(There's no translation step for the subjunctive: its English depends on the clause it's in.)</span></div>`;
+    return;
+  }
+  const translations = translationsFor({ english: glossFor(entry) }, verbTense, translationVoice());
+  if (!translations) {
+    area.innerHTML = '<div class="translate-offer">✓ All correct!</div>';
+    return;
+  }
+  // The student's own (correct) Latin picks which accepted form to show,
+  // e.g. parāta sum rather than parātus sum.
+  const typed = Object.fromEntries(inputs.map(inp => [cellKey(inp), inp.value]));
+  const shown = Object.fromEntries(Object.entries(forms).map(([k, f]) => [k,
+    Array.isArray(f) ? (f.find(x => sameLatin(typed[k], x)) || f[0]) : f]));
+  area.innerHTML = `<div class="translate-offer">✓ All correct! Now try translating each form into English.
+    <button id="translateBtn">Translate the forms</button></div>`;
+  document.getElementById('translateBtn').onclick = () => startTranslation(shown, translations);
+}
+
+function startTranslation(shown, translations) {
+  const wrap = document.getElementById('tableWrap');
+  const cell = (n, p) => `
+    <div class="translate-cell">
+      <span class="latin translate-latin">${shown[n + p]}</span>
+      <input data-person="${p}" data-num="${n}" placeholder="English" autocomplete="off" spellcheck="false" aria-label="English for ${shown[n + p]}">
+    </div>`;
+  const rows = [1, 2, 3].map(p => `
+    <tr>
+      <td class="case-label">${PERSON_LABELS[p]} person</td>
+      <td>${cell('sg', p)}</td>
+      <td>${cell('pl', p)}</td>
+    </tr>`).join('');
+  wrap.innerHTML = `<table class="chart translate-chart"><tr><th></th><th>Singular</th><th>Plural</th></tr>${rows}</table>`;
+  const pattern = TRANSLATION_PATTERNS[`${verbTense}-${translationVoice()}`];
+  document.getElementById('translateArea').innerHTML = `
+    <p class="legend">Type an English translation of each form, using any meaning of the word: <strong>${pattern}</strong>.
+      For the 3rd person singular use <em>he</em>, <em>she</em>, or <em>it</em>; for the 2nd person plural use <em>you all</em> or <em>y'all</em>.</p>
+    <div id="translateResult"></div>
+    <button class="secondary" id="backToChartBtn">Back to the Latin chart</button>`;
+  document.getElementById('backToChartBtn').onclick = () => showLatinChart();
+
+  const inputs = [...wrap.querySelectorAll('input')];
+  inputs.forEach(inp => inp.addEventListener('focus', () => { lastFocusedInput = inp; }));
+  inputs[0].focus();
+  document.getElementById('checkBtn').onclick = () => checkTranslations(inputs, translations);
+  document.getElementById('clearBtn').onclick = () => {
+    inputs.forEach(inp => { inp.value = ''; inp.closest('td').classList.remove('correct', 'incorrect'); });
+    document.getElementById('translateResult').innerHTML = '';
+  };
+}
+
+function checkTranslations(inputs, translations) {
+  let right = 0;
+  inputs.forEach(inp => {
+    const td = inp.closest('td');
+    td.classList.remove('correct', 'incorrect');
+    if (!inp.value.trim()) return;
+    const ok = isAcceptedTranslation(inp.value, translations[cellKey(inp)]);
+    td.classList.add(ok ? 'correct' : 'incorrect');
+    if (ok) right++;
+  });
+  document.getElementById('translateResult').innerHTML = right === inputs.length
+    ? '<div class="translate-offer">🎉 All six translations are correct!</div>'
+    : '';
 }
 
 function markCell(inp, expected, strictEndingLen = 0) {
