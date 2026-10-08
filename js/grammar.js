@@ -624,13 +624,6 @@ const TRANSLATION_PATTERNS = {
   'futperf-pass': 'I will (shall) have been ___ed',
 };
 
-const NOUN_TRANSLATION_HINT = `
-  nominative and accusative <strong>the ___</strong>;
-  genitive <strong>of the ___</strong> or <strong>the ___'s</strong>;
-  dative <strong>to the ___</strong>, <strong>for the ___</strong>, or <strong>to/for the ___</strong>;
-  ablative <strong>by</strong>, <strong>with</strong>, or <strong>from the ___</strong>, or a combination such as <strong>by/with/from the ___</strong>.
-  Plural forms take the English plural: <strong>the ___s</strong>, <strong>of the ___s</strong>, <strong>the ___s'</strong>.`;
-
 // Deponents are passive in form but active in meaning.
 function translationVoice() {
   return activeChart.cat === 'deponent' ? 'act' : activeVoice();
@@ -693,8 +686,10 @@ function startTranslation(shown, translations) {
       <td>${cell(key('pl'))}</td>
     </tr>`).join('');
   wrap.innerHTML = `<table class="chart translate-chart"><tr><th></th><th>Singular</th><th>Plural</th></tr>${rows}</table>`;
+  // Noun charts leave the case patterns (of the ___, to/for the ___, ...) for
+  // students to recall themselves.
   const hint = isNoun
-    ? `Type an English translation of each form, using any meaning of the word, with or without <em>a</em> or <em>the</em>: ${NOUN_TRANSLATION_HINT}`
+    ? 'Type an English translation of each form, using any meaning of the word.'
     : `Type an English translation of each form, using any meaning of the word: <strong>${TRANSLATION_PATTERNS[`${verbTense}-${translationVoice()}`]}</strong>.
       For the 3rd person singular use <em>he</em>, <em>she</em>, or <em>it</em>; for the 2nd person plural use <em>you all</em> or <em>y'all</em>.`;
   document.getElementById('translateArea').innerHTML = `
