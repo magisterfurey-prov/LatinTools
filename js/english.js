@@ -1,5 +1,5 @@
-/* English translations of Latin verb forms, for the grammar charts'
-   "translate each form" step. Built from each word's vocabulary meaning
+/* English translations of Latin verb and noun forms, for the grammar charts'
+   "translate each form" step. Verbs: Built from each word's vocabulary meaning
    ("to love", "to take care of", "to be able, can") following the
    textbook's patterns for each tense:
      present       I love / I am loving / I do love
@@ -10,6 +10,7 @@
      future perf.  I will (shall) have loved
    and in the passive: I am loved, I was being loved, I will be loved,
    I was loved / have been loved, I had been loved, I will have been loved.
+   Nouns: see nounTranslationsFor at the end.
    Any meaning of the word is accepted. */
 
 // English verbs that don't follow the regular -s / -ing / -ed patterns:
@@ -283,4 +284,138 @@ export function translationsFor(entry, tense, voice) {
 
 export function isAcceptedTranslation(text, accepted) {
   return normalizeEnglish(text).some(c => accepted.has(c));
+}
+
+// ---------- Nouns ----------
+// Each case's translations, from the noun's vocabulary meaning (terra "land,
+// earth"), with or without "a" / "the":
+//   nominative, accusative   land / a land / the land
+//   genitive                 of the land / the land's
+//   dative                   to the land / for the land / to/for the land / for/to the land
+//   ablative                 by, with, or from the land, or any of them joined
+//                            with "/" (by/with/from the land)
+// Plural forms take the English plural (the lands, of the lands, the lands'),
+// or a meaning the vocabulary gives for the plural only (homō: "(pl.) people").
+
+const IRREGULAR_PLURALS = {
+  man: 'men', woman: 'women', child: 'children', person: 'people|persons', foot: 'feet', tooth: 'teeth',
+  goose: 'geese', mouse: 'mice', ox: 'oxen', fish: 'fish|fishes', sheep: 'sheep', deer: 'deer',
+  axis: 'axes', crisis: 'crises', money: 'moneys|monies', hero: 'heroes', forum: 'forums|fora',
+  clothes: 'clothes', means: 'means', series: 'series', species: 'species',
+  leaf: 'leaves', life: 'lives', wife: 'wives', knife: 'knives', wolf: 'wolves', half: 'halves',
+  self: 'selves', thief: 'thieves', shelf: 'shelves', calf: 'calves', loaf: 'loaves', elf: 'elves',
+};
+
+function pluralWord(word) {
+  if (IRREGULAR_PLURALS[word]) return alternatives(IRREGULAR_PLURALS[word]);
+  if (/man$/.test(word) && !/(hu|ro|ger|sha|talis)man$/.test(word)) return [word.slice(0, -3) + 'men']; // horsemen
+  if (/(s|x|z|ch|sh)$/.test(word)) return [word + 'es'];
+  if (isConsonantY(word)) return [word.slice(0, -1) + 'ies'];
+  return [word + 's'];
+}
+
+// The head noun is the word before "of" (point of view), else the last word
+// (old man).
+function headIndex(words) {
+  const ofAt = words.indexOf('of');
+  return ofAt > 0 ? ofAt - 1 : words.length - 1;
+}
+
+// points of view, old men, and she-wolves (the last part of a hyphenated word).
+function pluralPhrase(phrase) {
+  const words = phrase.split(' ');
+  const i = headIndex(words);
+  const parts = words[i].split('-');
+  return pluralWord(parts.pop()).map(p => [...words.slice(0, i), [...parts, p].join('-'), ...words.slice(i + 1)].join(' '));
+}
+
+// Singular meanings, and meanings the vocabulary gives for the plural only:
+// "garment; (pl.) clothes", "man (i.e., human being); (pl.) people".
+function nounMeaningsOf(gloss) {
+  const sg = [], pl = [];
+  for (let segment of gloss.split(';')) {
+    const target = /\((?:[mfn]\.\s*)?pl\.[^)]*\)/i.test(segment) ? pl : sg;
+    const extra = [];
+    segment = segment
+      .replace(/\(i\.\s?e\.,?\s*([^)]*)\)/gi, (_, m) => { extra.push(m); return ' '; })
+      .replace(/\([^)]*\)/g, ' ');
+    if (segment.includes('–')) continue; // idioms such as "ōrātiōnem habeō – make a speech"
+    for (const part of [...segment.split(','), ...extra]) {
+      for (const alt of part.split(/\s+or\s+/)) {
+        const m = alt.trim().toLowerCase().replace(/^(a|an|the)\s+/, '');
+        if (m) target.push(m);
+      }
+    }
+  }
+  return { sg, pl };
+}
+
+// land's; a singular ending in s takes either 's or ' (the goddess's,
+// the goddess'); a plural ending in s takes ' (the lands').
+function possessives(phrase, plural) {
+  if (!phrase.endsWith('s')) return [phrase + "'s"];
+  return plural ? [phrase + "'"] : [phrase + "'s", phrase + "'"];
+}
+
+const DATIVE_PREPOSITIONS = ['to', 'for', 'to/for', 'for/to'];
+// by, with, from, and every ordering of two or three of them (with/by/from).
+const ABLATIVE_PREPOSITIONS = (() => {
+  const words = ['by', 'with', 'from'];
+  const out = [];
+  const build = (used) => {
+    if (used.length) out.push(used.join('/'));
+    for (const w of words) if (!used.includes(w)) build([...used, w]);
+  };
+  build([]);
+  return out;
+})();
+
+// { 'sg-nom': Set, ..., 'pl-abl': Set } of accepted (normalized)
+// translations, or null when the word has no usable meaning.
+export function nounTranslationsFor(entry) {
+  const { sg, pl } = nounMeaningsOf(entry.english || '');
+  if (!sg.length) return null;
+  const singular = m => [m, ['', 'a', 'an', 'the'], false];
+  const plural = m => [m, ['', 'the'], true];
+  // [phrase, articles, is it an English plural?]
+  const phrases = {
+    sg: sg.map(singular),
+    pl: [
+      ...sg.flatMap(pluralPhrase).map(plural),
+      // Given as is, and English singular or plural: "literature", "clothes".
+      ...pl.map(m => (/s$/.test(m.split(' ')[headIndex(m.split(' '))]) ? plural(m) : singular(m))),
+    ],
+  };
+  const result = {};
+  for (const n of ['sg', 'pl']) {
+    const plain = [], possessive = [];
+    for (const [m, articles, plural] of phrases[n]) {
+      for (const a of articles) {
+        plain.push(a ? `${a} ${m}` : m);
+        for (const p of possessives(m, plural)) possessive.push(a ? `${a} ${p}` : p);
+      }
+    }
+    const withPrepositions = list => new Set(list.flatMap(prep => plain.map(x => `${prep} ${x}`)));
+    result[`${n}-nom`] = new Set(plain);
+    result[`${n}-acc`] = new Set(plain);
+    result[`${n}-gen`] = new Set([...withPrepositions(['of']), ...possessive]);
+    result[`${n}-dat`] = withPrepositions(DATIVE_PREPOSITIONS);
+    result[`${n}-abl`] = withPrepositions(ABLATIVE_PREPOSITIONS);
+  }
+  return result;
+}
+
+// Like normalizeEnglish, but apostrophes stay (land's, lands') and nothing
+// is expanded, since a noun's "'s" is possessive, not "is".
+function normalizeNounEnglish(text) {
+  return (text || '').normalize('NFC').toLowerCase()
+    .replace(/[’‘`]/g, "'")
+    .replace(/\s*\/\s*/g, '/')
+    .replace(/[.,!?;:"“”()]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+export function isAcceptedNounTranslation(text, accepted) {
+  return accepted.has(normalizeNounEnglish(text));
 }

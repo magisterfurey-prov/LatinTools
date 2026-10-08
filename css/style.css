@@ -340,9 +340,12 @@ table.chart td.case-label { font-weight: 600; background: #faf6ee; }
 .translate-cell { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
 .translate-latin { font-weight: 700; color: var(--maroon-dark); min-width: 5.5em; text-align: left; overflow-wrap: anywhere; }
 table.chart td .translate-cell input { flex: 1 1 8em; text-align: left; border-bottom: 1px dashed var(--border); }
+table.chart.translate-chart .label-short { display: none; }
 @media (max-width: 560px) {
   .translate-latin { font-size: 0.9rem; }
   table.chart.translate-chart td { padding: 5px 4px; }
+  table.chart.translate-chart .label-full { display: none; }
+  table.chart.translate-chart .label-short { display: inline; }
 }
 
 .chart-toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }

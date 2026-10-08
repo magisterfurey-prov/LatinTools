@@ -127,6 +127,8 @@ function declineNoun(entry) {
 }
 
 function nounCategory(entry) {
+  // Adjectives carry a declension too ("1st" for bonus, bona, bonum).
+  if (entry.pos !== 'Noun') return null;
   if (PLURAL_ONLY.has(entry.latin) || IRREGULAR_NOUNS.has(entry.latin)) return null;
   const { declension, gender, latin, genitive } = entry;
   const neuter = isNeuterGender(gender);
