@@ -8,7 +8,7 @@ const set = (id, text) => { const el = document.getElementById(id); if (el) el.t
 document.title = `Latin Practice — LFNM ${BOOK.name}`;
 set('bookTitle', `Latin for the New Millennium — ${BOOK.name}`);
 set('bookIntro', `Practice vocabulary, grammar forms, and sentence analysis for ${chapters}. Pick a section below to get started.`);
-set('vocabTileText', `Flashcards, a multiple-choice learning mode, and a 10-question test, organized by chapter. ${vocab.length} words across ${chapters}.`);
+set('vocabTileText', `Flashcards, a multiple-choice learning mode, a 10-question test, and derivative practice, organized by chapter. ${vocab.length} words across ${chapters}.`);
 const tagged = BOOK.id === 1 ? 'person, tense' : 'person, tense, mood';
 set('translateTileText', `Tag case, number, gender, ${tagged}, agreement, and syntactic role for ${sentences.length} practice sentences.`);
 const sourceNote = BOOK.id === 1

@@ -1,11 +1,12 @@
-import { loadVocab, loadEmoji, linkParam, updateLink } from './book.js';
+import { loadVocab, loadEmoji, loadDerivatives, linkParam, updateLink } from './book.js';
 import { shuffle, parseChapterList, formatChapterList } from './util.js';
+import { derivativeQuestion } from './derivatives.js';
 
-const [VOCAB, EMOJI] = await Promise.all([loadVocab(), loadEmoji()]);
+const [VOCAB, EMOJI, DERIVATIVES] = await Promise.all([loadVocab(), loadEmoji(), loadDerivatives()]);
 
 const CHAPTERS = [...new Set(VOCAB.map(v => v.chapter))].sort((a, b) => a - b);
 
-const MODES = ['flashcards', 'learn', 'test'];
+const MODES = ['flashcards', 'learn', 'test', 'derivatives'];
 // A link can preselect the chapters and mode: flashcards.html?ch=3-5&mode=test
 const state = {
   chapters: parseChapterList(linkParam('ch'), CHAPTERS), // all selected by default
@@ -24,6 +25,7 @@ const studyArea = document.getElementById('studyArea');
 const modeFlashcardsBtn = document.getElementById('modeFlashcards');
 const modeLearnBtn = document.getElementById('modeLearn');
 const modeTestBtn = document.getElementById('modeTest');
+const modeDerivativesBtn = document.getElementById('modeDerivatives');
 
 function renderChapterPicker() {
   chapterPicker.innerHTML = '';
@@ -56,6 +58,16 @@ function currentWords() {
   return VOCAB.filter(v => state.chapters.has(v.chapter));
 }
 
+// A noun with its genitive, a verb with its principal parts. Principal parts
+// aren't introduced as a concept until Chapter 2 (Ch. 1 verbs are taught via
+// their bare inflected form), so they show from Ch. 2 on -- matching the
+// textbook's own sequencing.
+function citationForm(entry) {
+  if (entry.pos === 'Noun' && entry.genitive) return `${entry.latin}, ${entry.genitive}`;
+  if (entry.pos === 'Verb' && entry.chapter >= 2 && entry.principal_parts) return `${entry.latin}, ${entry.principal_parts}`;
+  return entry.latin;
+}
+
 // ---------------- Flashcards mode ----------------
 const fcState = { deck: [], index: 0, flipped: false };
 
@@ -74,15 +86,8 @@ function renderFlashcards() {
   const entry = fcState.deck[fcState.index];
   const genderPill = entry.gender ? `<span class="pill">${entry.gender}</span>` : '';
   const isNounWithGenitive = entry.pos === 'Noun' && entry.genitive;
-  // Principal parts aren't introduced as a concept until Chapter 2 (Ch. 1
-  // verbs are taught via their bare inflected form), so only show them from
-  // Ch. 2 on -- matching the textbook's own sequencing.
   const isVerbWithParts = entry.pos === 'Verb' && entry.chapter >= 2 && entry.principal_parts;
-  const frontText = isNounWithGenitive
-    ? `${entry.latin}, ${entry.genitive}`
-    : isVerbWithParts
-    ? `${entry.latin}, ${entry.principal_parts}`
-    : entry.latin;
+  const frontText = citationForm(entry);
   let frontClass = '';
   if (isNounWithGenitive) frontClass = ' compact';
   else if (isVerbWithParts) frontClass = frontText.length > 40 ? ' compact-sm' : ' compact';
@@ -266,6 +271,10 @@ function startTest() {
 
 function nextTestQuestion() {
   testState.answered = false;
+  if (testState.questions.length === 0) {
+    renderTest(); // "Select at least one chapter", not "Test complete! 0/0"
+    return;
+  }
   if (testState.index >= testState.questions.length) {
     renderTestComplete();
     return;
@@ -337,10 +346,98 @@ function renderTestComplete() {
   document.getElementById('testRestart').onclick = startTest;
 }
 
+// ---------------- Derivative Practice ----------------
+// One question per word in the chosen chapters that has English derivatives:
+// pick the derivative from among five English words.
+const dvState = { questions: [], index: 0, correct: 0, answer: null, options: [], answered: false };
+
+function startDerivatives() {
+  dvState.questions = shuffle(currentWords().filter(w => DERIVATIVES[w.id]));
+  dvState.index = 0;
+  dvState.correct = 0;
+  nextDerivativeQuestion();
+}
+
+function nextDerivativeQuestion() {
+  dvState.answered = false;
+  if (dvState.questions.length === 0) {
+    renderDerivatives();
+    return;
+  }
+  if (dvState.index >= dvState.questions.length) {
+    renderDerivativesComplete();
+    return;
+  }
+  const entry = dvState.questions[dvState.index];
+  Object.assign(dvState, derivativeQuestion(entry, DERIVATIVES[entry.id]));
+  renderDerivatives();
+}
+
+function renderDerivatives() {
+  if (dvState.questions.length === 0) {
+    studyArea.innerHTML = state.chapters.size === 0
+      ? '<div class="empty-state">Select at least one chapter to begin.</div>'
+      : '<div class="empty-state">None of the words in the chosen chapters have English derivatives on the list yet.</div>';
+    return;
+  }
+  const { questions, index, correct, options } = dvState;
+  const entry = questions[index];
+  studyArea.innerHTML = `
+    <div class="stat-row">
+      <div class="stat"><div class="num">${index + 1}/${questions.length}</div><div class="label">Question</div></div>
+      <div class="stat"><div class="num">${correct}</div><div class="label">Correct so far</div></div>
+    </div>
+    <div class="mc-sub">Which English word comes from this Latin word?</div>
+    <div class="mc-prompt latin">${citationForm(entry)}</div>
+    <div class="mc-meaning">${entry.english}</div>
+    <div class="mc-options" id="mcOptions"></div>
+  `;
+  const optionsDiv = document.getElementById('mcOptions');
+  options.forEach(word => {
+    const btn = document.createElement('button');
+    btn.className = 'mc-option';
+    btn.textContent = word;
+    btn.onclick = () => handleDerivativeAnswer(word, btn, optionsDiv);
+    optionsDiv.appendChild(btn);
+  });
+}
+
+function handleDerivativeAnswer(word, btnEl, optionsDiv) {
+  if (dvState.answered) return;
+  dvState.answered = true;
+  const correct = word === dvState.answer;
+  const buttons = [...optionsDiv.children];
+  buttons.forEach(b => (b.disabled = true));
+  if (correct) {
+    btnEl.classList.add('correct');
+    dvState.correct++;
+  } else {
+    btnEl.classList.add('incorrect');
+    buttons.find(b => b.textContent === dvState.answer).classList.add('correct');
+  }
+  dvState.index++;
+  // A little longer after a miss, to read the right answer.
+  setTimeout(nextDerivativeQuestion, correct ? 900 : 1800);
+}
+
+function renderDerivativesComplete() {
+  const total = dvState.questions.length;
+  studyArea.innerHTML = `
+    <div class="empty-state">
+      <div style="font-size:2.4rem;">🌱</div>
+      <h2 style="color:var(--maroon-dark);">Derivative practice complete!</h2>
+      <p>You got <strong>${dvState.correct}/${total}</strong> correct.</p>
+      <button id="derivativesRestart">Try again</button>
+    </div>
+  `;
+  document.getElementById('derivativesRestart').onclick = startDerivatives;
+}
+
 function restart() {
   syncLink();
   if (state.mode === 'flashcards') startFlashcards();
   else if (state.mode === 'learn') startLearn();
+  else if (state.mode === 'derivatives') startDerivatives();
   else startTest();
 }
 
@@ -348,6 +445,7 @@ const modeButtons = [
   [modeFlashcardsBtn, 'flashcards'],
   [modeLearnBtn, 'learn'],
   [modeTestBtn, 'test'],
+  [modeDerivativesBtn, 'derivatives'],
 ];
 function setMode(mode) {
   state.mode = mode;

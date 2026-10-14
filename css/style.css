@@ -262,7 +262,7 @@ footer.site-footer {
 .flashcard-controls { display: flex; gap: 10px; align-items: center; }
 .progress-text { color: var(--ink-soft); font-size: 0.9rem; }
 
-.mode-toggle { display: flex; gap: 8px; margin-bottom: 16px; }
+.mode-toggle { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
 .mode-toggle button { background: transparent; color: var(--maroon); }
 .mode-toggle button.active { background: var(--maroon); color: #fff; }
 
@@ -275,6 +275,8 @@ footer.site-footer {
   margin: 10px 0 22px;
 }
 .mc-sub { text-align: center; color: var(--ink-soft); margin-top: -14px; margin-bottom: 20px; }
+/* Derivative Practice: the Latin word's meaning, under the prompt */
+.mc-meaning { text-align: center; color: var(--ink-soft); margin-top: -14px; margin-bottom: 22px; }
 
 .mc-options {
   display: grid;
@@ -293,10 +295,12 @@ footer.site-footer {
   cursor: pointer;
   font-size: 1rem;
 }
-.mc-option:hover { border-color: var(--maroon); }
+/* Overrides the general button:hover fill, which hid the option's text. */
+.mc-option:hover { border-color: var(--maroon); background: #fff; }
 .mc-option.correct { background: #e5f4ea; border-color: var(--good); }
 .mc-option.incorrect { background: #fbe8e6; border-color: var(--bad); }
-.mc-option:disabled { cursor: default; }
+.mc-option:disabled { cursor: default; opacity: 1; }
+.mc-option:disabled:not(.correct):not(.incorrect) { opacity: 0.5; }
 
 .stat-row { display: flex; gap: 20px; justify-content: center; margin: 14px 0; flex-wrap: wrap; }
 .stat { text-align: center; }

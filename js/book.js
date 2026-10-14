@@ -31,6 +31,10 @@ export async function loadEmoji(book = BOOK) {
   return (await import(`${book.dir}emoji.js`)).EMOJI;
 }
 
+export async function loadDerivatives(book = BOOK) {
+  return (await import(`${book.dir}derivatives.js`)).DERIVATIVES;
+}
+
 export async function loadSentences(book = BOOK) {
   return (await import(`${book.dir}sentences.js`)).SENTENCES;
 }
