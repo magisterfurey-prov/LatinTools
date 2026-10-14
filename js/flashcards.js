@@ -1,6 +1,6 @@
 import { loadVocab, loadEmoji, loadDerivatives, linkParam, updateLink } from './book.js';
 import { shuffle, parseChapterList, formatChapterList } from './util.js';
-import { derivativeQuestion } from './derivatives.js';
+import { derivativeQuestion, definitionOf } from './derivatives.js';
 
 const [VOCAB, EMOJI, DERIVATIVES] = await Promise.all([loadVocab(), loadEmoji(), loadDerivatives()]);
 
@@ -258,12 +258,12 @@ function renderLearnComplete() {
 }
 
 // ---------------- Mode switching ----------------
-// ---------------- Test mode (fixed 10 questions, no requeue) ----------------
+// ---------------- Test mode (fixed 20 questions, no requeue) ----------------
 const testState = { questions: [], index: 0, correct: 0, current: null, direction: null, options: [], answered: false };
 
 function startTest() {
   const words = currentWords();
-  testState.questions = shuffle(words).slice(0, Math.min(10, words.length));
+  testState.questions = shuffle(words).slice(0, Math.min(20, words.length));
   testState.index = 0;
   testState.correct = 0;
   nextTestQuestion();
@@ -348,8 +348,10 @@ function renderTestComplete() {
 
 // ---------------- Derivative Practice ----------------
 // One question per word in the chosen chapters that has English derivatives:
-// pick the derivative from among five English words.
-const dvState = { questions: [], index: 0, correct: 0, answer: null, options: [], answered: false };
+// pick the derivative from among six English words. A wrong pick shows every
+// choice's definition as a hint and the student tries again; the score counts
+// words answered right on the first try.
+const dvState = { questions: [], index: 0, correct: 0, answer: null, options: [], answered: false, missed: false };
 
 function startDerivatives() {
   dvState.questions = shuffle(currentWords().filter(w => DERIVATIVES[w.id]));
@@ -360,6 +362,7 @@ function startDerivatives() {
 
 function nextDerivativeQuestion() {
   dvState.answered = false;
+  dvState.missed = false;
   if (dvState.questions.length === 0) {
     renderDerivatives();
     return;
@@ -385,7 +388,7 @@ function renderDerivatives() {
   studyArea.innerHTML = `
     <div class="stat-row">
       <div class="stat"><div class="num">${index + 1}/${questions.length}</div><div class="label">Question</div></div>
-      <div class="stat"><div class="num">${correct}</div><div class="label">Correct so far</div></div>
+      <div class="stat"><div class="num">${correct}</div><div class="label">Right on first try</div></div>
     </div>
     <div class="mc-sub">Which English word comes from this Latin word?</div>
     <div class="mc-prompt latin">${citationForm(entry)}</div>
@@ -396,7 +399,7 @@ function renderDerivatives() {
   options.forEach(word => {
     const btn = document.createElement('button');
     btn.className = 'mc-option';
-    btn.textContent = word;
+    btn.innerHTML = `<span class="mc-word">${word}</span>`;
     btn.onclick = () => handleDerivativeAnswer(word, btn, optionsDiv);
     optionsDiv.appendChild(btn);
   });
@@ -404,20 +407,25 @@ function renderDerivatives() {
 
 function handleDerivativeAnswer(word, btnEl, optionsDiv) {
   if (dvState.answered) return;
-  dvState.answered = true;
-  const correct = word === dvState.answer;
-  const buttons = [...optionsDiv.children];
-  buttons.forEach(b => (b.disabled = true));
-  if (correct) {
-    btnEl.classList.add('correct');
-    dvState.correct++;
-  } else {
+  if (word !== dvState.answer) {
     btnEl.classList.add('incorrect');
-    buttons.find(b => b.textContent === dvState.answer).classList.add('correct');
+    btnEl.disabled = true;
+    if (!dvState.missed) {
+      dvState.missed = true;
+      // The hint: every choice's definition, under the word.
+      [...optionsDiv.children].forEach((b, i) => {
+        b.insertAdjacentHTML('beforeend', `<span class="mc-definition">${definitionOf(dvState.options[i])}</span>`);
+      });
+    }
+    return;
   }
+  dvState.answered = true;
+  [...optionsDiv.children].forEach(b => (b.disabled = true));
+  btnEl.classList.add('correct');
+  if (!dvState.missed) dvState.correct++;
   dvState.index++;
-  // A little longer after a miss, to read the right answer.
-  setTimeout(nextDerivativeQuestion, correct ? 900 : 1800);
+  // A little longer after a hint, to read the definitions.
+  setTimeout(nextDerivativeQuestion, dvState.missed ? 1800 : 900);
 }
 
 function renderDerivativesComplete() {
@@ -426,7 +434,7 @@ function renderDerivativesComplete() {
     <div class="empty-state">
       <div style="font-size:2.4rem;">🌱</div>
       <h2 style="color:var(--maroon-dark);">Derivative practice complete!</h2>
-      <p>You got <strong>${dvState.correct}/${total}</strong> correct.</p>
+      <p>You got <strong>${dvState.correct}/${total}</strong> right on the first try.</p>
       <button id="derivativesRestart">Try again</button>
     </div>
   `;
