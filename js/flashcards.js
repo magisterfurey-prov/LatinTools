@@ -348,9 +348,9 @@ function renderTestComplete() {
 
 // ---------------- Derivative Practice ----------------
 // One question per word in the chosen chapters that has English derivatives:
-// pick the derivative from among six English words. A wrong pick shows every
-// choice's definition as a hint and the student tries again; the score counts
-// words answered right on the first try.
+// pick the derivative from among six English words. A wrong pick shows the
+// Latin word's meaning and every choice's definition as a hint, and the student
+// tries again; the score counts words answered right on the first try.
 const dvState = { questions: [], index: 0, correct: 0, answer: null, options: [], answered: false, missed: false };
 
 function startDerivatives() {
@@ -392,7 +392,7 @@ function renderDerivatives() {
     </div>
     <div class="mc-sub">Which English word comes from this Latin word?</div>
     <div class="mc-prompt latin">${citationForm(entry)}</div>
-    <div class="mc-meaning">${entry.english}</div>
+    <div class="mc-meaning" id="dvMeaning" hidden>${entry.english}</div>
     <div class="mc-options" id="mcOptions"></div>
   `;
   const optionsDiv = document.getElementById('mcOptions');
@@ -412,7 +412,9 @@ function handleDerivativeAnswer(word, btnEl, optionsDiv) {
     btnEl.disabled = true;
     if (!dvState.missed) {
       dvState.missed = true;
-      // The hint: every choice's definition, under the word.
+      // The hint: the Latin word's meaning, and every choice's definition
+      // under the word.
+      document.getElementById('dvMeaning').hidden = false;
       [...optionsDiv.children].forEach((b, i) => {
         b.insertAdjacentHTML('beforeend', `<span class="mc-definition">${definitionOf(dvState.options[i])}</span>`);
       });

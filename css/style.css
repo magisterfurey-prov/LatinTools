@@ -275,8 +275,8 @@ footer.site-footer {
   margin: 10px 0 22px;
 }
 .mc-sub { text-align: center; color: var(--ink-soft); margin-top: -14px; margin-bottom: 20px; }
-/* Derivative Practice: the Latin word's meaning, under the prompt, and each
-   choice's definition, shown as a hint after a wrong answer */
+/* Derivative Practice's hint after a wrong answer: the Latin word's meaning,
+   under the prompt, and each choice's definition */
 .mc-meaning { text-align: center; color: var(--ink-soft); margin-top: -14px; margin-bottom: 22px; }
 .mc-option .mc-word { display: block; }
 .mc-option .mc-definition { display: block; margin-top: 4px; font-size: 0.85rem; color: var(--ink-soft); }
