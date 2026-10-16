@@ -1,6 +1,6 @@
 import { loadVocab, loadEmoji, loadDerivatives, linkParam, updateLink } from './book.js';
 import { shuffle, parseChapterList, formatChapterList } from './util.js';
-import { derivativeQuestion, definitionOf } from './derivatives.js';
+import { derivativeQuestion, meaningQuestion, definitionOf } from './derivatives.js';
 
 const [VOCAB, EMOJI, DERIVATIVES] = await Promise.all([loadVocab(), loadEmoji(), loadDerivatives()]);
 
@@ -347,21 +347,26 @@ function renderTestComplete() {
 }
 
 // ---------------- Derivative Practice ----------------
-// One question per word in the chosen chapters that has English derivatives:
-// pick the derivative from among six English words. A wrong pick shows the
-// Latin word's meaning and every choice's definition as a hint, and the student
-// tries again; the score counts words answered right on the first try.
-const dvState = { questions: [], index: 0, correct: 0, answer: null, options: [], answered: false, missed: false };
+// One question per word in the chosen chapters that has English derivatives,
+// in two steps: pick the derivative from among six English words, then pick
+// what it means from among six definitions. A wrong pick shows the Latin
+// word's meaning as a hint (and in the first step every choice's definition),
+// and the student tries again. The score counts words with both steps right
+// on the first try.
+const dvState = {
+  questions: [], index: 0, correct: 0, round: 0,
+  step: 'derivative', derivative: null, answer: null, options: [], answered: false, hinted: false, missed: false,
+};
 
 function startDerivatives() {
   dvState.questions = shuffle(currentWords().filter(w => DERIVATIVES[w.id]));
   dvState.index = 0;
   dvState.correct = 0;
+  dvState.round++;
   nextDerivativeQuestion();
 }
 
 function nextDerivativeQuestion() {
-  dvState.answered = false;
   dvState.missed = false;
   if (dvState.questions.length === 0) {
     renderDerivatives();
@@ -372,8 +377,28 @@ function nextDerivativeQuestion() {
     return;
   }
   const entry = dvState.questions[dvState.index];
-  Object.assign(dvState, derivativeQuestion(entry, DERIVATIVES[entry.id]));
+  showDerivativeStep('derivative', derivativeQuestion(entry, DERIVATIVES[entry.id]));
+}
+
+// The second step: what the derivative just picked means.
+function nextMeaningQuestion() {
+  const entry = dvState.questions[dvState.index];
+  dvState.derivative = dvState.answer;
+  showDerivativeStep('meaning', meaningQuestion(entry, DERIVATIVES[entry.id], dvState.derivative));
+}
+
+function showDerivativeStep(step, question) {
+  Object.assign(dvState, question, { step, answered: false, hinted: false });
   renderDerivatives();
+}
+
+// Moves on after a pause, unless the student has restarted or changed modes
+// in the meantime.
+function afterDerivativePause(next, ms) {
+  const round = dvState.round;
+  setTimeout(() => {
+    if (state.mode === 'derivatives' && dvState.round === round) next();
+  }, ms);
 }
 
 function renderDerivatives() {
@@ -383,51 +408,61 @@ function renderDerivatives() {
       : '<div class="empty-state">None of the words in the chosen chapters have English derivatives on the list yet.</div>';
     return;
   }
-  const { questions, index, correct, options } = dvState;
+  const { questions, index, correct, options, step, derivative, missed } = dvState;
   const entry = questions[index];
+  const question = step === 'derivative'
+    ? 'Which English word comes from this Latin word?'
+    : `What does <strong>${derivative}</strong> mean? It comes from this Latin word.`;
+  // The Latin word's meaning stays hidden until a wrong pick on this word.
   studyArea.innerHTML = `
     <div class="stat-row">
       <div class="stat"><div class="num">${index + 1}/${questions.length}</div><div class="label">Question</div></div>
       <div class="stat"><div class="num">${correct}</div><div class="label">Right on first try</div></div>
     </div>
-    <div class="mc-sub">Which English word comes from this Latin word?</div>
+    <div class="mc-sub">${question}</div>
     <div class="mc-prompt latin">${citationForm(entry)}</div>
-    <div class="mc-meaning" id="dvMeaning" hidden>${entry.english}</div>
+    <div class="mc-meaning" id="dvMeaning"${missed ? '' : ' hidden'}>${entry.english}</div>
     <div class="mc-options" id="mcOptions"></div>
   `;
   const optionsDiv = document.getElementById('mcOptions');
-  options.forEach(word => {
+  options.forEach(choice => {
     const btn = document.createElement('button');
     btn.className = 'mc-option';
-    btn.innerHTML = `<span class="mc-word">${word}</span>`;
-    btn.onclick = () => handleDerivativeAnswer(word, btn, optionsDiv);
+    btn.innerHTML = `<span class="mc-word">${choice}</span>`;
+    btn.onclick = () => handleDerivativeAnswer(choice, btn, optionsDiv);
     optionsDiv.appendChild(btn);
   });
 }
 
-function handleDerivativeAnswer(word, btnEl, optionsDiv) {
+function handleDerivativeAnswer(choice, btnEl, optionsDiv) {
   if (dvState.answered) return;
-  if (word !== dvState.answer) {
+  if (choice !== dvState.answer) {
     btnEl.classList.add('incorrect');
     btnEl.disabled = true;
-    if (!dvState.missed) {
-      dvState.missed = true;
-      // The hint: the Latin word's meaning, and every choice's definition
-      // under the word.
-      document.getElementById('dvMeaning').hidden = false;
+    dvState.missed = true;
+    // The hint: the Latin word's meaning, and in the first step every
+    // choice's definition under the word.
+    document.getElementById('dvMeaning').hidden = false;
+    if (dvState.step === 'derivative' && !dvState.hinted) {
       [...optionsDiv.children].forEach((b, i) => {
         b.insertAdjacentHTML('beforeend', `<span class="mc-definition">${definitionOf(dvState.options[i])}</span>`);
       });
     }
+    dvState.hinted = true;
     return;
   }
   dvState.answered = true;
   [...optionsDiv.children].forEach(b => (b.disabled = true));
   btnEl.classList.add('correct');
+  // A little longer after a hint, to read it.
+  const pause = dvState.hinted ? 1800 : 900;
+  if (dvState.step === 'derivative') {
+    afterDerivativePause(nextMeaningQuestion, pause);
+    return;
+  }
   if (!dvState.missed) dvState.correct++;
   dvState.index++;
-  // A little longer after a hint, to read the definitions.
-  setTimeout(nextDerivativeQuestion, dvState.missed ? 1800 : 900);
+  afterDerivativePause(nextDerivativeQuestion, pause);
 }
 
 function renderDerivativesComplete() {
@@ -436,7 +471,7 @@ function renderDerivativesComplete() {
     <div class="empty-state">
       <div style="font-size:2.4rem;">🌱</div>
       <h2 style="color:var(--maroon-dark);">Derivative practice complete!</h2>
-      <p>You got <strong>${dvState.correct}/${total}</strong> right on the first try.</p>
+      <p>You got <strong>${dvState.correct}/${total}</strong> words right on the first try, both the derivative and its meaning.</p>
       <button id="derivativesRestart">Try again</button>
     </div>
   `;
