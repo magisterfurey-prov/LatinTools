@@ -1,68 +1,99 @@
 // Derivative Practice: each question shows a Latin word and offers one of its
 // English derivatives (from the vocabulary's derivatives list) among five
-// everyday English words that start with the same two letters as the Latin
-// word or the right answer. A second step then asks what that derivative means.
+// English words that start with the same three letters as the right answer or
+// one of the Latin word's forms (two letters, or one, where there aren't
+// enough). A second step then asks what that derivative means.
 import { DISTRACTORS, FROM_LATIN } from '../data/derivative-distractors.js';
 import { DEFINITIONS } from '../data/derivative-definitions.js';
 import { normalizeLatin, shuffle } from './util.js';
 
 const WRONG_ANSWERS = 5;
+const lettersOf = text => normalizeLatin(text).replace(/[^a-z]/g, '');
 
 // The Latin headword without macrons, notes, or "+ accusative":
 // "ante + accusative" -> "ante", "dūcō" -> "duco".
 function latinKey(entry) {
-  return normalizeLatin(entry.latin.split(/[,(+]/)[0]).replace(/[^a-z]/g, '');
+  return lettersOf(entry.latin.split(/[,(+]/)[0]);
 }
+
+// The forms shown for the word ("videō, vidēre, vīdī, vīsum") as plain
+// letters, without notes ("+ accusative") or missing parts ("——"); alō's
+// "altum/alitum" is two forms.
+function formsOf(shown) {
+  return shown.replace(/\([^)]*\)/g, '').replace(/\+.*$/, '').split(/[,/]/)
+    .map(part => lettersOf(part.trim().split(/\s+/)[0]))
+    .filter(form => form.length > 1);
+}
+
+const startsOf = (forms, length) => [...new Set(forms.filter(f => f.length >= length).map(f => f.slice(0, length)))];
+const piecesOf = form => Array.from({ length: form.length - 3 }, (_, i) => form.slice(i, i + 4));
 
 // The definition shown as a hint after a wrong answer.
 export function definitionOf(word) {
   return DEFINITIONS[word] || DISTRACTORS[word.slice(0, 2)]?.[word] || '';
 }
 
-// Pool words with this start that can't pass for a derivative of the word:
-// none that shares four letters with one of its derivatives (arrow for rogō,
-// which has arrogate), none that translates it (land for terra), and no
-// Latin-derived word that comes from it (see FROM_LATIN).
-function wrongAnswers(start, latin, derivatives, meaning) {
-  return shuffle(Object.keys(DISTRACTORS[start] || {})).filter(word =>
-    !derivatives.some(d => d.slice(0, 4) === word.slice(0, 4))
-    && !meaning.has(word)
-    && !FROM_LATIN[word]?.includes(latin));
+// Pool words with one of these starts that can't pass for a derivative of
+// the Latin word: none that shares four letters with one of its derivatives
+// (arrow for rogō, which has arrogate) or has four letters in a row from one
+// of its forms (deposit for pōnō, positum), none that translates it (land for
+// terra), and no Latin-derived word that comes from it (see FROM_LATIN).
+function poolWords(starts, latin) {
+  return shuffle(starts.flatMap(start =>
+    Object.keys(DISTRACTORS[start.slice(0, 2)] || {}).filter(word => word.startsWith(start))))
+    .filter(word => !latin.derivatives.some(d => d.slice(0, 4) === word.slice(0, 4))
+      && !latin.pieces.some(piece => word.includes(piece))
+      && !latin.meaning.has(word)
+      && !FROM_LATIN[word]?.includes(latin.key));
 }
 
-// The right answer plus five wrong ones, shuffled.
-export function derivativeQuestion(entry, derivatives) {
-  const latin = latinKey(entry);
-  const meaning = new Set(entry.english.toLowerCase().match(/[a-z]+/g) || []);
-  const latinStart = latin.slice(0, 2);
-  const byLatin = wrongAnswers(latinStart, latin, derivatives, meaning);
+// The right answer plus five wrong ones, shuffled. `shown` is the Latin as the
+// page shows it, with the genitive or principal parts.
+export function derivativeQuestion(entry, derivatives, shown) {
+  const forms = formsOf(shown);
+  const latin = {
+    key: latinKey(entry), derivatives,
+    meaning: new Set(entry.english.toLowerCase().match(/[a-z]+/g) || []),
+    pieces: [...new Set(forms.flatMap(piecesOf))],
+  };
+  const latinWords = [...poolWords(startsOf(forms, 3), latin), ...poolWords(startsOf(forms, 2), latin)];
 
-  // For each derivative: two more wrong answers that start like it and three
-  // like the Latin word, so each start begins three of the six choices and
-  // neither gives the answer away. Few English words start like some Latin
-  // words (iubeō, iaciō), so the answer's start makes up any shortfall.
+  // For each derivative: two wrong answers that start like it and three like
+  // the Latin forms, so the right answer's start is never the odd one out,
+  // each sharing three letters where there are enough words and two where
+  // not. Few English words start like some Latin words (iubeō, iaciō), so the
+  // answer's start makes up any shortfall.
   const plans = derivatives.map(answer => {
-    const start = answer.slice(0, 2);
-    if (start === latinStart) return { answer, wrong: byLatin.slice(0, WRONG_ANSWERS), ok: true };
-    const byAnswer = wrongAnswers(start, latin, derivatives, meaning);
-    const wrong = [...byAnswer.slice(0, 2), ...byLatin.slice(0, 3)];
-    for (const w of [...byAnswer.slice(2), ...byLatin.slice(3)]) {
-      if (wrong.length < WRONG_ANSWERS) wrong.push(w);
-    }
-    return { answer, wrong, ok: byAnswer.length >= 2 };
+    const start = lettersOf(answer);
+    const answerWords = [...poolWords([start.slice(0, 3)], latin), ...poolWords([start.slice(0, 2)], latin)];
+    const wrong = [];
+    const take = (words, count) => {
+      for (const word of words) if (wrong.length < count && !wrong.includes(word)) wrong.push(word);
+    };
+    take(answerWords, 2);
+    const balanced = wrong.length === 2;
+    take(latinWords, WRONG_ANSWERS);
+    take(answerWords, WRONG_ANSWERS);
+    const threeLetterStarts = [start.slice(0, 3), ...startsOf(forms, 3)];
+    const threeLetter = wrong.filter(word => threeLetterStarts.includes(word.slice(0, 3))).length;
+    return { answer, wrong, balanced, threeLetter };
   });
-  const full = plans.filter(p => p.ok && p.wrong.length === WRONG_ANSWERS);
+  // A balanced plan with all five if there is one, and of those, one with the
+  // most wrong answers that share three letters, or one fewer, so that a word
+  // with several derivatives doesn't always ask for the same one.
+  const full = plans.filter(p => p.balanced && p.wrong.length === WRONG_ANSWERS);
   const most = Math.max(...plans.map(p => p.wrong.length));
-  const choices = full.length ? full : plans.filter(p => p.wrong.length === most);
+  const candidates = full.length ? full : plans.filter(p => p.wrong.length === most);
+  const best = Math.max(...candidates.map(p => p.threeLetter));
+  const choices = candidates.filter(p => p.threeLetter >= best - 1);
   const { answer, wrong } = choices[Math.floor(Math.random() * choices.length)];
 
-  // A few words have too few English words with either start (aqua, uxor):
-  // fill in with words that share just the first letter.
+  // A few words have too few English words with any of these starts (aqua,
+  // uxor): fill in with words that share just the first letter.
   if (wrong.length < WRONG_ANSWERS) {
-    const letters = [latin[0], answer[0]];
-    const starts = Object.keys(DISTRACTORS).filter(s => letters.includes(s[0]) && s !== latinStart && s !== answer.slice(0, 2));
-    for (const w of shuffle(starts.flatMap(s => wrongAnswers(s, latin, derivatives, meaning)))) {
-      if (wrong.length < WRONG_ANSWERS && !wrong.includes(w)) wrong.push(w);
+    const firsts = [latin.key[0], answer[0], ...forms.map(f => f[0])];
+    for (const word of poolWords(Object.keys(DISTRACTORS).filter(s => firsts.includes(s[0])), latin)) {
+      if (wrong.length < WRONG_ANSWERS && !wrong.includes(word)) wrong.push(word);
     }
   }
   return { answer, options: shuffle([answer, ...wrong]) };

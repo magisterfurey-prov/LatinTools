@@ -377,7 +377,7 @@ function nextDerivativeQuestion() {
     return;
   }
   const entry = dvState.questions[dvState.index];
-  showDerivativeStep('derivative', derivativeQuestion(entry, DERIVATIVES[entry.id]));
+  showDerivativeStep('derivative', derivativeQuestion(entry, DERIVATIVES[entry.id], citationForm(entry)));
 }
 
 // The second step: what the derivative just picked means.
