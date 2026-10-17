@@ -154,10 +154,9 @@ const NOT_NOUNS = new Set(['vehement']);
 const BARE_NOUNS = new Set([
   'adieu', 'agronomy', 'altimeter', 'annals', 'artifice', 'boon', 'consensus', 'cuneiform', 'demise',
   'denominative', 'disrepute', 'domicile', 'dominion', 'dowry', 'flux', 'gentry', 'herbage', 'ignominy',
-  'ire', 'malady', 'malefactor', 'modus operandi', 'modus vivendi', 'mores', 'mortician', 'novice',
-  'obloquy', 'omnibus', 'portal', 'precursor', 'premium', 'realia', 'refuge', 'surfeit', 'tact', 'tenant',
-  'tenet', 'terra firma', 'transom', 'tumult', 'tutelage', 'uxoricide', 'via media', 'victuals', 'vim',
-  'visage',
+  'ire', 'malady', 'malefactor', 'mortician', 'novice', 'obloquy', 'portal', 'precursor', 'premium',
+  'refuge', 'surfeit', 'tact', 'tenant', 'tenet', 'transom', 'tumult', 'tutelage', 'uxoricide', 'victuals',
+  'vim', 'visage',
 ]);
 function formOf(word, definition) {
   const core = definition.replace(/^in [^,]+, /, ''); // "in politics, an extreme conservative"
@@ -174,15 +173,19 @@ const DEFINED = Object.entries(DEFINITIONS).map(([word, definition]) => ({
 
 // The derivative's definition among five definitions of other derivatives, in
 // the same form where there are enough, so grammar doesn't give it away. None
-// comes from the same Latin word or shares a word with the right definition or
-// the Latin word's meaning (or a word close to one), so a student who knows the
-// Latin word can tell which fits; and no two share a word with each other.
+// comes from the same Latin word, uses the word being asked about ("the
+// spirit and confidence of a group" for confidence), or shares a word with
+// the right definition or the Latin word's meaning (or a word close to one),
+// so a student who knows the Latin word can tell which fits; and no two share
+// a word with each other.
 export function meaningQuestion(entry, derivatives, answer) {
   const right = definitionOf(answer);
   const avoid = withCloseWords(wordsOf(right, false));
   const meaning = withCloseWords(wordsOf(entry.english, true));
+  const asked = wordsOf(answer, true);
   const pool = shuffle(DEFINED.filter(d =>
     !derivatives.some(x => x.slice(0, 4) === d.word.slice(0, 4) || definitionOf(x) === d.definition)
+    && !shareWords(d.allWords, asked)
     && !shareWords(d.words, avoid)
     && !shareWords(d.allWords, meaning)));
   const form = formOf(answer, right);

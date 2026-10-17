@@ -1,9 +1,12 @@
 // English derivatives of the vocabulary words, keyed by vocabulary id, from the
 // "Latin Derivatives" list (A-V) supplied for the Derivative Practice activity.
+// Latin phrases and unchanged Latin words on the list are replaced with
+// English derivatives of the same Latin words: bona fide and mores
+// become confidence and moral.
 export const DERIVATIVES = {
   b2v2: ["genteel","gentile","gentry"],
   b2v4: ["insular","insulate"],
-  b2v6: ["mores"],
+  b2v6: ["moral","morale"],
   b2v7: ["extramundane","mundane"],
   b2v11: ["solarium","solstice"],
   b2v15: ["congenital","indigenous"],
@@ -17,7 +20,7 @@ export const DERIVATIVES = {
   b2v35: ["altimeter","exalt"],
   b2v36: ["abbreviate","brevity"],
   b2v37: ["claret","clarion"],
-  b2v38: ["aggrieved","grave","gravitate","grievous"],
+  b2v38: ["aggrieved","gravitate","gravity","grievous"],
   b2v39: ["gerund","gestation","gesticulate","ingest","vicegerent"],
   b2v41: ["ambivalence","avail","convalescence","prevail","prevalent","unavailing","valedictorian","valetudinarian"],
   b2v49: ["dominion"],
@@ -54,7 +57,7 @@ export const DERIVATIVES = {
   b2v122: ["dualism"],
   b2v126: ["laud","laudable","laudatory"],
   b2v132: ["insatiable"],
-  b2v135: ["bona fide","diffident"],
+  b2v135: ["confidence","diffident"],
   b2v136: ["vainglory"],
   b2v138: ["luminary","luminous"],
   b2v139: ["otiose"],
@@ -88,7 +91,7 @@ export const DERIVATIVES = {
   b2v197: ["defer","elate","proffer","referendum"],
   b2v199: ["prolapse"],
   b2v207: ["prolapse"],
-  b2v209: ["accommodate","commodious","modulate","modus operandi","modus vivendi"],
+  b2v209: ["accommodate","commodious","modest","modify","modulate"],
   b2v210: ["impecunious","pecuniary"],
   b2v213: ["jocund"],
   b2v214: ["libertarian"],
