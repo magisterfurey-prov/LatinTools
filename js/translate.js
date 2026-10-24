@@ -1,7 +1,9 @@
 import { BOOK, loadSentences, linkParam, updateLink } from './book.js';
 import { parseChapterList, formatChapterList } from './util.js';
+import { sentenceNumbers } from './sentence-numbers.js';
 
 const SENTENCES = await loadSentences();
+const NUMBERS = sentenceNumbers(SENTENCES);
 
 const CASE_OPTIONS = [
   ['nom', 'Nominative'], ['gen', 'Genitive'], ['dat', 'Dative'],
@@ -153,6 +155,7 @@ function renderSentenceList() {
     const done = progress[s.id];
     item.innerHTML = `
       <div>
+        <span class="sentence-number">${NUMBERS.get(s.id)}.</span>
         <span class="pill">Ch. ${s.chapter}</span>
         <span class="latin">&nbsp;${escapeHtml(s.latin)}</span>
       </div>
@@ -239,7 +242,7 @@ function openSentence(id) {
     : '';
 
   analysisArea.innerHTML = `
-    <p class="pill">Chapter ${sentence.chapter}</p>
+    <p class="pill">Chapter ${sentence.chapter} · Sentence ${NUMBERS.get(sentence.id)}</p>
     <div class="analysis-sentence">${wordsHTML}</div>
 
     <div class="translation-box">

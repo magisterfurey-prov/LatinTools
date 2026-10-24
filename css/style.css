@@ -375,6 +375,7 @@ table.chart.translate-chart .label-short { display: none; }
 }
 .sentence-item:hover { border-color: var(--maroon); }
 .sentence-item .latin { font-size: 1.05rem; }
+.sentence-item .sentence-number { display: inline-block; min-width: 1.5em; font-weight: 700; color: var(--maroon-dark); }
 .sentence-item .status { font-size: 0.8rem; }
 .status.done { color: var(--good); }
 
