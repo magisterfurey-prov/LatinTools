@@ -329,7 +329,10 @@ export const SENTENCES = [
    },
    {
     "t": "aspicere",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": "possīmus",
@@ -953,7 +956,10 @@ export const SENTENCES = [
    },
    {
     "t": "dūcere",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": "cupiēbat",
@@ -2355,7 +2361,13 @@ export const SENTENCES = [
    },
    {
     "t": "restituere",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": [
+     "subject-infinitive",
+     "complementary-infinitive"
+    ]
    },
    {
     "t": ".",
@@ -2493,7 +2505,10 @@ export const SENTENCES = [
    },
    {
     "t": "vidēre",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": "vult",
@@ -2577,7 +2592,10 @@ export const SENTENCES = [
    },
    {
     "t": "servāre",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": "nōluistī",
@@ -2622,7 +2640,10 @@ export const SENTENCES = [
    },
    {
     "t": "quaerere",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": ",",
@@ -2717,7 +2738,10 @@ export const SENTENCES = [
    },
    {
     "t": "dēfendere",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": "volēbat",
@@ -2767,7 +2791,10 @@ export const SENTENCES = [
    },
    {
     "t": "neglegere",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": ".",
@@ -2987,7 +3014,13 @@ export const SENTENCES = [
    },
    {
     "t": "loquī",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": [
+     "dep",
+     "pass"
+    ],
+    "role": "complementary-infinitive"
    },
    {
     "t": "dēbent",
@@ -3449,7 +3482,13 @@ export const SENTENCES = [
    },
    {
     "t": "prōgredī",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": [
+     "dep",
+     "pass"
+    ],
+    "role": "complementary-infinitive"
    },
    {
     "t": "cōnābāmur",
@@ -3558,7 +3597,10 @@ export const SENTENCES = [
    },
    {
     "t": "dēmittere",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": "!",
@@ -3597,7 +3639,10 @@ export const SENTENCES = [
    },
    {
     "t": "īre",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": "cupiēbat",
@@ -5299,7 +5344,10 @@ export const SENTENCES = [
    },
    {
     "t": "vidēre",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": "nōn",
@@ -5413,7 +5461,8 @@ export const SENTENCES = [
    },
    {
     "t": "audītum",
-    "p": "vinf"
+    "p": "vinf",
+    "role": "supine-purpose"
    },
    {
     "t": ".",
@@ -5688,7 +5737,10 @@ export const SENTENCES = [
    },
    {
     "t": "movērī",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "pass",
+    "role": "indirect-statement"
    },
    {
     "t": "affirmāvit",
@@ -6001,7 +6053,10 @@ export const SENTENCES = [
    },
    {
     "t": "esse",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "indirect-statement"
    },
    {
     "t": "arborēs",

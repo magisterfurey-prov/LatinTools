@@ -1716,7 +1716,10 @@ export const SENTENCES = [
    },
    {
     "t": "iūdicāre",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": "nōn",
@@ -1759,7 +1762,10 @@ export const SENTENCES = [
    },
    {
     "t": "vidēre",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": "possum",
@@ -1801,7 +1807,10 @@ export const SENTENCES = [
    },
    {
     "t": "dare",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": "possumus",
@@ -1882,7 +1891,10 @@ export const SENTENCES = [
    },
    {
     "t": "docēre",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": "possumus",
@@ -2115,7 +2127,10 @@ export const SENTENCES = [
    },
    {
     "t": "mordēre",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "indirect-statement"
    },
    {
     "t": ".",
@@ -2279,7 +2294,10 @@ export const SENTENCES = [
    },
    {
     "t": "amāre",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "indirect-statement"
    },
    {
     "t": ".",
@@ -2877,7 +2895,10 @@ export const SENTENCES = [
    },
    {
     "t": "servārī",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "pass",
+    "role": "complementary-infinitive"
    },
    {
     "t": ".",
@@ -3300,7 +3321,10 @@ export const SENTENCES = [
    },
    {
     "t": "vincere",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": ".",
@@ -3795,7 +3819,10 @@ export const SENTENCES = [
    },
    {
     "t": "tenēre",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": "nōn",
@@ -4289,7 +4316,10 @@ export const SENTENCES = [
    },
    {
     "t": "rogāre",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": "!",
@@ -4658,7 +4688,10 @@ export const SENTENCES = [
    },
    {
     "t": "sēparāre",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": "nōn",
@@ -5818,7 +5851,10 @@ export const SENTENCES = [
    },
    {
     "t": "servāre",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": "nōn",
@@ -6011,7 +6047,10 @@ export const SENTENCES = [
    },
    {
     "t": "exstinguere",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": "temptāverant",
@@ -7143,7 +7182,10 @@ export const SENTENCES = [
    },
    {
     "t": "cēpisse",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "perf",
+    "voice": "act",
+    "role": "indirect-statement"
    },
    {
     "t": ".",
@@ -7374,7 +7416,10 @@ export const SENTENCES = [
    },
    {
     "t": "capta esse",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "perf",
+    "voice": "pass",
+    "role": "indirect-statement"
    },
    {
     "t": ".",
@@ -7702,7 +7747,10 @@ export const SENTENCES = [
    },
    {
     "t": "versātūram esse",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "fut",
+    "voice": "act",
+    "role": "indirect-statement"
    },
    {
     "t": ".",
@@ -7758,7 +7806,10 @@ export const SENTENCES = [
    },
    {
     "t": "dolēre",
-    "p": "vinf"
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
    },
    {
     "t": "!",

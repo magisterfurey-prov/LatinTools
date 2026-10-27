@@ -26,6 +26,25 @@ const TENSE_OPTIONS = [
 const TENSE_OPTIONS_WITH_MOOD = TENSE_OPTIONS.filter(([v]) => v !== 'imper');
 const MOOD_OPTIONS = [['ind', 'Indicative'], ['subj', 'Subjunctive'], ['imp', 'Imperative']];
 
+// Infinitives, such as "iūdicāre" or the two-word "capta esse" (a perfect passive infinitive): the tense
+// and voice of the infinitive itself, and its use, with the names the textbook's syntax appendix gives
+// ("Functions of the infinitive"). A deponent's infinitive is passive in form, so Level 2 offers both.
+const INFINITIVE_TENSE_OPTIONS = [['pres', 'Present'], ['perf', 'Perfect'], ['fut', 'Future']];
+const VOICE_OPTIONS = [
+  ['act', 'Active'], ['pass', 'Passive'],
+  ...(BOOK.id === 2 ? [['dep', 'Deponent']] : []),
+];
+const INFINITIVE_ROLE_OPTIONS = [
+  ['complementary-infinitive', 'complementary infinitive'],
+  ['indirect-statement', 'infinitive in indirect statement'],
+  ['nominative-infinitive', 'nominative and infinitive'],
+  // Level 2: necesse est + infinitive, and the supine of purpose after a verb of motion
+  ...(BOOK.id === 2 ? [
+    ['subject-infinitive', 'infinitive as subject'],
+    ['supine-purpose', 'supine (purpose)'],
+  ] : []),
+];
+
 const NOUN_ROLE_OPTIONS = [
   ['subject', 'subject'],
   ['direct-object', 'direct object'],
@@ -90,7 +109,7 @@ function saveProgress(p) {
 }
 
 if (BOOK.id === 2) {
-  document.querySelector('#listCard > p').textContent = 'Pick a sentence. Above nouns and pronouns, set case / number / gender; above verbs, set person / number / tense / mood. Below each word, choose how it’s used in the sentence — for a subjunctive verb, choose why it is subjunctive (purpose clause, indirect question, …); for adjectives, choose which noun it agrees with, and for relative pronouns, the noun they refer to.';
+  document.querySelector('#listCard > p').textContent = 'Pick a sentence. Above nouns and pronouns, set case / number / gender; above verbs, set person / number / tense / mood; above infinitives, set tense / voice. Below each word, choose how it’s used in the sentence — for a subjunctive verb, choose why it is subjunctive (purpose clause, indirect question, …); for adjectives, choose which noun it agrees with, and for relative pronouns, the noun they refer to.';
 }
 
 const CHAPTERS = [...new Set(SENTENCES.map(s => s.chapter))].sort((a, b) => a - b);
@@ -180,6 +199,19 @@ function nounOptionsHTML(tokens) {
 
 function renderWordHTML(token, idx, tokens) {
   if (token.p === 'punct') return `<span class="punct-inline">${escapeHtml(token.t)}</span>`;
+  // An infinitive is tagged as a whole, even when it is two words ("capta esse"): tense and voice above,
+  // its use below. Each is asked only if the token carries it (a supine has no tense or voice).
+  if (token.p === 'vinf' && (token.tense !== undefined || token.voice !== undefined || token.role !== undefined)) {
+    const tenseSel = token.tense !== undefined ? selectHTML('f-tense', INFINITIVE_TENSE_OPTIONS, 'tense') : '';
+    const voiceSel = token.voice !== undefined ? selectHTML('f-voice', VOICE_OPTIONS, 'voice') : '';
+    const roleSel = token.role !== undefined ? selectHTML('f-role', INFINITIVE_ROLE_OPTIONS, 'usage…') : '';
+    return `
+      <span class="analysis-word" data-idx="${idx}" data-type="vinf">
+        <span class="field-row">${tenseSel}${voiceSel}</span>
+        <span class="word-text latin">${escapeHtml(token.t)}</span>
+        ${roleSel}
+      </span>`;
+  }
   if (token.p === 'prep' || token.p === 'conj' || token.p === 'adv' || token.p === 'vinf') {
     return `<span class="plain-word latin">${escapeHtml(token.t)}</span>`;
   }
@@ -258,7 +290,7 @@ function openSentence(id) {
       <button class="secondary" id="clearSentenceBtn">Clear</button>
     </div>
     <div id="scoreBanner"></div>
-    <div class="legend">Adjectives only need the agreement dropdown; relative pronouns also ask which noun they refer to. Everything else (prepositions, conjunctions, adverbs, infinitives) is shown for context and doesn't need to be tagged.</div>
+    <div class="legend">Adjectives only need the agreement dropdown; relative pronouns also ask which noun they refer to. An infinitive, even a two-word one like “capta esse”, is tagged as a whole: its tense and voice above, its use below. Everything else (prepositions, conjunctions, adverbs) is shown for context and doesn't need to be tagged.</div>
   `;
 
   const translationInput = document.getElementById('translationInput');
@@ -325,6 +357,10 @@ function checkSentence(sentence) {
       if (token.tense !== undefined) checkField('.f-tense', token.tense);
       if (token.mood !== undefined) checkField('.f-mood', token.mood);
       checkField('.f-role', token.role);
+    } else if (type === 'vinf') {
+      if (token.tense !== undefined) checkField('.f-tense', token.tense);
+      if (token.voice !== undefined) checkField('.f-voice', token.voice);
+      if (token.role !== undefined) checkField('.f-role', token.role);
     } else if (type === 'adj') {
       const expected = (token.agrees === null || token.agrees === undefined) ? 'none' : token.agrees;
       checkField('.f-agree', expected);
