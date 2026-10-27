@@ -166,16 +166,22 @@ function nextQuestion() {
   renderLearn();
 }
 
-// The correct answer plus up to 3 distractors. A distractor is skipped if it
+// How many answers a question offers. The Test is the harder one: a blind guess
+// is right one time in six instead of one in four. (Even the smallest chapter has
+// enough words to fill six.)
+const LEARN_CHOICES = 4;
+const TEST_CHOICES = 6;
+
+// The correct answer plus up to `count - 1` distractors. A distractor is skipped if it
 // shares the prompt with the correct word (e.g. "and" = et / atque / -que, or
 // ita = "yes" / "so"), since it would also be a right answer, or if it would
 // display the same text as another option.
-function buildOptions(entry, direction) {
+function buildOptions(entry, direction, count = LEARN_CHOICES) {
   const prompt = displayFront(entry, direction);
   const seen = new Set([displayOption(entry, direction)]);
   const distractors = [];
   for (const w of shuffle(currentWords())) {
-    if (distractors.length === 3) break;
+    if (distractors.length === count - 1) break;
     const text = displayOption(w, direction);
     if (w.id === entry.id || seen.has(text) || displayFront(w, direction) === prompt) continue;
     seen.add(text);
@@ -258,7 +264,7 @@ function renderLearnComplete() {
 }
 
 // ---------------- Mode switching ----------------
-// ---------------- Test mode (fixed 20 questions, no requeue) ----------------
+// ---------------- Test mode (fixed 20 questions, six choices each, no requeue) ----------------
 const testState = { questions: [], index: 0, correct: 0, current: null, direction: null, options: [], answered: false };
 
 function startTest() {
@@ -281,7 +287,7 @@ function nextTestQuestion() {
   }
   const entry = testState.questions[testState.index];
   const direction = Math.random() < 0.5 ? 'l2e' : 'e2l';
-  const options = buildOptions(entry, direction);
+  const options = buildOptions(entry, direction, TEST_CHOICES);
   testState.current = entry;
   testState.direction = direction;
   testState.options = options;
