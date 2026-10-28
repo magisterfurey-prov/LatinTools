@@ -1,6 +1,7 @@
 import { BOOK, loadSentences, linkParam, updateLink } from './book.js';
 import { parseChapterList, formatChapterList } from './util.js';
 import { sentenceNumbers } from './sentence-numbers.js';
+import { hasAnswers, isAcceptedAnswer } from './translation-match.js';
 
 const SENTENCES = await loadSentences();
 const NUMBERS = sentenceNumbers(SENTENCES);
@@ -272,6 +273,9 @@ function openSentence(id) {
   const sourceLine = sentence.type === 'Textbook Quote'
     ? `<div class="legend">Textbook quote — ${escapeHtml(sentence.source)}</div>`
     : '';
+  // Level 1, Chapters 1-10 have accepted translations to check the typed one against; every other
+  // sentence is "check your own" with the model translation.
+  const checkable = hasAnswers(sentence.id);
 
   analysisArea.innerHTML = `
     <p class="pill">Chapter ${sentence.chapter} · Sentence ${NUMBERS.get(sentence.id)}</p>
@@ -280,7 +284,9 @@ function openSentence(id) {
     <div class="translation-box">
       <label for="translationInput"><strong>Your translation:</strong></label>
       <textarea id="translationInput" rows="2" placeholder="Type your English translation of the sentence…"></textarea>
+      ${checkable ? '<button id="checkTranslationBtn" disabled>Check Translation</button>' : ''}
       <button class="secondary" id="revealTranslationBtn" disabled>Show Model Translation</button>
+      ${checkable ? '<div id="translationVerdict" class="translation-verdict" aria-live="polite"></div>' : ''}
       <div id="modelTranslation" style="display:none;" class="model-translation"></div>
     </div>
 
@@ -296,14 +302,36 @@ function openSentence(id) {
   const translationInput = document.getElementById('translationInput');
   const revealBtn = document.getElementById('revealTranslationBtn');
   const modelTranslation = document.getElementById('modelTranslation');
+  const checkBtn = document.getElementById('checkTranslationBtn');   // only where there are accepted translations
+  const verdict = document.getElementById('translationVerdict');
 
-  translationInput.addEventListener('input', () => {
-    revealBtn.disabled = !translationInput.value.trim();
-  });
-  revealBtn.onclick = () => {
+  const showModel = () => {
     modelTranslation.style.display = 'block';
     modelTranslation.innerHTML = `<strong>Model translation:</strong> ${escapeHtml(sentence.english)}`;
   };
+  const clearVerdict = () => {
+    verdict.className = 'translation-verdict';
+    verdict.textContent = '';
+  };
+
+  translationInput.addEventListener('input', () => {
+    const empty = !translationInput.value.trim();
+    revealBtn.disabled = empty;
+    if (checkBtn) { checkBtn.disabled = empty; clearVerdict(); }
+  });
+  revealBtn.onclick = showModel;
+  if (checkBtn) {
+    checkBtn.onclick = () => {
+      if (isAcceptedAnswer(sentence.id, translationInput.value)) {
+        verdict.className = 'translation-verdict matched';
+        verdict.textContent = 'Optime!';
+      } else {
+        verdict.className = 'translation-verdict missed';
+        verdict.textContent = 'Compare with model translation';
+        showModel();
+      }
+    };
+  }
 
   document.getElementById('checkSentenceBtn').onclick = () => checkSentence(sentence);
   document.getElementById('clearSentenceBtn').onclick = () => {
@@ -314,6 +342,7 @@ function openSentence(id) {
     document.getElementById('scoreBanner').innerHTML = '';
     translationInput.value = '';
     revealBtn.disabled = true;
+    if (checkBtn) { checkBtn.disabled = true; clearVerdict(); }
     modelTranslation.style.display = 'none';
     modelTranslation.innerHTML = '';
   };

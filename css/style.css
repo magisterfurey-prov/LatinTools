@@ -465,3 +465,16 @@ select.field-good { border-color: var(--good); background: #e5f4ea; }
   padding: 10px 14px;
   margin: 10px 0;
 }
+
+/* Level 1, Chapters 1-10: the verdict on the typed translation */
+.translation-box button { margin-right: 8px; }
+.translation-verdict {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-weight: 600;
+}
+.translation-verdict:empty { display: none; }
+.translation-verdict.matched { background: #e5f4ea; border-color: var(--good); color: var(--good); }
+.translation-verdict.missed { background: #fff7ea; }
