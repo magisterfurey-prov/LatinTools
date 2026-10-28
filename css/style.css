@@ -63,9 +63,13 @@ nav.site-nav a {
   transition: background 0.15s;
 }
 
-nav.site-nav a:hover, nav.site-nav a.active {
+/* Hover styles apply only where the pointer can really hover (a mouse). A touch screen leaves the spot of the
+   last tap "hovered", so when the next question's choices fill the same boxes, the one in that spot looked
+   pressed. A press is shown with :active instead. */
+nav.site-nav a:active, nav.site-nav a.active {
   background: rgba(255,255,255,0.22);
 }
+@media (hover: hover) { nav.site-nav a:hover { background: rgba(255,255,255,0.22); } }
 
 /* Level 1 / Level 2 textbook switch in the header */
 .book-switch {
@@ -85,7 +89,8 @@ nav.site-nav a:hover, nav.site-nav a.active {
   border-radius: 7px;
   font-size: 0.88rem;
 }
-.book-switch button:hover { background: rgba(255,255,255,0.16); }
+.book-switch button:active { background: rgba(255,255,255,0.16); }
+@media (hover: hover) { .book-switch button:hover { background: rgba(255,255,255,0.16); } }
 .book-switch button[aria-pressed="true"] { background: #fff; color: var(--maroon-dark); font-weight: 600; }
 
 main {
@@ -124,7 +129,8 @@ main {
   transition: transform 0.12s, box-shadow 0.12s;
 }
 
-.section-tile:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(60,40,20,0.14); }
+.section-tile:active { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(60,40,20,0.14); }
+@media (hover: hover) { .section-tile:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(60,40,20,0.14); } }
 
 .section-tile .icon { font-size: 2rem; }
 .section-tile h3 { margin: 10px 0 6px; color: var(--maroon-dark); font-family: Georgia, serif; }
@@ -142,14 +148,15 @@ button, .btn {
   transition: background 0.15s, transform 0.05s;
 }
 
-button:hover, .btn:hover { background: var(--maroon-dark); }
-button:active, .btn:active { transform: scale(0.98); }
+@media (hover: hover) { button:hover, .btn:hover { background: var(--maroon-dark); } }
+button:active, .btn:active { background: var(--maroon-dark); transform: scale(0.98); }
 
 button.secondary, .btn.secondary {
   background: transparent;
   color: var(--maroon);
 }
-button.secondary:hover, .btn.secondary:hover { background: rgba(122,31,43,0.08); }
+@media (hover: hover) { button.secondary:hover, .btn.secondary:hover { background: rgba(122,31,43,0.08); } }
+button.secondary:active, .btn.secondary:active { background: rgba(122,31,43,0.08); }
 
 button:disabled { opacity: 0.45; cursor: not-allowed; }
 
@@ -298,8 +305,11 @@ footer.site-footer {
   cursor: pointer;
   font-size: 1rem;
 }
-/* Overrides the general button:hover fill, which hid the option's text. */
-.mc-option:hover { border-color: var(--maroon); background: #fff; }
+/* Override the general button hover and press fill, which hid the option's text. The outline is for a real
+   hover or a press only, so a touch screen doesn't keep the box where the last tap landed outlined when
+   the next choices appear there. */
+@media (hover: hover) { .mc-option:hover { border-color: var(--maroon); background: #fff; } }
+.mc-option:not(:disabled):active { border-color: var(--maroon); background: #fff; }
 .mc-option.correct { background: #e5f4ea; border-color: var(--good); }
 .mc-option.incorrect { background: #fbe8e6; border-color: var(--bad); }
 .mc-option:disabled { cursor: default; opacity: 1; }
@@ -373,7 +383,8 @@ table.chart.translate-chart .label-short { display: none; }
   align-items: center;
   gap: 10px;
 }
-.sentence-item:hover { border-color: var(--maroon); }
+.sentence-item:active { border-color: var(--maroon); }
+@media (hover: hover) { .sentence-item:hover { border-color: var(--maroon); } }
 .sentence-item .latin { font-size: 1.05rem; }
 .sentence-item .sentence-number { display: inline-block; min-width: 1.5em; font-weight: 700; color: var(--maroon-dark); }
 .sentence-item .status { font-size: 0.8rem; }
