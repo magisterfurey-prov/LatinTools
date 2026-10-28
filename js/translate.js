@@ -308,9 +308,19 @@ function openSentence(id) {
   const checkBtn = document.getElementById('checkTranslationBtn');   // only where there are accepted translations
   const verdict = document.getElementById('translationVerdict');
 
+  // The button shows the model translation, and then hides it again.
+  const modelShown = () => modelTranslation.style.display === 'block';
   const showModel = () => {
     modelTranslation.style.display = 'block';
     modelTranslation.innerHTML = `<strong>Model translation:</strong> ${escapeHtml(sentence.english)}`;
+    revealBtn.textContent = 'Hide Model Translation';
+    revealBtn.disabled = false;
+  };
+  const hideModel = () => {
+    modelTranslation.style.display = 'none';
+    modelTranslation.innerHTML = '';
+    revealBtn.textContent = 'Show Model Translation';
+    revealBtn.disabled = !translationInput.value.trim();
   };
   const clearVerdict = () => {
     verdict.className = 'translation-verdict';
@@ -319,10 +329,10 @@ function openSentence(id) {
 
   translationInput.addEventListener('input', () => {
     const empty = !translationInput.value.trim();
-    revealBtn.disabled = empty;
+    if (!modelShown()) revealBtn.disabled = empty;   // Hide stays available while the model is showing
     if (checkBtn) { checkBtn.disabled = empty; clearVerdict(); }
   });
-  revealBtn.onclick = showModel;
+  revealBtn.onclick = () => (modelShown() ? hideModel() : showModel());
   if (checkBtn) {
     checkBtn.onclick = () => {
       if (isAcceptedAnswer(sentence.id, translationInput.value)) {
@@ -344,10 +354,8 @@ function openSentence(id) {
     });
     document.getElementById('scoreBanner').innerHTML = '';
     translationInput.value = '';
-    revealBtn.disabled = true;
+    hideModel();
     if (checkBtn) { checkBtn.disabled = true; clearVerdict(); }
-    modelTranslation.style.display = 'none';
-    modelTranslation.innerHTML = '';
   };
 }
 
