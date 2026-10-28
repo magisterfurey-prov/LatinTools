@@ -75,6 +75,19 @@ export function formatChapterList(chosen, available) {
   return runs.map(([a, b]) => (a === b ? `${a}` : `${a}-${b}`)).join(',');
 }
 
+// The principal parts a verb entry lists after its headword, as a list. The textbook's case notes ("+ dative",
+// "(+ accusative + ablative)") are not principal parts, and neither are its dashes for a part a verb lacks.
+// Empty for anything but a verb, and for verbs before `fromChapter`: Level 1's Chapter 1 verbs are taught by a
+// bare inflected form ("amat") before principal parts are introduced in Chapter 2, so that book passes 2.
+export function principalPartsOf(entry, fromChapter = 1) {
+  if (entry.pos !== 'Verb' || entry.chapter < fromChapter || !entry.principal_parts) return [];
+  return entry.principal_parts
+    .replace(/\s*\(?\+.*$/, '')
+    .split(',')
+    .map(part => part.trim())
+    .filter(part => part && !/^[—–-]+$/.test(part));
+}
+
 export function shuffle(arr) {
   const a = arr.slice();
   for (let i = a.length - 1; i > 0; i--) {

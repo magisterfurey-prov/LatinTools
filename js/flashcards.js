@@ -1,5 +1,5 @@
-import { loadVocab, loadEmoji, loadDerivatives, linkParam, updateLink } from './book.js';
-import { shuffle, parseChapterList, formatChapterList } from './util.js';
+import { BOOK, loadVocab, loadEmoji, loadDerivatives, linkParam, updateLink } from './book.js';
+import { shuffle, parseChapterList, formatChapterList, principalPartsOf } from './util.js';
 import { derivativeQuestion, meaningQuestion, definitionOf } from './derivatives.js';
 
 const [VOCAB, EMOJI, DERIVATIVES] = await Promise.all([loadVocab(), loadEmoji(), loadDerivatives()]);
@@ -58,13 +58,14 @@ function currentWords() {
   return VOCAB.filter(v => state.chapters.has(v.chapter));
 }
 
-// A noun with its genitive, a verb with its principal parts. Principal parts
+// A noun with its genitive, a verb with its principal parts. In Level 1, principal parts
 // aren't introduced as a concept until Chapter 2 (Ch. 1 verbs are taught via
 // their bare inflected form), so they show from Ch. 2 on -- matching the
-// textbook's own sequencing.
+// textbook's own sequencing. Level 2 has ordinary verbs from its first chapter.
+const PARTS_FROM_CHAPTER = BOOK.id === 1 ? 2 : 1;
 function citationForm(entry) {
   if (entry.pos === 'Noun' && entry.genitive) return `${entry.latin}, ${entry.genitive}`;
-  if (entry.pos === 'Verb' && entry.chapter >= 2 && entry.principal_parts) return `${entry.latin}, ${entry.principal_parts}`;
+  if (entry.pos === 'Verb' && entry.chapter >= PARTS_FROM_CHAPTER && entry.principal_parts) return `${entry.latin}, ${entry.principal_parts}`;
   return entry.latin;
 }
 
@@ -86,7 +87,7 @@ function renderFlashcards() {
   const entry = fcState.deck[fcState.index];
   const genderPill = entry.gender ? `<span class="pill">${entry.gender}</span>` : '';
   const isNounWithGenitive = entry.pos === 'Noun' && entry.genitive;
-  const isVerbWithParts = entry.pos === 'Verb' && entry.chapter >= 2 && entry.principal_parts;
+  const isVerbWithParts = entry.pos === 'Verb' && entry.chapter >= PARTS_FROM_CHAPTER && entry.principal_parts;
   const frontText = citationForm(entry);
   let frontClass = '';
   if (isNounWithGenitive) frontClass = ' compact';
@@ -194,14 +195,19 @@ function buildOptions(entry, direction, count = LEARN_CHOICES) {
   return shuffle([entry, ...distractors]);
 }
 
+// The Latin side of a question: a verb comes with every principal part the textbook lists for it.
+function latinForm(entry) {
+  const parts = principalPartsOf(entry, PARTS_FROM_CHAPTER);
+  return parts.length ? [entry.latin, ...parts].join(', ') : entry.latin;
+}
 function displayFront(entry, direction) {
-  return direction === 'l2e' ? entry.latin : entry.english;
+  return direction === 'l2e' ? latinForm(entry) : entry.english;
 }
 function displayOption(entry, direction) {
   if (direction === 'l2e') {
     return entry.english + (entry.gender ? ` (${entry.gender})` : '');
   }
-  return entry.latin;
+  return latinForm(entry);
 }
 
 function renderLearn() {
