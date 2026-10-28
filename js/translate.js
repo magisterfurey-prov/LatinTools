@@ -115,8 +115,11 @@ if (BOOK.id === 2) {
 
 const CHAPTERS = [...new Set(SENTENCES.map(s => s.chapter))].sort((a, b) => a - b);
 // A link can preselect the chapters and open a sentence: translate.html?ch=12&sentence=s40
-const state = { chapters: parseChapterList(linkParam('ch'), CHAPTERS), activeSentence: null };
+// No chapter is selected unless the link names some ("all" selects every chapter); a link to one sentence
+// without chapters selects that sentence's chapter, so the list behind it isn't empty.
 const linkedSentence = SENTENCES.find(s => s.id === linkParam('sentence'));
+const state = { chapters: parseChapterList(linkParam('ch'), CHAPTERS), activeSentence: null };
+if (linkedSentence && linkParam('ch') == null) state.chapters.add(linkedSentence.chapter);
 
 function syncLink() {
   updateLink({

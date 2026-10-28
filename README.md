@@ -12,9 +12,9 @@ A **Book: Level 1 / Level 2** switch in the header of every page chooses which t
 
 Every page keeps its address bar in step with what's selected, so to send students to an exact setup, pick the options and copy the link. Links can also be typed by hand; macrons in a word are optional, and anything a link gets wrong falls back to the page's usual starting point.
 
-- Vocabulary: `flashcards.html?book=1&ch=3-5,8&mode=test` opens Chapters 3–5 and 8 in Test mode. The modes are `learn` and `test`, and leaving `mode` out means flashcards; leaving `ch` out means every chapter.
+- Vocabulary: `flashcards.html?book=1&ch=3-5,8&mode=test` opens Chapters 3–5 and 8 in Test mode. The modes are `learn` and `test`, and leaving `mode` out means flashcards; leaving `ch` out means no chapters are selected yet, and `ch=all` selects every chapter.
 - Grammar Charts: `grammar.html?book=1&chart=v-1st&tense=perf&voice=pass&word=amo` opens the 1st conjugation perfect passive chart for amō, scrolled to the chart. Level 2 links can add `mood=subj`.
-- Translation: `translate.html?book=1&ch=12` lists the Chapter 12 sentences, and `&sentence=s91` opens one of them directly.
+- Translation: `translate.html?book=1&ch=12` lists the Chapter 12 sentences (`ch=all` lists every chapter, and leaving `ch` out selects none), and `&sentence=s91` opens one of them directly (its chapter is then selected if `ch` is left out).
 
 ## Sections
 

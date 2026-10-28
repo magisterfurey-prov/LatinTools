@@ -9,7 +9,7 @@ const CHAPTERS = [...new Set(VOCAB.map(v => v.chapter))].sort((a, b) => a - b);
 const MODES = ['flashcards', 'learn', 'test', 'derivatives'];
 // A link can preselect the chapters and mode: flashcards.html?ch=3-5&mode=test
 const state = {
-  chapters: parseChapterList(linkParam('ch'), CHAPTERS), // all selected by default
+  chapters: parseChapterList(linkParam('ch'), CHAPTERS), // none selected by default
   mode: MODES.includes(linkParam('mode')) ? linkParam('mode') : 'flashcards',
 };
 
@@ -153,6 +153,10 @@ function startLearn() {
 
 function nextQuestion() {
   lmState.answered = false;
+  if (lmState.total === 0) {   // no chapter selected: renderLearn asks for one
+    renderLearn();
+    return;
+  }
   if (lmState.queue.length === 0) {
     renderLearnComplete();
     return;

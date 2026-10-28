@@ -47,10 +47,11 @@ export function sameLatinRequireFinalMacron(a, b, n = 1) {
   return normalizeLatin(at.slice(0, -n)) === normalizeLatin(bt.slice(0, -n));
 }
 
-// Chapters in a link: "3", "1-5,8", or "none"; no value means every chapter.
+// Chapters in a link: "3", "1-5,8", or "all". No value, "none", or anything that names no chapter means
+// no chapters are selected.
 export function parseChapterList(text, available) {
-  if (text == null) return new Set(available);
-  if (text.trim().toLowerCase() === 'none') return new Set();
+  if (text == null) return new Set();
+  if (text.trim().toLowerCase() === 'all') return new Set(available);
   const first = Math.min(...available), last = Math.max(...available);
   const wanted = new Set();
   for (const part of text.split(',')) {
@@ -58,13 +59,13 @@ export function parseChapterList(text, available) {
     if (Number.isNaN(a) || Number.isNaN(b)) continue;
     for (let ch = Math.max(first, Math.min(a, b)); ch <= Math.min(last, Math.max(a, b)); ch++) wanted.add(ch);
   }
-  const chosen = available.filter(ch => wanted.has(ch));
-  return new Set(chosen.length ? chosen : available);
+  return new Set(available.filter(ch => wanted.has(ch)));
 }
 
+// The link text for a selection: nothing when none is selected (that is the starting point), "all" for every chapter.
 export function formatChapterList(chosen, available) {
-  if (chosen.size === available.length) return null;
-  if (chosen.size === 0) return 'none';
+  if (chosen.size === 0) return null;
+  if (chosen.size === available.length) return 'all';
   const runs = [];
   for (const ch of available.filter(c => chosen.has(c))) {
     const run = runs[runs.length - 1];
