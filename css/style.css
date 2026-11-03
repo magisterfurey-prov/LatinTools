@@ -315,6 +315,19 @@ footer.site-footer {
 .mc-option:disabled { cursor: default; opacity: 1; }
 .mc-option:disabled:not(.correct):not(.incorrect) { opacity: 0.5; }
 
+/* Learning Mode's typed questions: the English, then a box for the Latin */
+.typed-pos { text-align: center; color: var(--ink-soft); font-size: 0.9rem; margin: -16px 0 18px; }
+.typed-answer { display: flex; gap: 10px; max-width: 560px; margin: 0 auto; }
+.typed-answer input[type="text"] { flex: 1 1 auto; min-width: 0; font-size: 1.15rem; padding: 10px 12px; }
+.typed-answer input.correct { background: #e5f4ea; border-color: var(--good); }
+.typed-answer input.incorrect { background: #fbe8e6; border-color: var(--bad); }
+.typed-macrons { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: center; margin-top: 10px; }
+.typed-macrons button { padding: 4px 10px; }
+.typed-feedback { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; margin-top: 16px; min-height: 2.2em; }
+.typed-feedback.correct { color: var(--good); font-weight: 600; }
+.typed-feedback.incorrect { color: var(--bad); }
+.typed-feedback .latin { font-size: 1.15rem; color: var(--ink); }
+
 .stat-row { display: flex; gap: 20px; justify-content: center; margin: 14px 0; flex-wrap: wrap; }
 .stat { text-align: center; }
 .stat .num { font-size: 1.5rem; font-weight: 600; color: var(--maroon-dark); }

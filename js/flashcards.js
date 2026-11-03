@@ -1,6 +1,7 @@
 import { BOOK, loadVocab, loadEmoji, loadDerivatives, linkParam, updateLink } from './book.js';
-import { shuffle, parseChapterList, formatChapterList, principalPartsOf } from './util.js';
+import { shuffle, parseChapterList, formatChapterList, principalPartsOf, insertAtCursor } from './util.js';
 import { derivativeQuestion, meaningQuestion, definitionOf } from './derivatives.js';
+import { typedAnswerOf, typedHintOf, typedMatchOf } from './typed-answer.js';
 
 const [VOCAB, EMOJI, DERIVATIVES] = await Promise.all([loadVocab(), loadEmoji(), loadDerivatives()]);
 
@@ -142,13 +143,26 @@ function renderFlashcards() {
 }
 
 // ---------------- Learning mode ----------------
-const lmState = { queue: [], total: 0, mastered: new Set(), current: null, direction: null, options: [], answered: false };
+// Every word is asked until it's answered right once. Between a fifth and a third of the words are
+// typed: the English is shown and the student types the Latin dictionary entry. The rest are
+// multiple choice, Latin to English or English to Latin. A missed word goes to the back of the
+// queue and comes back as the same question: typed again, or the same choices in a new order.
+const lmState = { queue: [], total: 0, mastered: new Set(), current: null, answered: false, round: 0 };
+
+// How many of a round's words are typed.
+function typedCount(total) {
+  const fewest = Math.ceil(total / 5);
+  const most = Math.max(fewest, Math.floor(total / 3));
+  return Math.min(total, fewest + Math.floor(Math.random() * (most - fewest + 1)));
+}
 
 function startLearn() {
-  const words = currentWords();
-  lmState.queue = shuffle(words);
+  const words = shuffle(currentWords());
+  const typed = new Set(shuffle(words).slice(0, typedCount(words.length)).map(w => w.id));
+  lmState.queue = words.map(entry => ({ entry, typed: typed.has(entry.id), direction: null, options: null }));
   lmState.total = words.length;
   lmState.mastered = new Set();
+  lmState.round++;
   nextQuestion();
 }
 
@@ -162,13 +176,33 @@ function nextQuestion() {
     renderLearnComplete();
     return;
   }
-  const entry = lmState.queue[0];
-  const direction = Math.random() < 0.5 ? 'l2e' : 'e2l'; // latin-to-english or english-to-latin
-  const options = buildOptions(entry, direction);
-  lmState.current = entry;
-  lmState.direction = direction;
-  lmState.options = options;
+  const question = lmState.queue[0];
+  if (!question.typed) {
+    if (question.options) {
+      question.options = reshuffled(question.options, question.entry);
+    } else {
+      question.direction = Math.random() < 0.5 ? 'l2e' : 'e2l'; // latin-to-english or english-to-latin
+      question.options = buildOptions(question.entry, question.direction);
+    }
+  }
+  lmState.current = question;
   renderLearn();
+}
+
+// The same choices in a new order, with the right answer in a new place when it can be.
+function reshuffled(options, entry) {
+  const was = options.indexOf(entry);
+  let next = shuffle(options);
+  for (let tries = 0; tries < 10 && options.length > 1 && next.indexOf(entry) === was; tries++) next = shuffle(options);
+  return next;
+}
+
+// Moves on after a pause, unless the student has restarted or changed modes in the meantime.
+function afterLearnPause(ms) {
+  const round = lmState.round;
+  setTimeout(() => {
+    if (state.mode === 'learn' && lmState.round === round) nextQuestion();
+  }, ms);
 }
 
 // How many answers a question offers. The Test is the harder one: a blind guess
@@ -215,16 +249,22 @@ function renderLearn() {
     studyArea.innerHTML = '<div class="empty-state">Select at least one chapter to begin.</div>';
     return;
   }
-  const { current, direction, options } = lmState;
-  const masteredCount = lmState.mastered.size;
+  const question = lmState.current;
+  const stats = `
+    <div class="stat-row">
+      <div class="stat"><div class="num">${lmState.mastered.size}/${lmState.total}</div><div class="label">Mastered</div></div>
+      <div class="stat"><div class="num">${lmState.queue.length}</div><div class="label">Remaining in queue</div></div>
+    </div>`;
+  if (question.typed) {
+    renderTypedQuestion(question.entry, stats);
+    return;
+  }
+  const { entry, direction, options } = question;
   const promptLabel = direction === 'l2e' ? 'What does this word mean?' : 'Which Latin word matches?';
   studyArea.innerHTML = `
-    <div class="stat-row">
-      <div class="stat"><div class="num">${masteredCount}/${lmState.total}</div><div class="label">Mastered</div></div>
-      <div class="stat"><div class="num">${lmState.queue.length}</div><div class="label">Remaining in queue</div></div>
-    </div>
+    ${stats}
     <div class="mc-sub">${promptLabel}</div>
-    <div class="mc-prompt latin">${displayFront(current, direction)}</div>
+    <div class="mc-prompt latin">${displayFront(entry, direction)}</div>
     <div class="mc-options" id="mcOptions"></div>
   `;
   const optionsDiv = document.getElementById('mcOptions');
@@ -240,25 +280,85 @@ function renderLearn() {
 function handleAnswer(selected, btnEl, optionsDiv) {
   if (lmState.answered) return;
   lmState.answered = true;
-  const correct = selected.id === lmState.current.id;
+  const question = lmState.current;
+  const correct = selected.id === question.entry.id;
   const buttons = [...optionsDiv.children];
   buttons.forEach(b => (b.disabled = true));
   if (correct) {
     btnEl.classList.add('correct');
   } else {
     btnEl.classList.add('incorrect');
-    const correctBtn = buttons.find(b => b.textContent === displayOption(lmState.current, lmState.direction));
+    const correctBtn = buttons.find(b => b.textContent === displayOption(question.entry, question.direction));
     if (correctBtn) correctBtn.classList.add('correct');
   }
 
-  const finishedWord = lmState.queue.shift();
-  if (correct) {
-    lmState.mastered.add(finishedWord.id);
-  } else {
-    lmState.queue.push(finishedWord);
-  }
+  lmState.queue.shift();
+  if (correct) lmState.mastered.add(question.entry.id);
+  else lmState.queue.push(question);   // back later, its choices in a new order
 
-  setTimeout(nextQuestion, 900);
+  afterLearnPause(900);
+}
+
+const MACRONS = ['ā', 'ē', 'ī', 'ō', 'ū'];
+
+// A typed question: the English, and a box for the Latin dictionary entry.
+function renderTypedQuestion(entry, stats) {
+  const hint = typedHintOf(entry, PARTS_FROM_CHAPTER);
+  studyArea.innerHTML = `
+    ${stats}
+    <div class="mc-sub">Type the Latin for this word.${hint ? ` ${hint}` : ''}</div>
+    <div class="mc-prompt">${entry.english}</div>
+    <div class="typed-pos">${entry.pos.toLowerCase()}</div>
+    <form class="typed-answer" id="typedForm" autocomplete="off">
+      <input type="text" id="typedInput" class="latin" aria-label="The Latin" spellcheck="false" autocapitalize="off" autocorrect="off">
+      <button type="submit" id="typedCheck">Check</button>
+    </form>
+    <div class="typed-macrons" id="typedMacrons"><span class="legend" style="margin:0;">Macrons are optional:</span></div>
+    <div class="typed-feedback" id="typedFeedback" aria-live="polite"></div>
+  `;
+  const input = document.getElementById('typedInput');
+  const macrons = document.getElementById('typedMacrons');
+  MACRONS.forEach(ch => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'secondary latin';
+    btn.textContent = ch;
+    btn.onclick = () => insertAtCursor(input, ch);
+    macrons.appendChild(btn);
+  });
+  document.getElementById('typedForm').onsubmit = e => {
+    e.preventDefault();
+    checkTypedAnswer(input);
+  };
+  input.focus();
+}
+
+function checkTypedAnswer(input) {
+  if (lmState.answered || !input.value.trim()) return;
+  lmState.answered = true;
+  const question = lmState.current;
+  const match = typedMatchOf(question.entry, input.value, VOCAB, PARTS_FROM_CHAPTER);
+  input.disabled = true;
+  input.classList.add(match ? 'correct' : 'incorrect');
+  document.getElementById('typedCheck').disabled = true;
+  document.querySelectorAll('#typedMacrons button').forEach(b => (b.disabled = true));
+  const feedback = document.getElementById('typedFeedback');
+
+  lmState.queue.shift();
+  if (match) {
+    lmState.mastered.add(question.entry.id);
+    feedback.className = 'typed-feedback correct';
+    feedback.innerHTML = `✓ <span class="latin">${typedAnswerOf(match, PARTS_FROM_CHAPTER)}</span>`;
+    afterLearnPause(900);
+    return;
+  }
+  lmState.queue.push(question);   // back later, typed again
+  feedback.className = 'typed-feedback incorrect';
+  feedback.innerHTML = `The answer is <span class="latin">${typedAnswerOf(question.entry, PARTS_FROM_CHAPTER)}</span>
+    <button type="button" id="typedNext">Next</button>`;
+  const next = document.getElementById('typedNext');
+  next.onclick = nextQuestion;
+  next.focus();
 }
 
 function renderLearnComplete() {
