@@ -42,6 +42,7 @@ const CHARTS = [
   { group: 'Verbs', id: 'v-4th', label: '4th Conjugation Verbs', kind: 'verb', cat: '4th' },
   { group: 'Verbs', id: 'v-dep', label: 'Deponent Verbs', kind: 'verb', cat: 'deponent', books: [2] },
   { group: 'Verbs', id: 'v-irr', label: BOOK.id === 1 ? 'sum and possum (Irregular)' : 'Irregular Verbs (sum, volō, eō, ferō, fīō…)', kind: 'verb', cat: 'irregular' },
+  { group: 'Verbs', id: 'v-synopsis', label: 'Verb Synopsis', kind: 'synopsis', books: [2] },
   { group: 'Participles & Gerunds', id: 'pt-pres', label: 'Present Active Participles', kind: 'participle', books: [2] },
   { group: 'Participles & Gerunds', id: 'g-gerund', label: 'Gerunds', kind: 'gerund', books: [2] },
 ].filter(c => !c.books || c.books.includes(BOOK.id));
@@ -68,6 +69,40 @@ let verbVoice = linkParam('voice') === 'pass' ? 'pass' : 'act';
 // Latin headword of the word last shown, so re-rendering keeps it selected.
 let currentWord = linkParam('word');
 
+// The verb synopsis (Level 2): one person and number of a verb in every mood, voice and tense the
+// student picks before starting (all of them unless a link says otherwise):
+// grammar.html?chart=v-synopsis&moods=ind&voices=act,pass&tenses=pres,perf&person=2pl&word=capiō
+const PERSON_NUMBERS = [
+  ['sg1', '1st Person Singular'], ['sg2', '2nd Person Singular'], ['sg3', '3rd Person Singular'],
+  ['pl1', '1st Person Plural'], ['pl2', '2nd Person Plural'], ['pl3', '3rd Person Plural'],
+];
+function pickedFromLink(name, options) {
+  const raw = linkParam(name);
+  return raw === null ? options.map(([v]) => v) : options.map(([v]) => v).filter(v => raw.split(',').includes(v));
+}
+const linkedPerson = /^([123])(sg|pl)$/.exec(linkParam('person') || '');
+const synopsis = {
+  moods: pickedFromLink('moods', MOODS),
+  voices: pickedFromLink('voices', VOICES),
+  tenses: pickedFromLink('tenses', TENSES),
+  person: linkedPerson ? linkedPerson[2] + linkedPerson[1] : 'sg3',
+};
+
+// The synopsis's columns for a verb: the picked voices, or a deponent's one set of forms.
+function synopsisVoices(entry) {
+  if (!synopsis.voices.length) return [];
+  return entry.deponent ? [['pass', 'Deponent']] : VOICES.filter(([v]) => synopsis.voices.includes(v));
+}
+// The picked tenses a mood has: the subjunctive has no future or future perfect.
+function synopsisTenses(mood) {
+  return TENSES.filter(([t]) => synopsis.tenses.includes(t) && (mood === 'ind' || SUBJUNCTIVE_TENSES.includes(t)));
+}
+// Every form the synopsis asks for: { mood, tense, voice } per box.
+function synopsisCells(entry) {
+  return MOODS.filter(([m]) => synopsis.moods.includes(m)).flatMap(([mood]) =>
+    synopsisTenses(mood).flatMap(([tense]) => synopsisVoices(entry).map(([voice]) => ({ mood, tense, voice }))));
+}
+
 // Level 1 has no subjunctive; sum and possum (Level 1's irregular chart)
 // have no passive; deponents are always passive in form.
 function activeMood() {
@@ -79,7 +114,7 @@ function activeVoice() {
   return verbVoice;
 }
 
-const VERB_LIKE = new Set(['verb', 'participle', 'gerund']);
+const VERB_LIKE = new Set(['verb', 'participle', 'gerund', 'synopsis']);
 
 // Chapter of LFNM Level 1 that introduces each set of indicative forms.
 function level1Chapter(conj, tense, voice) {
@@ -185,6 +220,12 @@ function wordsForChart(chart) {
     case 'gerund':
       words = VOCAB.filter(v => gerundOf(v) && (isIrregularVerb(v) || isVerbCitationForm(v)));
       break;
+    case 'synopsis':
+      // Only verbs that have every form picked: with the passive picked, no intransitive verbs or sum.
+      words = VOCAB.filter(v => v.pos === 'Verb' && (isIrregularVerb(v) || isVerbCitationForm(v))
+        && synopsisCells(v).length > 0
+        && synopsisCells(v).every(c => verbHasForms(v, c.tense, c.voice, c.mood)));
+      break;
     default: {
       const mood = activeMood();
       const voice = activeVoice();
@@ -205,6 +246,7 @@ function optionsHTML(options, selected) {
 }
 
 function chartTitle(chart) {
+  if (chart.kind === 'synopsis') return `${chart.label} — ${PERSON_NUMBERS.find(([v]) => v === synopsis.person)[1]}`;
   if (chart.kind !== 'verb') return chart.label;
   const tense = TENSES.find(([v]) => v === verbTense)[1];
   const mood = BOOK.id === 2 ? ' ' + MOODS.find(([v]) => v === activeMood())[1] : '';
@@ -250,6 +292,36 @@ function wireTenseBar() {
       renderChart();
     };
   }
+}
+
+// The synopsis's choices, made before writing: moods, voices, tenses, and the person and number.
+function synopsisBarHTML(chart) {
+  if (chart.kind !== 'synopsis') return '';
+  const boxes = (name, options, picked) => options.map(([v, l]) =>
+    `<label class="synopsis-pick"><input type="checkbox" name="${name}" value="${v}"${picked.includes(v) ? ' checked' : ''}> ${l}</label>`).join('');
+  return `
+    <div class="chart-toolbar synopsis-bar">
+      <span class="synopsis-group"><strong>Mood:</strong> ${boxes('moods', MOODS, synopsis.moods)}</span>
+      <span class="synopsis-group"><strong>Voice:</strong> ${boxes('voices', VOICES, synopsis.voices)}</span>
+    </div>
+    <div class="chart-toolbar synopsis-bar">
+      <span class="synopsis-group"><strong>Tense:</strong> ${boxes('tenses', TENSES, synopsis.tenses)}</span>
+    </div>
+    <div class="chart-toolbar">
+      <label for="personSelect">Person:</label>
+      <select id="personSelect">${optionsHTML(PERSON_NUMBERS, synopsis.person)}</select>
+    </div>`;
+}
+
+function wireSynopsisBar() {
+  document.querySelectorAll('.synopsis-bar input[type="checkbox"]').forEach(box => {
+    box.onchange = () => {
+      synopsis[box.name] = [...document.querySelectorAll(`.synopsis-bar input[name="${box.name}"]:checked`)].map(b => b.value);
+      renderChart();
+    };
+  });
+  const person = document.getElementById('personSelect');
+  if (person) person.onchange = () => { synopsis.person = person.value; renderChart(); };
 }
 
 function renderChartPicker() {
@@ -320,11 +392,18 @@ function findWordIndex(words, wanted) {
 function syncLink() {
   const verb = activeChart.kind === 'verb';
   const hasVoiceMenu = verb && activeChart.cat !== 'deponent' && !(activeChart.cat === 'irregular' && BOOK.id === 1);
+  // A synopsis's picks, left out of the link when every one is picked.
+  const syn = activeChart.kind === 'synopsis';
+  const picks = (list, options) => (!syn || list.length === options.length ? null : list.join(',') || 'none');
   updateLink({
     chart: activeChart.id,
     mood: verb && BOOK.id === 2 ? activeMood() : null,
     tense: verb ? verbTense : null,
     voice: hasVoiceMenu ? activeVoice() : null,
+    moods: picks(synopsis.moods, MOODS),
+    voices: picks(synopsis.voices, VOICES),
+    tenses: picks(synopsis.tenses, TENSES),
+    person: syn ? synopsis.person.replace(/^(sg|pl)(\d)$/, '$2$1') : null,
     word: currentWord ? currentWord.split(',')[0].trim() : null,
   });
 }
@@ -332,15 +411,20 @@ function syncLink() {
 function renderChart() {
   const words = wordsForChart(activeChart);
   if (words.length === 0) {
-    chartArea.innerHTML = `<h2>${chartTitle(activeChart)}</h2>${tenseBarHTML(activeChart)}
-      <div class="empty-state">No vocabulary words fit this chart yet.</div>`;
+    const message = activeChart.kind === 'synopsis'
+      ? 'Pick at least one mood, voice, and tense. (The subjunctive has no future or future perfect.)'
+      : 'No vocabulary words fit this chart yet.';
+    chartArea.innerHTML = `<h2>${chartTitle(activeChart)}</h2>${tenseBarHTML(activeChart)}${synopsisBarHTML(activeChart)}
+      <div class="empty-state">${message}</div>`;
     wireTenseBar();
+    wireSynopsisBar();
     syncLink();
     return;
   }
   chartArea.innerHTML = `
     <h2>${chartTitle(activeChart)}</h2>
     ${tenseBarHTML(activeChart)}
+    ${synopsisBarHTML(activeChart)}
     <div class="chart-toolbar">
       <label for="wordSelect">Word:</label>
       <select id="wordSelect"></select>
@@ -358,6 +442,7 @@ function renderChart() {
   `;
 
   wireTenseBar();
+  wireSynopsisBar();
   const macronBar = document.getElementById('macronBar');
   MACRONS.forEach(ch => {
     const btn = document.createElement('button');
@@ -429,6 +514,8 @@ function legendText(chart) {
       return `${base}. The ablative singular may end in -ī (as in the textbook's table) or -e (as in an ablative absolute).`;
     case 'gerund':
       return `${base}. The gerund has no nominative (the infinitive serves instead); its accusative is used after ad.`;
+    case 'synopsis':
+      return `${base}. For two-word forms, type both words — the participle and the form of sum (e.g. parātus est); any gender of the participle is accepted. A deponent has one column, since its forms are passive throughout.`;
     case 'comparative':
       return `${base}.`;
     case 'pronoun':
@@ -461,8 +548,28 @@ function tableHTML(chart, entry) {
     case 'participle': return adj3TableHTML();
     case 'comparison': return comparisonTableHTML(entry);
     case 'gerund': return gerundTableHTML();
+    case 'synopsis': return synopsisTableHTML(entry);
     default: return verbTableHTML();
   }
+}
+
+// One table per picked mood: a row per tense, a column per voice. Tense names shorten on
+// phones (Plup.) to leave room for two-word forms like captī essent.
+const SHORT_TENSES = { pres: 'Pres.', impf: 'Impf.', fut: 'Fut.', perf: 'Perf.', plup: 'Plup.', futperf: 'Fut. Perf.' };
+function synopsisTableHTML(entry) {
+  const voices = synopsisVoices(entry);
+  return MOODS.filter(([m]) => synopsis.moods.includes(m)).map(([mood, moodLabel]) => {
+    const tenses = synopsisTenses(mood);
+    if (!tenses.length) return `<p class="legend">The subjunctive has no future or future perfect.</p>`;
+    const rows = tenses.map(([tense, tenseLabel]) => `
+      <tr>
+        <td class="case-label"><span class="label-full">${tenseLabel}</span><span class="label-short">${SHORT_TENSES[tense]}</span></td>
+        ${voices.map(([voice, voiceLabel]) => `<td><input data-mood="${mood}" data-tense="${tense}" data-voice="${voice}"
+          autocomplete="off" spellcheck="false" aria-label="${tenseLabel} ${voiceLabel} ${moodLabel}"></td>`).join('')}
+      </tr>`).join('');
+    return `<h3 class="synopsis-mood">${moodLabel}</h3>
+      <table class="chart synopsis-chart"><tr><th></th>${voices.map(([, l]) => `<th>${l}</th>`).join('')}</tr>${rows}</table>`;
+  }).join('');
 }
 
 function nounTableHTML() {
@@ -587,6 +694,15 @@ function checkChart(entry) {
     case 'gerund': {
       const forms = gerundOf(entry);
       inputs.forEach(inp => markCell(inp, forms[inp.dataset.case]));
+      return;
+    }
+    case 'synopsis': {
+      inputs.forEach(inp => {
+        const { mood, tense, voice } = inp.dataset;
+        markCell(inp, conjugateVerb(entry, tense, voice, mood)[synopsis.person]);
+      });
+      const allRight = [...inputs].every(inp => inp.parentElement.classList.contains('correct'));
+      document.getElementById('translateArea').innerHTML = allRight ? '<div class="translate-offer">✓ All correct!</div>' : '';
       return;
     }
     default: {

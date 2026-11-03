@@ -379,6 +379,21 @@ table.chart.translate-chart .label-short { display: none; }
 }
 
 .chart-toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+
+/* The verb synopsis (Level 2): its choices, then one table per mood */
+.synopsis-group { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; }
+.synopsis-pick { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+h3.synopsis-mood { margin: 18px 0 0; color: var(--maroon-dark); font-family: Georgia, serif; }
+table.chart.synopsis-chart { margin-top: 8px; }
+table.chart.synopsis-chart td.case-label { width: 9em; }
+table.chart.synopsis-chart .label-short { display: none; }
+@media (max-width: 560px) {
+  table.chart.synopsis-chart td { padding: 5px 3px; }
+  table.chart.synopsis-chart td.case-label { width: auto; font-size: 0.9rem; }
+  table.chart.synopsis-chart .label-full { display: none; }
+  table.chart.synopsis-chart .label-short { display: inline; }
+  table.chart.synopsis-chart td input { min-width: 0; font-size: 0.9rem; padding: 6px 2px; }
+}
 /* A select sizes itself to its longest option (e.g. full principal parts
    plus meaning); keep it inside the card on narrow screens. */
 .chart-toolbar select { max-width: 100%; min-width: 0; }
