@@ -214,18 +214,31 @@ const TEST_CHOICES = 6;
 // The correct answer plus up to `count - 1` distractors. A distractor is skipped if it
 // shares the prompt with the correct word (e.g. "and" = et / atque / -que, or
 // ita = "yes" / "so"), since it would also be a right answer, or if it would
-// display the same text as another option.
+// display the same text as another option. When the choices are Latin and the
+// answer is a verb, the wrong choices are verbs shown the same way (with their
+// principal parts, or bare like Level 1's Chapter 1 verbs), so the parts don't
+// give it away; an adjective's are adjectives, so its other forms don't either.
+// The rest of the book's verbs or adjectives fill in if the chosen chapters run short.
 function buildOptions(entry, direction, count = LEARN_CHOICES) {
   const prompt = displayFront(entry, direction);
   const seen = new Set([displayOption(entry, direction)]);
   const distractors = [];
-  for (const w of shuffle(currentWords())) {
-    if (distractors.length === count - 1) break;
-    const text = displayOption(w, direction);
-    if (w.id === entry.id || seen.has(text) || displayFront(w, direction) === prompt) continue;
-    seen.add(text);
-    distractors.push(w);
+  const add = words => {
+    for (const w of shuffle(words)) {
+      if (distractors.length === count - 1) return;
+      const text = displayOption(w, direction);
+      if (w.id === entry.id || seen.has(text) || displayFront(w, direction) === prompt) continue;
+      seen.add(text);
+      distractors.push(w);
+    }
+  };
+  if (direction === 'e2l' && (entry.pos === 'Verb' || entry.pos === 'Adjective')) {
+    const hasParts = w => principalPartsOf(w, PARTS_FROM_CHAPTER).length > 0;
+    const shownLikeIt = w => w.pos === entry.pos && hasParts(w) === hasParts(entry);
+    add(currentWords().filter(shownLikeIt));
+    add(VOCAB.filter(shownLikeIt));
   }
+  add(currentWords());
   return shuffle([entry, ...distractors]);
 }
 
