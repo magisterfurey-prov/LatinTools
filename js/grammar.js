@@ -13,6 +13,7 @@ const MACRONS = ['ā', 'ē', 'ī', 'ō', 'ū'];
 let lastFocusedInput = null;
 
 const CASE_LABELS = { nom: 'Nominative', gen: 'Genitive', dat: 'Dative', acc: 'Accusative', abl: 'Ablative' };
+const SHORT_CASES = { nom: 'Nom.', gen: 'Gen.', dat: 'Dat.', acc: 'Acc.', abl: 'Abl.' };
 const CASES = ['nom', 'gen', 'dat', 'acc', 'abl'];
 
 // Every chart, with the books it appears in. Level 2 charts draw on the
@@ -582,18 +583,19 @@ function nounTableHTML() {
   return `<table class="chart"><tr><th></th><th>Singular</th><th>Plural</th></tr>${rows}</table>`;
 }
 
+// One column per gender, with the singular fields on top and the plural fields underneath, the way
+// the textbook sets out an adjective. The -īus adjectives and the pronouns have the same shape.
+// On phones the case and gender names shorten (Nom., Masc.) so that the three columns fit.
 function adj12TableHTML() {
-  let rows = CASES.map(c => `
+  const genders = [['M', 'Masculine', 'Masc.'], ['F', 'Feminine', 'Fem.'], ['N', 'Neuter', 'Neut.']];
+  const named = (full, short) => `<span class="label-full">${full}</span><span class="label-short">${short}</span>`;
+  const block = (num, label) => `
+    <tr class="number-row"><th colspan="${genders.length + 1}">${label}</th></tr>${CASES.map(c => `
     <tr>
-      <td class="case-label">${CASE_LABELS[c]}</td>
-      <td><input data-case="${c}" data-gender="M" data-num="sg"></td>
-      <td><input data-case="${c}" data-gender="F" data-num="sg"></td>
-      <td><input data-case="${c}" data-gender="N" data-num="sg"></td>
-      <td><input data-case="${c}" data-gender="M" data-num="pl"></td>
-      <td><input data-case="${c}" data-gender="F" data-num="pl"></td>
-      <td><input data-case="${c}" data-gender="N" data-num="pl"></td>
-    </tr>`).join('');
-  return `<table class="chart"><tr><th></th><th>M (sg)</th><th>F (sg)</th><th>N (sg)</th><th>M (pl)</th><th>F (pl)</th><th>N (pl)</th></tr>${rows}</table>`;
+      <td class="case-label">${named(CASE_LABELS[c], SHORT_CASES[c])}</td>${genders.map(([g]) => `
+      <td><input data-case="${c}" data-gender="${g}" data-num="${num}"></td>`).join('')}
+    </tr>`).join('')}`;
+  return `<table class="chart gender-chart"><tr><th></th>${genders.map(([, name, short]) => `<th>${named(name, short)}</th>`).join('')}</tr>${block('sg', 'Singular')}${block('pl', 'Plural')}</table>`;
 }
 
 // 3rd declension (and comparatives, participles): M/F identical, so combined.

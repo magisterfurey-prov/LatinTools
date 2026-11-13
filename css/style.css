@@ -364,6 +364,26 @@ table.chart td input:focus { outline: 2px solid var(--gold); background: #fffdf6
 table.chart td.correct input { background: #e5f4ea; }
 table.chart td.incorrect input { background: #fbe8e6; }
 table.chart td.case-label { font-weight: 600; background: #faf6ee; }
+/* A chart with a column per gender: a "Singular" row and its cases, then a "Plural" row and its cases.
+   On phones the case and gender names shorten so that the three columns fit the screen. */
+table.chart tr.number-row th { text-align: left; padding: 4px 8px; font-size: 0.85rem; background: #faf6ee; }
+table.chart.gender-chart .label-short { display: none; }
+@media (max-width: 560px) {
+  table.chart.gender-chart td { padding: 5px 3px; }
+  table.chart.gender-chart td.case-label { font-size: 0.9rem; }
+  table.chart.gender-chart .label-full { display: none; }
+  table.chart.gender-chart .label-short { display: inline; }
+  table.chart.gender-chart td input { min-width: 0; font-size: 0.9rem; padding: 6px 2px; }
+}
+/* The longest forms (eōrundem, eārundem) need the padding trimmed on the narrowest phones */
+@media (max-width: 380px) {
+  table.chart.gender-chart td { padding: 5px 1px; }
+  table.chart.gender-chart td input { padding: 6px 1px; }
+}
+@media (max-width: 340px) {
+  table.chart.gender-chart td { padding: 5px 0; }
+  table.chart.gender-chart td input { font-size: 0.78rem; padding: 6px 0; }
+}
 
 /* Translating a correctly conjugated verb chart */
 .translate-offer { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 12px; color: var(--good); font-weight: 600; }
