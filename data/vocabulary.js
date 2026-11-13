@@ -749,7 +749,7 @@ export const VOCAB = [
   "gender": "n.",
   "declension": "2nd",
   "conjugation": null,
-  "english": "reward",
+  "english": "reward, gift",
   "notes": null,
   "id": "v58"
  },

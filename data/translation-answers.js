@@ -87,8 +87,8 @@ export const ANSWERS = {
     "You are at home.",
   ],
   s25: [
-    "The consul [gives | is giving | does give] a [reward | prize] to the man.",
-    "The consul [gives | is giving | does give] the man a [reward | prize].",
+    "The consul [gives | is giving | does give] a [reward | prize | gift] to the man.",
+    "The consul [gives | is giving | does give] the man a [reward | prize | gift].",
   ],
   s26: [
     "[he | she | it | s/he | he/she | s/he/it | he/she/it | he or she] [tells | is telling | does tell | narrates | is narrating | does narrate | relates | is relating | does relate | recounts | is recounting | does recount] (the) [stories | tales | fables] to the daughter.",
@@ -99,8 +99,8 @@ export const ANSWERS = {
     "We [walk | are walking | do walk] [to | toward | towards | into] the [large | great | important | big] [camp | camps].",
   ],
   s28: [
-    "The farmer [gives | is giving | does give] a [reward | prize] to [the | a | his] son.",
-    "The farmer [gives | is giving | does give] [the | a | his] son a [reward | prize].",
+    "The farmer [gives | is giving | does give] a [reward | prize | gift] to [the | a | his] son.",
+    "The farmer [gives | is giving | does give] [the | a | his] son a [reward | prize | gift].",
   ],
   s29: [
     "(the) Roman men [do not fear | are not fearing | are not afraid of | are not scared of] (the) war.",
@@ -112,8 +112,8 @@ export const ANSWERS = {
     "(the) Romans [enter | are entering | do enter | enter into | are entering into | do enter into] the [camp | camps].",
   ],
   s32: [
-    "We [give | are giving | do give] a [just | legitimate | open | fair | deserved] [reward | prize] to a good man.",
-    "We [give | are giving | do give] a good man a [just | legitimate | open | fair | deserved] [reward | prize].",
+    "We [give | are giving | do give] a [just | legitimate | open | fair | deserved] [reward | prize | gift] to a good man.",
+    "We [give | are giving | do give] a good man a [just | legitimate | open | fair | deserved] [reward | prize | gift].",
   ],
   s33: [
     "(the) [bad | evil | wicked] men [prepare | are preparing | do prepare | design | are designing | do design] (the) [bad | evil | wicked] [plans | advice].",
