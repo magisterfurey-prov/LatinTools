@@ -3471,7 +3471,7 @@ export const SENTENCES = [
   "chapter": 11,
   "type": "Original Composition",
   "latin": "Rēgīna Aenēam valdē amābat.",
-  "english": "The queen loved Aeneas very much.",
+  "english": "The queen was loving Aeneas very much.",
   "source": "Original sentence — Chapter 11 (or earlier) vocabulary",
   "grammarNotes": null,
   "tokens": [
@@ -3658,7 +3658,7 @@ export const SENTENCES = [
   "chapter": 11,
   "type": "Original Composition",
   "latin": "Rēgīnae animus dolōre crūdēlī tenēbātur.",
-  "english": "The queen’s mind was held by cruel grief.",
+  "english": "The queen’s mind was being held by cruel grief.",
   "source": "Original sentence — Chapter 11 (or earlier) vocabulary",
   "grammarNotes": null,
   "tokens": [
@@ -3945,7 +3945,7 @@ export const SENTENCES = [
   "chapter": 12,
   "type": "Original Composition",
   "latin": "Porsenna vim Rōmānōrum nōn intellegēbat.",
-  "english": "Porsenna did not understand the strength of the Romans.",
+  "english": "Porsenna was not understanding the strength of the Romans.",
   "source": "Original sentence — Chapter 12 (or earlier) vocabulary",
   "grammarNotes": null,
   "tokens": [
@@ -4902,7 +4902,7 @@ export const SENTENCES = [
   "chapter": 14,
   "type": "Original Composition",
   "latin": "Pyramus, cūius fōrma pulchra erat, puellam amābat.",
-  "english": "Pyramus, whose appearance was handsome, loved the girl.",
+  "english": "Pyramus, whose appearance was handsome, was loving the girl.",
   "source": "Original sentence — Chapter 14 (or earlier) vocabulary",
   "grammarNotes": null,
   "tokens": [
@@ -7242,7 +7242,7 @@ export const SENTENCES = [
   "chapter": 20,
   "type": "Original Composition",
   "latin": "Ille adulēscēns pōmīs nōn egēbat.",
-  "english": "That young man did not lack fruit.",
+  "english": "That young man was not lacking fruit.",
   "source": "Original sentence — Chapter 20 (or earlier) vocabulary",
   "grammarNotes": null,
   "tokens": [

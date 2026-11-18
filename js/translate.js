@@ -276,7 +276,7 @@ function openSentence(id) {
   const sourceLine = sentence.type === 'Textbook Quote'
     ? `<div class="legend">Textbook quote — ${escapeHtml(sentence.source)}</div>`
     : '';
-  // Level 1, Chapters 1-10 have accepted translations to check the typed one against; every other
+  // Level 1 (Chapters 1-21) has accepted translations to check the typed one against; every other
   // sentence is "check your own" with the model translation.
   const checkable = hasAnswers(sentence.id);
 

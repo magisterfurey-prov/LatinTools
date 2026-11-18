@@ -525,7 +525,7 @@ select.field-good { border-color: var(--good); background: #e5f4ea; }
   margin: 10px 0;
 }
 
-/* Level 1, Chapters 1-10: the verdict on the typed translation */
+/* Level 1: the verdict on the typed translation */
 .translation-box button { margin-right: 8px; }
 .translation-verdict {
   border: 1px solid var(--border);

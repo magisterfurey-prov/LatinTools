@@ -1,5 +1,5 @@
 /* Checks a student's English translation of a sentence against the accepted answers in
-   data/translation-answers.js. Only the Level 1 sentences in Chapters 1-10 have answers there; every
+   data/translation-answers.js. Only the Level 1 sentences (Chapters 1-21) have answers there; every
    other sentence has no entry and stays "check your own" (hasAnswers() says which).
 
    Both the student's text and each accepted answer are cleaned up first: capitals, macrons and other
@@ -94,7 +94,7 @@ function patternsFor(id) {
   return compiled.get(id);
 }
 
-// Does this sentence have accepted answers (Level 1, Chapters 1-10)?
+// Does this sentence have accepted answers (Level 1, Chapters 1-21)?
 export function hasAnswers(id) {
   return Object.prototype.hasOwnProperty.call(ANSWERS, id);
 }
