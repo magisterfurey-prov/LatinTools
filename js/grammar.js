@@ -729,7 +729,7 @@ let showLatinChart = () => {};
 const PERSON_LABELS = { 1: '1st', 2: '2nd', 3: '3rd' };
 const TRANSLATION_PATTERNS = {
   'pres-act': 'I ___ / I am ___ing / I do ___',
-  'impf-act': 'I was ___ing / I used to ___ / I kept (on) ___ing — or the simple past, I ___ed',
+  'impf-act': 'I was ___ing / I used to ___ / I kept (on) ___ing',
   'fut-act': 'I will (shall) ___',
   'perf-act': 'I ___ed / I did ___ / I have ___ed',
   'plup-act': 'I had ___ed',

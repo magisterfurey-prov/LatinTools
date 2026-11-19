@@ -3,7 +3,7 @@
    ("to love", "to take care of", "to be able, can") following the
    textbook's patterns for each tense:
      present       I love / I am loving / I do love
-     imperfect     I was loving / I used to love / I kept (on) loving / I loved
+     imperfect     I was loving / I used to love / I kept (on) loving   (not I loved: that is the perfect)
      future        I will (shall) love
      perfect       I loved / I did love / I have loved
      pluperfect    I had loved
@@ -197,7 +197,7 @@ function predicates(m, tense, voice, k) {
       return predicates({ ...m, kind: 'verb' }, tense, voice, k).map(p => p.replace(/^(\S+)/, '$1 not'));
     }
     if (tense === 'pres') { add(DO(k), 'not', base); each(ingForm(base), g => add(BE_PRESENT[k], 'not', g)); }
-    if (tense === 'impf') { add('did not', base); each(ingForm(base), g => add(BE_PAST[k], 'not', g)); add('used not to', base); }
+    if (tense === 'impf') { each(ingForm(base), g => add(BE_PAST[k], 'not', g)); add('did not use to', base); add('used not to', base); }   // not "did not want": that is the perfect
     if (tense === 'fut') each(WILL(k), w => add(w, 'not', base));
     if (tense === 'perf') { add('did not', base); each(pastParticiple(base), p => add(HAVE(k), 'not', p)); }
     if (tense === 'plup') each(pastParticiple(base), p => add('had not', p));
@@ -213,8 +213,7 @@ function predicates(m, tense, voice, k) {
     }
     if (tense === 'impf') {
       each(ingForm(base), g => { add(BE_PAST[k], g); add('kept on', g); add('kept', g); });
-      add('used to', base);
-      each(pastForm(base), p => add(p));
+      add('used to', base);   // the simple past (I loved) is how the perfect is translated, so it is not accepted here
     }
     if (tense === 'fut') each(WILL(k), w => add(w, base));
     if (tense === 'perf') {
@@ -230,7 +229,7 @@ function predicates(m, tense, voice, k) {
   // passive: I am loved, I was being loved, I will be loved, ...
   each(pastParticiple(base), p => {
     if (tense === 'pres') { add(BE_PRESENT[k], p); add(BE_PRESENT[k], 'being', p); }
-    if (tense === 'impf') { add(BE_PAST[k], 'being', p); add('used to be', p); add(BE_PAST[k], p); }
+    if (tense === 'impf') { add(BE_PAST[k], 'being', p); add('used to be', p); }   // "I was loved" is the perfect passive
     if (tense === 'fut') each(WILL(k), w => add(w, 'be', p));
     if (tense === 'perf') { add(BE_PAST[k], p); add(HAVE(k), 'been', p); }
     if (tense === 'plup') add('had been', p);
