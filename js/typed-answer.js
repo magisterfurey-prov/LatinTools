@@ -2,24 +2,45 @@
 // dictionary entry. Pure functions (no page), so they can be tested on their own.
 import { normalizeLatin, principalPartsOf } from './util.js';
 
+const headOf = entry => entry.latin.replace(/\s*\(?\+.*$/, '').trim();
+
 // The entry a student types for a word: a noun with its genitive, a verb with its principal parts,
 // an adjective with the forms the vocabulary lists ("bonus, bona, bonum"), anything else as it is.
 // The textbook's notes ("+ ablative", "+ dative + infinitive") are left out, and so are dashes for a
 // part the word lacks (vīs, ——). `fromChapter` is the chapter principal parts start in (2 in Level 1).
 export function typedAnswerOf(entry, fromChapter = 1) {
-  const head = entry.latin.replace(/\s*\(?\+.*$/, '').trim();
+  const head = headOf(entry);
   if (entry.pos === 'Noun' && entry.genitive && /\p{L}/u.test(entry.genitive)) return `${head}, ${entry.genitive}`;
   const parts = principalPartsOf(entry, fromChapter);
   return parts.length ? [head, ...parts].join(', ') : head;
 }
 
+// The first two principal parts alone (amō, amāre), which are enough for a verb from a chapter up to
+// `twoPartsThrough` (10 in Level 1; 0, so never, in Level 2); null for any other word, and for a verb
+// with no more parts than those two.
+export function twoPartsOf(entry, fromChapter = 1, twoPartsThrough = 0) {
+  if (entry.pos !== 'Verb' || entry.chapter > twoPartsThrough) return null;
+  const parts = principalPartsOf(entry, fromChapter);
+  return parts.length > 1 ? `${headOf(entry)}, ${parts[0]}` : null;
+}
+
 // What the question asks for, beyond the word itself.
-export function typedHintOf(entry, fromChapter = 1) {
+export function typedHintOf(entry, fromChapter = 1, twoPartsThrough = 0) {
+  if (twoPartsOf(entry, fromChapter, twoPartsThrough)) return 'Give its first two principal parts.';
   const answer = typedAnswerOf(entry, fromChapter);
   if (!answer.includes(',')) return '';
   if (entry.pos === 'Noun') return 'Give its genitive too.';
   if (entry.pos === 'Verb') return 'Give all its principal parts.';
   return 'Give every form the vocabulary lists.';
+}
+
+// Every answer accepted for a word: its full entry, and for a verb that needs only its first two
+// principal parts, those two, or three, in order (amō, amāre; amō, amāre, amāvī).
+function answersOf(entry, fromChapter, twoPartsThrough) {
+  const full = typedAnswerOf(entry, fromChapter);
+  if (!twoPartsOf(entry, fromChapter, twoPartsThrough)) return [full];
+  const forms = full.split(', ');
+  return forms.slice(1).map((_, i) => forms.slice(0, i + 2).join(', '));
 }
 
 const clean = text => normalizeLatin(text).replace(/[-?!.;:"“”]/g, '');
@@ -54,11 +75,11 @@ export function matchesTyped(answer, text) {
 
 // The word `text` answers the question for `entry` with, or null. Any word with exactly the same
 // English counts too ("and" is et, atque or -que).
-export function typedMatchOf(entry, text, vocab, fromChapter = 1) {
+export function typedMatchOf(entry, text, vocab, fromChapter = 1, twoPartsThrough = 0) {
   const candidates = [entry, ...vocab.filter(w => w !== entry && w.english === entry.english)];
-  return candidates.find(w => matchesTyped(typedAnswerOf(w, fromChapter), text)) || null;
+  return candidates.find(w => answersOf(w, fromChapter, twoPartsThrough).some(answer => matchesTyped(answer, text))) || null;
 }
 
-export function isAcceptedTyped(entry, text, vocab, fromChapter = 1) {
-  return typedMatchOf(entry, text, vocab, fromChapter) !== null;
+export function isAcceptedTyped(entry, text, vocab, fromChapter = 1, twoPartsThrough = 0) {
+  return typedMatchOf(entry, text, vocab, fromChapter, twoPartsThrough) !== null;
 }

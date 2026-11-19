@@ -64,6 +64,9 @@ function currentWords() {
 // their bare inflected form), so they show from Ch. 2 on -- matching the
 // textbook's own sequencing. Level 2 has ordinary verbs from its first chapter.
 const PARTS_FROM_CHAPTER = BOOK.id === 1 ? 2 : 1;
+// A typed verb from Level 1, Chapters 1-10 may be answered with just its first two principal parts
+// (amō, amāre); later chapters and Level 2 still ask for all of them.
+const TWO_PARTS_THROUGH = BOOK.id === 1 ? 10 : 0;
 function citationForm(entry) {
   if (entry.pos === 'Noun' && entry.genitive) return `${entry.latin}, ${entry.genitive}`;
   if (entry.pos === 'Verb' && entry.chapter >= PARTS_FROM_CHAPTER && entry.principal_parts) return `${entry.latin}, ${entry.principal_parts}`;
@@ -144,7 +147,8 @@ function renderFlashcards() {
 
 // ---------------- Learning mode ----------------
 // Every word is asked until it's answered right once. Between a fifth and a third of the words are
-// typed: the English is shown and the student types the Latin dictionary entry. The rest are
+// typed: the English is shown and the student types the Latin dictionary entry (a Level 1 verb from
+// Chapters 1-10 needs only its first two principal parts). The rest are
 // multiple choice, Latin to English or English to Latin. A missed word goes to the back of the
 // queue and comes back as the same question: typed again, or the same choices in a new order.
 const lmState = { queue: [], total: 0, mastered: new Set(), current: null, answered: false, round: 0 };
@@ -316,7 +320,7 @@ const MACRONS = ['ā', 'ē', 'ī', 'ō', 'ū'];
 
 // A typed question: the English, and a box for the Latin dictionary entry.
 function renderTypedQuestion(entry, stats) {
-  const hint = typedHintOf(entry, PARTS_FROM_CHAPTER);
+  const hint = typedHintOf(entry, PARTS_FROM_CHAPTER, TWO_PARTS_THROUGH);
   studyArea.innerHTML = `
     ${stats}
     <div class="mc-sub">Type the Latin for this word.${hint ? ` ${hint}` : ''}</div>
@@ -350,7 +354,7 @@ function checkTypedAnswer(input) {
   if (lmState.answered || !input.value.trim()) return;
   lmState.answered = true;
   const question = lmState.current;
-  const match = typedMatchOf(question.entry, input.value, VOCAB, PARTS_FROM_CHAPTER);
+  const match = typedMatchOf(question.entry, input.value, VOCAB, PARTS_FROM_CHAPTER, TWO_PARTS_THROUGH);
   input.disabled = true;
   input.classList.add(match ? 'correct' : 'incorrect');
   document.getElementById('typedCheck').disabled = true;
