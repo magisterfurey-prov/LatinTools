@@ -474,6 +474,12 @@ function renderChart() {
 
     wrap.querySelectorAll('input').forEach(inp => {
       inp.addEventListener('focus', () => { lastFocusedInput = inp; });
+      // These cells take Latin forms: no spell-check underlines, no autocorrect, no automatic capital letter
+      // and no suggestions from earlier entries (a phone's autocorrect would rewrite amant, for example).
+      inp.setAttribute('autocomplete', 'off');
+      inp.setAttribute('spellcheck', 'false');
+      inp.setAttribute('autocapitalize', 'off');
+      inp.setAttribute('autocorrect', 'off');
     });
     lastFocusedInput = wrap.querySelector('input');
 
@@ -583,12 +589,12 @@ function nounTableHTML() {
   return `<table class="chart"><tr><th></th><th>Singular</th><th>Plural</th></tr>${rows}</table>`;
 }
 
-// One column per gender, with the singular fields on top and the plural fields underneath, the way
-// the textbook sets out an adjective. The -īus adjectives and the pronouns have the same shape.
-// On phones the case and gender names shorten (Nom., Masc.) so that the three columns fit.
-function adj12TableHTML() {
-  const genders = [['M', 'Masculine', 'Masc.'], ['F', 'Feminine', 'Fem.'], ['N', 'Neuter', 'Neut.']];
-  const named = (full, short) => `<span class="label-full">${full}</span><span class="label-short">${short}</span>`;
+// A name with a short form for phones (Nom., Masc., Compar.), so that the chart's columns fit a small screen.
+const named = (full, short) => `<span class="label-full">${full}</span><span class="label-short">${short}</span>`;
+
+// One column per gender form, with the singular fields on top and the plural fields underneath, the way
+// the textbook sets out an adjective. `genders` lists [the form's data-gender, its name, its short name].
+function genderTableHTML(genders) {
   const block = (num, label) => `
     <tr class="number-row"><th colspan="${genders.length + 1}">${label}</th></tr>${CASES.map(c => `
     <tr>
@@ -598,17 +604,14 @@ function adj12TableHTML() {
   return `<table class="chart gender-chart"><tr><th></th>${genders.map(([, name, short]) => `<th>${named(name, short)}</th>`).join('')}</tr>${block('sg', 'Singular')}${block('pl', 'Plural')}</table>`;
 }
 
-// 3rd declension (and comparatives, participles): M/F identical, so combined.
+// 1st/2nd declension adjectives, the -īus adjectives and the pronouns: a column each for M, F and N.
+function adj12TableHTML() {
+  return genderTableHTML([['M', 'Masculine', 'Masc.'], ['F', 'Feminine', 'Fem.'], ['N', 'Neuter', 'Neut.']]);
+}
+
+// 3rd declension (and comparatives, participles): M/F identical, so combined, and a column for N.
 function adj3TableHTML() {
-  let rows = CASES.map(c => `
-    <tr>
-      <td class="case-label">${CASE_LABELS[c]}</td>
-      <td><input data-case="${c}" data-gender="M" data-num="sg"></td>
-      <td><input data-case="${c}" data-gender="N" data-num="sg"></td>
-      <td><input data-case="${c}" data-gender="M" data-num="pl"></td>
-      <td><input data-case="${c}" data-gender="N" data-num="pl"></td>
-    </tr>`).join('');
-  return `<table class="chart"><tr><th></th><th>M/F (sg)</th><th>N (sg)</th><th>M/F (pl)</th><th>N (pl)</th></tr>${rows}</table>`;
+  return genderTableHTML([['M', 'M/F', 'M/F'], ['N', 'Neuter', 'Neut.']]);
 }
 
 function verbTableHTML() {
@@ -626,11 +629,15 @@ function comparisonTableHTML(entry) {
   const adverbRow = c.adverbs
     ? `<td><input data-slot="adv-pos"></td><td><input data-slot="adv-comp"></td><td><input data-slot="adv-sup"></td>`
     : '<td colspan="3" class="legend" style="text-align:center;">(no common adverb)</td>';
-  return `<table class="chart">
-    <tr><th></th><th>Positive</th><th>Comparative</th><th>Superlative</th></tr>
-    <tr><td class="case-label">Adjective</td><td class="latin">${c.positive}</td>
+  // Three columns, with "Adjective" and "Adverb" as banner rows (as "Singular" and "Plural" are in the
+  // declension charts), so that a phone has room for the longest forms (fortissimus, miserrimē).
+  return `<table class="chart compare-chart">
+    <tr><th>Positive</th><th>${named('Comparative', 'Compar.')}</th><th>${named('Superlative', 'Superl.')}</th></tr>
+    <tr class="number-row"><th colspan="3">Adjective</th></tr>
+    <tr><td class="latin">${c.positive}</td>
       <td><input data-slot="adj-comp"></td><td><input data-slot="adj-sup"></td></tr>
-    <tr><td class="case-label">Adverb</td>${adverbRow}</tr>
+    <tr class="number-row"><th colspan="3">Adverb</th></tr>
+    <tr>${adverbRow}</tr>
   </table>`;
 }
 
