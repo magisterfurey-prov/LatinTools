@@ -733,6 +733,148 @@ export const SENTENCES = [
   ]
  },
  {
+  "id": "b2s121",
+  "chapter": 2,
+  "type": "Original Composition",
+  "latin": "Ego Rōmam veniō, tū autem Aquīsgrānī habitās.",
+  "english": "I come to Rome, but you live in Aachen.",
+  "source": "Original sentence — Level 2, Chapter 2 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "Rōmam",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "acc-place-to-which"
+   },
+   {
+    "t": "veniō",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "Aquīsgrānī",
+    "p": "n",
+    "case": "loc",
+    "num": "sg",
+    "gender": "n",
+    "role": "locative"
+   },
+   {
+    "t": "habitās",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "b2s122",
+  "chapter": 2,
+  "type": "Original Composition",
+  "latin": "Nōs Rōmae habitāmus, vōs autem Aquīsgrānī habitātis.",
+  "english": "We live in Rome, but you all live in Aachen.",
+  "source": "Original sentence — Level 2, Chapter 2 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Nōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "Rōmae",
+    "p": "n",
+    "case": "loc",
+    "num": "sg",
+    "gender": "f",
+    "role": "locative"
+   },
+   {
+    "t": "habitāmus",
+    "p": "v",
+    "person": 1,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "Aquīsgrānī",
+    "p": "n",
+    "case": "loc",
+    "num": "sg",
+    "gender": "n",
+    "role": "locative"
+   },
+   {
+    "t": "habitātis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
   "id": "b2s17",
   "chapter": 3,
   "type": "Original Composition",
@@ -1201,6 +1343,141 @@ export const SENTENCES = [
   ]
  },
  {
+  "id": "b2s123",
+  "chapter": 3,
+  "type": "Original Composition",
+  "latin": "Ego epistulās scrībō, tū autem librōs legis.",
+  "english": "I write letters, but you read books.",
+  "source": "Original sentence — Level 2, Chapter 3 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "epistulās",
+    "p": "n",
+    "case": "acc",
+    "num": "pl",
+    "gender": "f",
+    "role": "direct-object"
+   },
+   {
+    "t": "scrībō",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "librōs",
+    "p": "n",
+    "case": "acc",
+    "num": "pl",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "legis",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "b2s124",
+  "chapter": 3,
+  "type": "Original Composition",
+  "latin": "Vōs multa discitis, magistrī autem dormiunt.",
+  "english": "You all learn many things, but the teachers sleep.",
+  "source": "Original sentence — Level 2, Chapter 3 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "multa",
+    "p": "n",
+    "case": "acc",
+    "num": "pl",
+    "gender": "n",
+    "role": "direct-object"
+   },
+   {
+    "t": "discitis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "magistrī",
+    "p": "n",
+    "case": "nom",
+    "num": "pl",
+    "gender": "m",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "dormiunt",
+    "p": "v",
+    "person": 3,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
   "id": "b2s25",
   "chapter": 4,
   "type": "Original Composition",
@@ -1591,6 +1868,126 @@ export const SENTENCES = [
     "tense": "perf",
     "mood": "ind",
     "role": "intransitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "b2s125",
+  "chapter": 4,
+  "type": "Original Composition",
+  "latin": "Tū portam aperīs, victor autem in urbem invādit.",
+  "english": "You open the gate, but the victor bursts into the city.",
+  "source": "Original sentence — Level 2, Chapter 4 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "portam",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "direct-object"
+   },
+   {
+    "t": "aperīs",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "victor",
+    "p": "n",
+    "case": "nom",
+    "num": "sg",
+    "gender": "m",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "in",
+    "p": "prep"
+   },
+   {
+    "t": "urbem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "invādit",
+    "p": "v",
+    "person": 3,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "b2s126",
+  "chapter": 4,
+  "type": "Original Composition",
+  "latin": "Vōs pontem ligneum dēfenditis.",
+  "english": "You all defend the wooden bridge.",
+  "source": "Original sentence — Level 2, Chapter 4 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "pontem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "ligneum",
+    "p": "adj",
+    "agrees": 1
+   },
+   {
+    "t": "dēfenditis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
    },
    {
     "t": ".",
@@ -2080,6 +2477,82 @@ export const SENTENCES = [
   ]
  },
  {
+  "id": "b2s127",
+  "chapter": 5,
+  "type": "Original Composition",
+  "latin": "Tū vīnum dulce bibis, vōs autem aquam bibitis.",
+  "english": "You drink sweet wine, but you all drink water.",
+  "source": "Original sentence — Level 2, Chapter 5 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "vīnum",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "n",
+    "role": "direct-object"
+   },
+   {
+    "t": "dulce",
+    "p": "adj",
+    "agrees": 1
+   },
+   {
+    "t": "bibis",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "aquam",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "direct-object"
+   },
+   {
+    "t": "bibitis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
   "id": "b2s41",
   "chapter": 6,
   "type": "Original Composition",
@@ -2479,6 +2952,152 @@ export const SENTENCES = [
   ]
  },
  {
+  "id": "b2s128",
+  "chapter": 6,
+  "type": "Original Composition",
+  "latin": "Ego imperātōrem laudō, tū autem exercitum nōn laudās.",
+  "english": "I praise the emperor, but you do not praise the army.",
+  "source": "Original sentence — Level 2, Chapter 6 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "imperātōrem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "laudō",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "exercitum",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "nōn",
+    "p": "adv"
+   },
+   {
+    "t": "laudās",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "b2s129",
+  "chapter": 6,
+  "type": "Original Composition",
+  "latin": "Nōs imperium dīligimus, vōs autem imperātōrem dēcipitis.",
+  "english": "We love the empire, but you all deceive the emperor.",
+  "source": "Original sentence — Level 2, Chapter 6 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Nōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "imperium",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "n",
+    "role": "direct-object"
+   },
+   {
+    "t": "dīligimus",
+    "p": "v",
+    "person": 1,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "imperātōrem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "dēcipitis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
   "id": "b2s49",
   "chapter": 7,
   "type": "Original Composition",
@@ -2850,6 +3469,78 @@ export const SENTENCES = [
     "p": "v",
     "person": 3,
     "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "b2s130",
+  "chapter": 7,
+  "type": "Original Composition",
+  "latin": "Vōs ōtium vultis, cīvēs autem glōriam quaerunt.",
+  "english": "You all want leisure, but the citizens seek glory.",
+  "source": "Original sentence — Level 2, Chapter 7 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "ōtium",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "n",
+    "role": "direct-object"
+   },
+   {
+    "t": "vultis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "cīvēs",
+    "p": "n",
+    "case": "nom",
+    "num": "pl",
+    "gender": "m",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "glōriam",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "direct-object"
+   },
+   {
+    "t": "quaerunt",
+    "p": "v",
+    "person": 3,
+    "num": "pl",
     "tense": "pres",
     "mood": "ind",
     "role": "transitive-verb"
@@ -3233,6 +3924,113 @@ export const SENTENCES = [
   ]
  },
  {
+  "id": "b2s131",
+  "chapter": 8,
+  "type": "Original Composition",
+  "latin": "Ego Latīnē loquor, tū autem Rōmānōs antīquōs sequeris.",
+  "english": "I speak in Latin, but you follow the ancient Romans.",
+  "source": "Original sentence — Level 2, Chapter 8 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "Latīnē",
+    "p": "adv"
+   },
+   {
+    "t": "loquor",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "deponent-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "Rōmānōs",
+    "p": "n",
+    "case": "acc",
+    "num": "pl",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "antīquōs",
+    "p": "adj",
+    "agrees": 6
+   },
+   {
+    "t": "sequeris",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "deponent-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "b2s132",
+  "chapter": 8,
+  "type": "Original Composition",
+  "latin": "Vōs Latīnē loquiminī.",
+  "english": "You all speak in Latin.",
+  "source": "Original sentence — Level 2, Chapter 8 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "Latīnē",
+    "p": "adv"
+   },
+   {
+    "t": "loquiminī",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "deponent-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
   "id": "b2s65",
   "chapter": 9,
   "type": "Original Composition",
@@ -3604,6 +4402,156 @@ export const SENTENCES = [
    },
    {
     "t": "!",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "b2s133",
+  "chapter": 9,
+  "type": "Original Composition",
+  "latin": "Ego onus ferō, tū autem nihil fers.",
+  "english": "I carry the burden, but you carry nothing.",
+  "source": "Original sentence — Level 2, Chapter 9 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "onus",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "n",
+    "role": "direct-object"
+   },
+   {
+    "t": "ferō",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "nihil",
+    "p": "pn",
+    "case": "acc",
+    "num": "sg",
+    "role": "direct-object"
+   },
+   {
+    "t": "fers",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "b2s134",
+  "chapter": 9,
+  "type": "Original Composition",
+  "latin": "Vōs per nivem prōgrediminī, equī autem in glaciē lābuntur.",
+  "english": "You all proceed through the snow, but the horses slip on the ice.",
+  "source": "Original sentence — Level 2, Chapter 9 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "per",
+    "p": "prep"
+   },
+   {
+    "t": "nivem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "prōgrediminī",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "deponent-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "equī",
+    "p": "n",
+    "case": "nom",
+    "num": "pl",
+    "gender": "m",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "in",
+    "p": "prep"
+   },
+   {
+    "t": "glaciē",
+    "p": "n",
+    "case": "abl",
+    "num": "sg",
+    "gender": "f",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "lābuntur",
+    "p": "v",
+    "person": 3,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "deponent-verb"
+   },
+   {
+    "t": ".",
     "p": "punct"
    }
   ]
@@ -4003,6 +4951,154 @@ export const SENTENCES = [
    },
    {
     "t": "!",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "b2s135",
+  "chapter": 10,
+  "type": "Original Composition",
+  "latin": "Ego in aedem eō, tū autem domī manēs.",
+  "english": "I go into the temple, but you stay at home.",
+  "source": "Original sentence — Level 2, Chapter 10 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "in",
+    "p": "prep"
+   },
+   {
+    "t": "aedem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "eō",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "domī",
+    "p": "adv"
+   },
+   {
+    "t": "manēs",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "b2s136",
+  "chapter": 10,
+  "type": "Original Composition",
+  "latin": "Vōs pecūniam redditis, fūrēs autem scelestī aurum fūrantur.",
+  "english": "You all give back the money, but the wicked thieves steal gold.",
+  "source": "Original sentence — Level 2, Chapter 10 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "pecūniam",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "direct-object"
+   },
+   {
+    "t": "redditis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "fūrēs",
+    "p": "n",
+    "case": "nom",
+    "num": "pl",
+    "gender": "m",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "scelestī",
+    "p": "adj",
+    "agrees": 4
+   },
+   {
+    "t": "aurum",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "n",
+    "role": "direct-object"
+   },
+   {
+    "t": "fūrantur",
+    "p": "v",
+    "person": 3,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "deponent-verb"
+   },
+   {
+    "t": ".",
     "p": "punct"
    }
   ]
@@ -4415,6 +5511,69 @@ export const SENTENCES = [
     "tense": "pres",
     "mood": "ind",
     "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "b2s137",
+  "chapter": 11,
+  "type": "Original Composition",
+  "latin": "Tū legātōs salūtās, vōs autem tacētis.",
+  "english": "You greet the ambassadors, but you all are silent.",
+  "source": "Original sentence — Level 2, Chapter 11 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "legātōs",
+    "p": "n",
+    "case": "acc",
+    "num": "pl",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "salūtās",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "tacētis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "intransitive-verb"
    },
    {
     "t": ".",
@@ -4908,6 +6067,143 @@ export const SENTENCES = [
   ]
  },
  {
+  "id": "b2s138",
+  "chapter": 12,
+  "type": "Original Composition",
+  "latin": "Ego spem habeō, tū autem timēs.",
+  "english": "I have hope, but you are afraid.",
+  "source": "Original sentence — Level 2, Chapter 12 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "spem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "direct-object"
+   },
+   {
+    "t": "habeō",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "timēs",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "b2s139",
+  "chapter": 12,
+  "type": "Original Composition",
+  "latin": "Nōs Colōnum probāmus, vōs autem eum nōn probātis.",
+  "english": "We approve of Columbus, but you all do not approve of him.",
+  "source": "Original sentence — Level 2, Chapter 12 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Nōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "Colōnum",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "probāmus",
+    "p": "v",
+    "person": 1,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "eum",
+    "p": "pn",
+    "case": "acc",
+    "num": "sg",
+    "role": "direct-object"
+   },
+   {
+    "t": "nōn",
+    "p": "adv"
+   },
+   {
+    "t": "probātis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
   "id": "b2s97",
   "chapter": 13,
   "type": "Original Composition",
@@ -5281,6 +6577,119 @@ export const SENTENCES = [
     "tense": "impf",
     "mood": "ind",
     "role": "deponent-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "b2s140",
+  "chapter": 13,
+  "type": "Original Composition",
+  "latin": "Ego Colōnum mīror, tū autem eī īrāsceris.",
+  "english": "I admire Columbus, but you are angry at him.",
+  "source": "Original sentence — Level 2, Chapter 13 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "Colōnum",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "mīror",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "deponent-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "eī",
+    "p": "pn",
+    "case": "dat",
+    "num": "sg",
+    "role": "indirect-object"
+   },
+   {
+    "t": "īrāsceris",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "deponent-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "b2s141",
+  "chapter": 13,
+  "type": "Original Composition",
+  "latin": "Vōs ad turrem redītis.",
+  "english": "You all return to the tower.",
+  "source": "Original sentence — Level 2, Chapter 13 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "ad",
+    "p": "prep"
+   },
+   {
+    "t": "turrem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "redītis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "intransitive-verb"
    },
    {
     "t": ".",
@@ -5758,6 +7167,152 @@ export const SENTENCES = [
   ]
  },
  {
+  "id": "b2s142",
+  "chapter": 14,
+  "type": "Original Composition",
+  "latin": "Ego sōlem spectō, tū autem terram spectās.",
+  "english": "I watch the sun, but you watch the earth.",
+  "source": "Original sentence — Level 2, Chapter 14 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "sōlem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "spectō",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "terram",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "direct-object"
+   },
+   {
+    "t": "spectās",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "b2s143",
+  "chapter": 14,
+  "type": "Original Composition",
+  "latin": "Nōs mōtum nōn sentīmus, vōs autem quiētem amātis.",
+  "english": "We do not feel the motion, but you all love rest.",
+  "source": "Original sentence — Level 2, Chapter 14 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Nōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "mōtum",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "nōn",
+    "p": "adv"
+   },
+   {
+    "t": "sentīmus",
+    "p": "v",
+    "person": 1,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "quiētem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "direct-object"
+   },
+   {
+    "t": "amātis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
   "id": "b2s113",
   "chapter": 15,
   "type": "Original Composition",
@@ -6109,6 +7664,120 @@ export const SENTENCES = [
     "tense": "pres",
     "mood": "ind",
     "role": "passive-periphrastic"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "b2s144",
+  "chapter": 15,
+  "type": "Original Composition",
+  "latin": "Ego ad oppidum appropinquō, tū autem clāmās.",
+  "english": "I approach the town, but you shout.",
+  "source": "Original sentence — Level 2, Chapter 15 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "ad",
+    "p": "prep"
+   },
+   {
+    "t": "oppidum",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "n",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "appropinquō",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "clāmās",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "b2s145",
+  "chapter": 15,
+  "type": "Original Composition",
+  "latin": "Vōs tēla hostium repellitis.",
+  "english": "You all push back the enemies’ spears.",
+  "source": "Original sentence — Level 2, Chapter 15 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "tēla",
+    "p": "n",
+    "case": "acc",
+    "num": "pl",
+    "gender": "n",
+    "role": "direct-object"
+   },
+   {
+    "t": "hostium",
+    "p": "n",
+    "case": "gen",
+    "num": "pl",
+    "gender": "m",
+    "role": "possessive"
+   },
+   {
+    "t": "repellitis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "pres",
+    "mood": "ind",
+    "role": "transitive-verb"
    },
    {
     "t": ".",

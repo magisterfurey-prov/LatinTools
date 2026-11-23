@@ -1,7 +1,8 @@
 // Accepted English translations of the Level 1 sentences in chapters 1-21, for the Translation
 // page's "Check Translation" button. Level 2 has no entry here and stays "check your own".
 // Chapters 1-10 were written from the teacher-reviewed answer lists (a review doc, 2026-10-28); chapters 11-21 (2026-11-17)
-// follow the same decisions. Edit this file directly to add or change an answer.
+// follow the same decisions. s169-s209 (2026-11-23) are the sentences added so that every chapter from 2 on has a verb in
+// each person and number; they follow the same decisions too (a 2nd person plural needs "you all" or y'all). Edit this file directly to add or change an answer.
 //
 // Each sentence has one or more patterns:
 //   [a | b | c]   exactly one of the choices
@@ -634,5 +635,162 @@ export const ANSWERS = {
   ],
   s168: [
     "The wheel [is turned | is being turned | is spun | is being spun | is rotated | is being rotated] around the [axle | axis].",
+  ],
+  s169: [
+    "[you all | y'all | yall] [tell | are telling | do tell | narrate | are narrating | do narrate | relate | are relating | do relate | recount | are recounting | do recount] (the) [stories | tales | fables] well.",
+  ],
+  s170: [
+    "The girls [fear | are fearing | do fear | are afraid of | are scared of] the [stream | brook]; [and so | so | therefore | and therefore] we [walk | are walking | do walk] [on | in] the [road | street | way | path].",
+  ],
+  s171: [
+    "[you all | y'all | yall] [walk | are walking | do walk] [in | on] the field with the girl.",
+    "[you all | y'all | yall] [walk | are walking | do walk] with the girl [in | on] the field.",
+    "With the girl [you all | y'all | yall] [walk | are walking | do walk] [in | on] the field.",
+  ],
+  s172: [
+    "I [give | am giving | do give] a [reward | prize | gift] to the good man, but you [prepare | are preparing | do prepare | design | are designing | do design] a [bad | evil | wicked] [trick | trickery | deception | deceit].",
+    "I [give | am giving | do give] the good man a [reward | prize | gift], but you [prepare | are preparing | do prepare | design | are designing | do design] a [bad | evil | wicked] [trick | trickery | deception | deceit].",
+  ],
+  s173: [
+    "[you all | y'all | yall] [give | are giving | do give] a good [reward | prize | gift] to (the | your) son.",
+    "[you all | y'all | yall] [give | are giving | do give] (the | your) son a good [reward | prize | gift].",
+  ],
+  s174: [
+    "I [think about | am thinking about | do think about | think of | am thinking of | do think of | consider | am considering | do consider | ponder | am pondering | do ponder] (the) [family | household], but you [think about | are thinking about | do think about | think of | are thinking of | do think of | consider | are considering | do consider | ponder | are pondering | do ponder] (the) war.",
+    "I [think about | am thinking about | do think about | think of | am thinking of | do think of | consider | am considering | do consider | ponder | am pondering | do ponder] (the) [family | household], and you, however, [think about | are thinking about | do think about | think of | are thinking of | do think of | consider | are considering | do consider | ponder | are pondering | do ponder] (the) war.",
+  ],
+  s175: [
+    "[you all | y'all | yall] [have | are having | do have] many long [letters | epistles].",
+  ],
+  s176: [
+    "You [remain | are remaining | do remain | stay | are staying | do stay] in the [cottage | little house | house], but the boys [lie | are lying | do lie | lie down | are lying down | do lie down] in the field.",
+    "You [remain | are remaining | do remain | stay | are staying | do stay] in the [cottage | little house | house]; the boys, however, [lie | are lying | do lie | lie down | are lying down | do lie down] in the field.",
+  ],
+  s177: [
+    "A good book [strengthens | is strengthening | does strengthen | fortifies | is fortifying | does fortify | reinforces | is reinforcing | does reinforce] the [mind | spirit | soul].",
+  ],
+  s178: [
+    "[you all | y'all | yall] [often hold | are often holding | do often hold | frequently hold | are frequently holding | do frequently hold] (the) books.",
+    "[you all | y'all | yall] [hold | are holding | do hold] (the) books [often | frequently].",
+    "[often | frequently] [you all | y'all | yall] [hold | are holding | do hold] (the) books.",
+  ],
+  s179: [
+    "The [mistress's | mistress' | lady's] eyes are [beautiful | nice | lovely | pretty]; [and so | so | therefore | and therefore] you [envy | are envying | do envy | are jealous of | are envious of] the [mistress | lady].",
+    "The eyes of the [mistress | lady] are [beautiful | nice | lovely | pretty]; [and so | so | therefore | and therefore] you [envy | are envying | do envy | are jealous of | are envious of] the [mistress | lady].",
+  ],
+  s180: [
+    "We [regard | are regarding | do regard | esteem | are esteeming | do esteem | admire | are admiring | do admire | value | are valuing | do value | think highly of | think highly | are thinking highly of | are thinking highly | do think highly of | do think highly] the [serious | strict | severe | stern | harsh] old man.",
+  ],
+  s181: [
+    "[you all | y'all | yall] [always love | are always loving | do always love] (the) peace.",
+    "[you all | y'all | yall] [love | are loving | do love] (the) peace always.",
+    "Always [you all | y'all | yall] [love | are loving | do love] (the) peace.",
+  ],
+  s182: [
+    "I [fear | am fearing | do fear | am afraid of | am scared of] the king, but you [do not fear | are not fearing | are not afraid of | are not scared of] the [leader | general | commander].",
+    "I [fear | am fearing | do fear | am afraid of | am scared of] the king; you, however, [do not fear | are not fearing | are not afraid of | are not scared of] the [leader | general | commander].",
+  ],
+  s183: [
+    "[you all | y'all | yall] [free | are freeing | do free | liberate | are liberating | do liberate | set free | are setting free | do set free] (the) [people | men | human beings | humans] from (the) fear.",
+  ],
+  s184: [
+    "I [believe | am believing | do believe | trust | am trusting | do trust] the consul, but you [do not believe | are not believing | do not trust | are not trusting] the woman.",
+    "I [believe | am believing | do believe | trust | am trusting | do trust] the consul; you, however, [do not believe | are not believing | do not trust | are not trusting] the woman.",
+  ],
+  s185: [
+    "We [come | are coming | do come] [from | out of] the city, but [you all | y'all | yall] [come | are coming | do come] [to | toward | towards] the sea.",
+    "We [come | are coming | do come] [from | out of] the city; [you all | y'all | yall], however, [come | are coming | do come] [to | toward | towards] the sea.",
+  ],
+  s186: [
+    "I [do not fear | am not fearing | am not afraid of | am not scared of] the [enemy | foe], but you [flee | are fleeing | do flee | run away | are running away | do run away].",
+  ],
+  s187: [
+    "[you all | y'all | yall] [fight | are fighting | do fight] with the [brave | strong | courageous] soldiers.",
+    "With the [brave | strong | courageous] soldiers [you all | y'all | yall] [fight | are fighting | do fight].",
+  ],
+  s188: [
+    "I too [was loving | used to love] Aeneas.",
+    "I [was loving | used to love] Aeneas too.",
+  ],
+  s189: [
+    "[were you all | were y'all | were yall] [afraid of | scared of | fearing] the [storm | tempest] Trojans?",
+    "Trojans [were you all | were y'all | were yall] [afraid of | scared of | fearing] the [storm | tempest]?",
+  ],
+  s190: [
+    "[you all | y'all | yall] [fear | are fearing | do fear | are afraid of | are scared of] (the) [fire | flames], but (the) Romans [do not fear | are not fearing | are not afraid of | are not scared of] (the) [fire | flames].",
+  ],
+  s191: [
+    "I [have | am having | do have | possess | do possess | own | do own] nothing, but you [have | are having | do have | possess | do possess | own | do own] [everything | all things | all].",
+    "I [do not have | am not having | do not possess | do not own] anything, but you [have | are having | do have | possess | do possess | own | do own] [everything | all things | all].",
+  ],
+  s192: [
+    "We are [at the house of | at the home of | with | at | near | beside] the judge, but [you all | y'all | yall] are at home.",
+    "We are at the [judge's | judge] [house | home | place], but [you all | y'all | yall] are at home.",
+  ],
+  s193: [
+    "You [will wait for | will await | will expect | will be waiting for | will be awaiting | will be expecting] me [near | near to | close to | next to] the tree.",
+    "[near | near to | close to | next to] the tree you [will wait for | will await | will expect | will be waiting for | will be awaiting | will be expecting] me.",
+  ],
+  s194: [
+    "[you | you all | y'all | yall] parents [will not be able to | will be unable to] [separate | part | divide] us.",
+  ],
+  s195: [
+    "Together we [will spend | shall spend | will pass | shall pass | will live out | shall live out | will live through | shall live through | will lead | shall lead | will be spending | shall be spending | will be passing | shall be passing | will be living out | shall be living out | will be living through | shall be living through | will be leading | shall be leading] (our | the) old age in a [country | rural | rustic] [villa | estate | house | home].",
+    "We [will spend | shall spend | will pass | shall pass | will live out | shall live out | will live through | shall live through | will lead | shall lead | will be spending | shall be spending | will be passing | shall be passing | will be living out | shall be living out | will be living through | shall be living through | will be leading | shall be leading] (our | the) old age together in a [country | rural | rustic] [villa | estate | house | home].",
+    "Together in a [country | rural | rustic] [villa | estate | house | home] we [will spend | shall spend | will pass | shall pass | will live out | shall live out | will live through | shall live through | will lead | shall lead | will be spending | shall be spending | will be passing | shall be passing | will be living out | shall be living out | will be living through | shall be living through | will be leading | shall be leading] (our | the) old age.",
+  ],
+  s196: [
+    "Why do [you all | y'all | yall] [neglect | disregard | ignore] your [villa | country house | country home | estate]?",
+    "Why are [you all | y'all | yall] [neglecting | disregarding | ignoring] your [villa | country house | country home | estate]?",
+  ],
+  s197: [
+    "[did you see | have you seen] a [large | great | big] cloud in [the sky | heaven | the heaven | the heavens]?",
+    "In [the sky | heaven | the heaven | the heavens] [did you see | have you seen] a [large | great | big] cloud?",
+  ],
+  s198: [
+    "[you all | y'all | yall] [saved | did save | have saved | preserved | did preserve | have preserved | rescued | did rescue | have rescued | protected | did protect | have protected] (the | your) mother and (the | your) sister.",
+  ],
+  s199: [
+    "I had [heard | listened to] the [uproar | confusion | tumult | noise], but you had heard nothing.",
+    "I had [heard | listened to] the [uproar | confusion | tumult | noise], but you had not heard anything.",
+    "I had [heard | listened to] the [uproar | confusion | tumult | noise]; you, however, had heard nothing.",
+  ],
+  s200: [
+    "[you all | y'all | yall] had not been in the city.",
+  ],
+  s201: [
+    "If I [see | have seen | will have seen] [my | the] husband, I [will love | shall love | will be loving | shall be loving] him.",
+    "I [will love | shall love | will be loving | shall be loving] him if I [see | have seen | will have seen] [my | the] husband.",
+  ],
+  s202: [
+    "If we [lose | have lost | will have lost] [our | the] son, we [will feel pain | shall feel pain | will be hurt | shall be hurt | will be in pain | shall be in pain | will suffer | shall suffer | will grieve | shall grieve | will be feeling pain | shall be feeling pain | will be suffering | shall be suffering | will be grieving | shall be grieving].",
+    "We [will feel pain | shall feel pain | will be hurt | shall be hurt | will be in pain | shall be in pain | will suffer | shall suffer | will grieve | shall grieve | will be feeling pain | shall be feeling pain | will be suffering | shall be suffering | will be grieving | shall be grieving] if we [lose | have lost | will have lost] [our | the] son.",
+  ],
+  s203: [
+    "If [you all | y'all | yall] [wake | wake up | awaken | rouse | stir up | have woken | have woken up | have awakened | have roused | have stirred up | will have woken | will have woken up | will have awakened | will have roused | will have stirred up] [your | the] husband, he will [flee | run away].",
+    "If [you all | y'all | yall] [wake | have woken | will have woken | stir | have stirred | will have stirred] [your | the] husband up, he will [flee | run away].",
+    "He will [flee | run away] if [you all | y'all | yall] [wake | wake up | awaken | rouse | stir up | have woken | have woken up | have awakened | have roused | have stirred up | will have woken | will have woken up | will have awakened | will have roused | will have stirred up] [your | the] husband.",
+  ],
+  s204: [
+    "I [was wounded | have been wounded | was injured | have been injured] in [the battle | battle | combat | the combat], but you [were saved | have been saved | were rescued | have been rescued | were preserved | have been preserved] by a soldier.",
+    "In [the battle | battle | combat | the combat] I [was wounded | have been wounded | was injured | have been injured], but you [were saved | have been saved | were rescued | have been rescued | were preserved | have been preserved] by a soldier.",
+  ],
+  s205: [
+    "We [were defeated | have been defeated | were conquered | have been conquered | were beaten | have been beaten | were overcome | have been overcome] by (the) Huns, but [you all | y'all | yall] [fled | did flee | have fled | ran away | did run away | have run away].",
+  ],
+  s206: [
+    "I [took | have taken | did take | captured | have captured | did capture | seized | have seized | did seize] (the) [fruit | fruits], but you [did not take | have not taken | did not capture | have not captured | did not seize | have not seized] (the) [fruit | fruits].",
+  ],
+  s207: [
+    "[you all | y'all | yall] [took | have taken | did take | captured | have captured | did capture | seized | have seized | did seize] (the) [fruit | fruits] [from | out of] the tree.",
+    "[from | out of] the tree [you all | y'all | yall] [took | have taken | did take | captured | have captured | did capture | seized | have seized | did seize] (the) [fruit | fruits].",
+  ],
+  s208: [
+    "You [see | are seeing | do see] [Fortune's | Fortuna's] wheel, but you [do not understand | are not understanding | do not comprehend | are not comprehending] (it).",
+    "You [see | are seeing | do see] the wheel of [Fortune | Fortuna], but you [do not understand | are not understanding | do not comprehend | are not comprehending] (it).",
+  ],
+  s209: [
+    "[you all | y'all | yall] [do not possess | do not own | do not have] (the) [external | outward] [things | matters | affairs] [for certain | for sure | with certainty | certainly].",
+    "[for certain | for sure | with certainty | certainly] [you all | y'all | yall] [do not possess | do not own | do not have] (the) [external | outward] [things | matters | affairs].",
   ],
 };

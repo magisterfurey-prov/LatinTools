@@ -638,6 +638,40 @@ export const SENTENCES = [
   ]
  },
  {
+  "id": "s169",
+  "chapter": 2,
+  "type": "Original Composition",
+  "latin": "Fābulās bene nārrātis.",
+  "english": "You all tell stories well.",
+  "source": "Original sentence — Chapter 2 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Fābulās",
+    "p": "n",
+    "case": "acc",
+    "num": "pl",
+    "gender": "f",
+    "role": "direct-object"
+   },
+   {
+    "t": "bene",
+    "p": "adv"
+   },
+   {
+    "t": "nārrātis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
   "id": "s17",
   "chapter": 3,
   "type": "Textbook Quote",
@@ -948,6 +982,117 @@ export const SENTENCES = [
     "person": 2,
     "num": "sg",
     "role": "linking-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s170",
+  "chapter": 3,
+  "type": "Original Composition",
+  "latin": "Puellae rīvum timent; itaque in viā ambulāmus.",
+  "english": "The girls fear the stream; and so we walk on the road.",
+  "source": "Original sentence — Chapter 3 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Puellae",
+    "p": "n",
+    "case": "nom",
+    "num": "pl",
+    "gender": "f",
+    "role": "subject"
+   },
+   {
+    "t": "rīvum",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "timent",
+    "p": "v",
+    "person": 3,
+    "num": "pl",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ";",
+    "p": "punct"
+   },
+   {
+    "t": "itaque",
+    "p": "conj"
+   },
+   {
+    "t": "in",
+    "p": "prep"
+   },
+   {
+    "t": "viā",
+    "p": "n",
+    "case": "abl",
+    "num": "sg",
+    "gender": "f",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "ambulāmus",
+    "p": "v",
+    "person": 1,
+    "num": "pl",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s171",
+  "chapter": 3,
+  "type": "Original Composition",
+  "latin": "Cum puellā in agrō ambulātis.",
+  "english": "You all are walking in the field with the girl.",
+  "source": "Original sentence — Chapter 3 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Cum",
+    "p": "prep"
+   },
+   {
+    "t": "puellā",
+    "p": "n",
+    "case": "abl",
+    "num": "sg",
+    "gender": "f",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "in",
+    "p": "prep"
+   },
+   {
+    "t": "agrō",
+    "p": "n",
+    "case": "abl",
+    "num": "sg",
+    "gender": "m",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "ambulātis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "role": "intransitive-verb"
    },
    {
     "t": ".",
@@ -1295,6 +1440,134 @@ export const SENTENCES = [
     "t": "damus",
     "p": "v",
     "person": 1,
+    "num": "pl",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s172",
+  "chapter": 4,
+  "type": "Original Composition",
+  "latin": "Ego virō bonō praemium dō, sed tū dolum malum parās.",
+  "english": "I give a reward to the good man, but you are preparing a bad trick.",
+  "source": "Original sentence — Chapter 4 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "virō",
+    "p": "n",
+    "case": "dat",
+    "num": "sg",
+    "gender": "m",
+    "role": "indirect-object"
+   },
+   {
+    "t": "bonō",
+    "p": "adj",
+    "agrees": 1
+   },
+   {
+    "t": "praemium",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "n",
+    "role": "direct-object"
+   },
+   {
+    "t": "dō",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "sed",
+    "p": "conj"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "dolum",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "malum",
+    "p": "adj",
+    "agrees": 8
+   },
+   {
+    "t": "parās",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s173",
+  "chapter": 4,
+  "type": "Original Composition",
+  "latin": "Praemium bonum fīliō datis.",
+  "english": "You all give a good reward to your son.",
+  "source": "Original sentence — Chapter 4 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Praemium",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "n",
+    "role": "direct-object"
+   },
+   {
+    "t": "bonum",
+    "p": "adj",
+    "agrees": 0
+   },
+   {
+    "t": "fīliō",
+    "p": "n",
+    "case": "dat",
+    "num": "sg",
+    "gender": "m",
+    "role": "indirect-object"
+   },
+   {
+    "t": "datis",
+    "p": "v",
+    "person": 2,
     "num": "pl",
     "role": "transitive-verb"
    },
@@ -1691,6 +1964,121 @@ export const SENTENCES = [
   ]
  },
  {
+  "id": "s174",
+  "chapter": 5,
+  "type": "Original Composition",
+  "latin": "Ego dē familiā cōgitō, tū autem dē bellō cōgitās.",
+  "english": "I think about the family, but you think about war.",
+  "source": "Original sentence — Chapter 5 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "dē",
+    "p": "prep"
+   },
+   {
+    "t": "familiā",
+    "p": "n",
+    "case": "abl",
+    "num": "sg",
+    "gender": "f",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "cōgitō",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "dē",
+    "p": "prep"
+   },
+   {
+    "t": "bellō",
+    "p": "n",
+    "case": "abl",
+    "num": "sg",
+    "gender": "n",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "cōgitās",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s175",
+  "chapter": 5,
+  "type": "Original Composition",
+  "latin": "Multās epistulās longās habētis.",
+  "english": "You all have many long letters.",
+  "source": "Original sentence — Chapter 5 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Multās",
+    "p": "adj",
+    "agrees": 1
+   },
+   {
+    "t": "epistulās",
+    "p": "n",
+    "case": "acc",
+    "num": "pl",
+    "gender": "f",
+    "role": "direct-object"
+   },
+   {
+    "t": "longās",
+    "p": "adj",
+    "agrees": 1
+   },
+   {
+    "t": "habētis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
   "id": "s41",
   "chapter": 6,
   "type": "Textbook Quote",
@@ -2039,6 +2427,159 @@ export const SENTENCES = [
     "p": "v",
     "person": 1,
     "num": "sg",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s176",
+  "chapter": 6,
+  "type": "Original Composition",
+  "latin": "Tū in casā manēs; puerī autem in agrō iacent.",
+  "english": "You stay in the cottage, but the boys lie in the field.",
+  "source": "Original sentence — Chapter 6 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "in",
+    "p": "prep"
+   },
+   {
+    "t": "casā",
+    "p": "n",
+    "case": "abl",
+    "num": "sg",
+    "gender": "f",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "manēs",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ";",
+    "p": "punct"
+   },
+   {
+    "t": "puerī",
+    "p": "n",
+    "case": "nom",
+    "num": "pl",
+    "gender": "m",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "in",
+    "p": "prep"
+   },
+   {
+    "t": "agrō",
+    "p": "n",
+    "case": "abl",
+    "num": "sg",
+    "gender": "m",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "iacent",
+    "p": "v",
+    "person": 3,
+    "num": "pl",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s177",
+  "chapter": 6,
+  "type": "Original Composition",
+  "latin": "Liber bonus animum firmat.",
+  "english": "A good book strengthens the mind.",
+  "source": "Original sentence — Chapter 6 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Liber",
+    "p": "n",
+    "case": "nom",
+    "num": "sg",
+    "gender": "m",
+    "role": "subject"
+   },
+   {
+    "t": "bonus",
+    "p": "adj",
+    "agrees": 0
+   },
+   {
+    "t": "animum",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "firmat",
+    "p": "v",
+    "person": 3,
+    "num": "sg",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s178",
+  "chapter": 6,
+  "type": "Original Composition",
+  "latin": "Librōs saepe tenētis.",
+  "english": "You all often hold books.",
+  "source": "Original sentence — Chapter 6 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Librōs",
+    "p": "n",
+    "case": "acc",
+    "num": "pl",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "saepe",
+    "p": "adv"
+   },
+   {
+    "t": "tenētis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
     "role": "transitive-verb"
    },
    {
@@ -2444,6 +2985,148 @@ export const SENTENCES = [
   ]
  },
  {
+  "id": "s179",
+  "chapter": 7,
+  "type": "Original Composition",
+  "latin": "Oculī dominae pulchrī sunt; itaque tū dominae invidēs.",
+  "english": "The mistress’s eyes are beautiful; and so you envy the mistress.",
+  "source": "Original sentence — Chapter 7 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Oculī",
+    "p": "n",
+    "case": "nom",
+    "num": "pl",
+    "gender": "m",
+    "role": "subject"
+   },
+   {
+    "t": "dominae",
+    "p": "n",
+    "case": "gen",
+    "num": "sg",
+    "gender": "f",
+    "role": "possessive"
+   },
+   {
+    "t": "pulchrī",
+    "p": "adj",
+    "agrees": 0
+   },
+   {
+    "t": "sunt",
+    "p": "v",
+    "person": 3,
+    "num": "pl",
+    "role": "linking-verb"
+   },
+   {
+    "t": ";",
+    "p": "punct"
+   },
+   {
+    "t": "itaque",
+    "p": "conj"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "dominae",
+    "p": "n",
+    "case": "dat",
+    "num": "sg",
+    "gender": "f",
+    "role": "indirect-object"
+   },
+   {
+    "t": "invidēs",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s180",
+  "chapter": 7,
+  "type": "Original Composition",
+  "latin": "Senem sevērum aestimāmus.",
+  "english": "We esteem the strict old man.",
+  "source": "Original sentence — Chapter 7 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Senem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "sevērum",
+    "p": "adj",
+    "agrees": 0
+   },
+   {
+    "t": "aestimāmus",
+    "p": "v",
+    "person": 1,
+    "num": "pl",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s181",
+  "chapter": 7,
+  "type": "Original Composition",
+  "latin": "Pācem semper amātis.",
+  "english": "You all always love peace.",
+  "source": "Original sentence — Chapter 7 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Pācem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "direct-object"
+   },
+   {
+    "t": "semper",
+    "p": "adv"
+   },
+   {
+    "t": "amātis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
   "id": "s57",
   "chapter": 8,
   "type": "Textbook Quote",
@@ -2785,6 +3468,115 @@ export const SENTENCES = [
   ]
  },
  {
+  "id": "s182",
+  "chapter": 8,
+  "type": "Original Composition",
+  "latin": "Ego rēgem timeō, tū autem ducem nōn timēs.",
+  "english": "I fear the king, but you do not fear the leader.",
+  "source": "Original sentence — Chapter 8 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "rēgem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "timeō",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "ducem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "nōn",
+    "p": "adv"
+   },
+   {
+    "t": "timēs",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s183",
+  "chapter": 8,
+  "type": "Original Composition",
+  "latin": "Hominēs timōre līberātis.",
+  "english": "You all free the people from fear.",
+  "source": "Original sentence — Chapter 8 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Hominēs",
+    "p": "n",
+    "case": "acc",
+    "num": "pl",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "timōre",
+    "p": "n",
+    "case": "abl",
+    "num": "sg",
+    "gender": "m",
+    "role": "abl-separation"
+   },
+   {
+    "t": "līberātis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
   "id": "s65",
   "chapter": 9,
   "type": "Textbook Quote",
@@ -3109,6 +3901,141 @@ export const SENTENCES = [
     "p": "v",
     "person": 3,
     "num": "sg",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s184",
+  "chapter": 9,
+  "type": "Original Composition",
+  "latin": "Ego cōnsulī crēdō, tū autem mulierī nōn crēdis.",
+  "english": "I believe the consul, but you do not believe the woman.",
+  "source": "Original sentence — Chapter 9 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "cōnsulī",
+    "p": "n",
+    "case": "dat",
+    "num": "sg",
+    "gender": "m",
+    "role": "indirect-object"
+   },
+   {
+    "t": "crēdō",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "mulierī",
+    "p": "n",
+    "case": "dat",
+    "num": "sg",
+    "gender": "f",
+    "role": "indirect-object"
+   },
+   {
+    "t": "nōn",
+    "p": "adv"
+   },
+   {
+    "t": "crēdis",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s185",
+  "chapter": 9,
+  "type": "Original Composition",
+  "latin": "Ex urbe venīmus, ad mare autem venītis.",
+  "english": "We come from the city, but you all come to the sea.",
+  "source": "Original sentence — Chapter 9 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ex",
+    "p": "prep"
+   },
+   {
+    "t": "urbe",
+    "p": "n",
+    "case": "abl",
+    "num": "sg",
+    "gender": "f",
+    "role": [
+     "object-of-prep",
+     "abl-place-from-which"
+    ]
+   },
+   {
+    "t": "venīmus",
+    "p": "v",
+    "person": 1,
+    "num": "pl",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "ad",
+    "p": "prep"
+   },
+   {
+    "t": "mare",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "n",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "venītis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
     "role": "intransitive-verb"
    },
    {
@@ -3459,6 +4386,108 @@ export const SENTENCES = [
     "person": 1,
     "num": "pl",
     "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s186",
+  "chapter": 10,
+  "type": "Original Composition",
+  "latin": "Ego hostem nōn timeō, sed tū fugis.",
+  "english": "I do not fear the enemy, but you flee.",
+  "source": "Original sentence — Chapter 10 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "hostem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "nōn",
+    "p": "adv"
+   },
+   {
+    "t": "timeō",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "sed",
+    "p": "conj"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "fugis",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s187",
+  "chapter": 10,
+  "type": "Original Composition",
+  "latin": "Cum mīlitibus fortibus pugnātis.",
+  "english": "You all fight with the brave soldiers.",
+  "source": "Original sentence — Chapter 10 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Cum",
+    "p": "prep"
+   },
+   {
+    "t": "mīlitibus",
+    "p": "n",
+    "case": "abl",
+    "num": "pl",
+    "gender": "m",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "fortibus",
+    "p": "adj",
+    "agrees": 1
+   },
+   {
+    "t": "pugnātis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "role": "intransitive-verb"
    },
    {
     "t": ".",
@@ -3838,6 +4867,91 @@ export const SENTENCES = [
    },
    {
     "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s188",
+  "chapter": 11,
+  "type": "Original Composition",
+  "latin": "Ego quoque Aenēam amābam.",
+  "english": "I too was loving Aeneas.",
+  "source": "Original sentence — Chapter 11 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "quoque",
+    "p": "adv"
+   },
+   {
+    "t": "Aenēam",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "amābam",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "tense": "impf",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s189",
+  "chapter": 11,
+  "type": "Original Composition",
+  "latin": "Timēbātisne tempestātem, Trōiānī?",
+  "english": "Were you all afraid of the storm, Trojans?",
+  "source": "Original sentence — Chapter 11 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Timēbātisne",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "impf",
+    "role": "transitive-verb"
+   },
+   {
+    "t": "tempestātem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "direct-object"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "Trōiānī",
+    "p": "n",
+    "case": "voc",
+    "num": "pl",
+    "gender": "m",
+    "role": "vocative"
+   },
+   {
+    "t": "?",
     "p": "punct"
    }
   ]
@@ -4232,6 +5346,80 @@ export const SENTENCES = [
     "num": "sg",
     "tense": "pres",
     "role": "linking-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s190",
+  "chapter": 12,
+  "type": "Original Composition",
+  "latin": "Vōs ignem timētis, sed Rōmānī ignem nōn timent.",
+  "english": "You all fear the fire, but the Romans do not fear the fire.",
+  "source": "Original sentence — Chapter 12 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "ignem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "timētis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "pres",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "sed",
+    "p": "conj"
+   },
+   {
+    "t": "Rōmānī",
+    "p": "n",
+    "case": "nom",
+    "num": "pl",
+    "gender": "m",
+    "role": "subject"
+   },
+   {
+    "t": "ignem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "nōn",
+    "p": "adv"
+   },
+   {
+    "t": "timent",
+    "p": "v",
+    "person": 3,
+    "num": "pl",
+    "tense": "pres",
+    "role": "transitive-verb"
    },
    {
     "t": ".",
@@ -4652,6 +5840,143 @@ export const SENTENCES = [
     "num": "sg",
     "tense": "pres",
     "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s191",
+  "chapter": 13,
+  "type": "Original Composition",
+  "latin": "Ego nihil habeō, tū autem omnia habēs.",
+  "english": "I have nothing, but you have everything.",
+  "source": "Original sentence — Chapter 13 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "nihil",
+    "p": "pn",
+    "case": "acc",
+    "num": "sg",
+    "role": "direct-object"
+   },
+   {
+    "t": "habeō",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "tense": "pres",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "omnia",
+    "p": "n",
+    "case": "acc",
+    "num": "pl",
+    "gender": "n",
+    "role": "direct-object"
+   },
+   {
+    "t": "habēs",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "pres",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s192",
+  "chapter": 13,
+  "type": "Original Composition",
+  "latin": "Nōs apud iūdicem sumus, vōs autem domī estis.",
+  "english": "We are at the judge’s house, but you all are at home.",
+  "source": "Original sentence — Chapter 13 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Nōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "apud",
+    "p": "prep"
+   },
+   {
+    "t": "iūdicem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "sumus",
+    "p": "v",
+    "person": 1,
+    "num": "pl",
+    "tense": "pres",
+    "role": "linking-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "domī",
+    "p": "adv"
+   },
+   {
+    "t": "estis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "pres",
+    "role": "linking-verb"
    },
    {
     "t": ".",
@@ -5115,6 +6440,122 @@ export const SENTENCES = [
   ]
  },
  {
+  "id": "s193",
+  "chapter": 14,
+  "type": "Original Composition",
+  "latin": "Tū mē prope arborem exspectābis.",
+  "english": "You will wait for me near the tree.",
+  "source": "Original sentence — Chapter 14 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "mē",
+    "p": "pn",
+    "case": "acc",
+    "num": "sg",
+    "role": "direct-object"
+   },
+   {
+    "t": "prope",
+    "p": "prep"
+   },
+   {
+    "t": "arborem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "exspectābis",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "fut",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s194",
+  "chapter": 14,
+  "type": "Original Composition",
+  "latin": "Vōs, parentēs, nōs sēparāre nōn poteritis.",
+  "english": "You, parents, will not be able to separate us.",
+  "source": "Original sentence — Chapter 14 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "parentēs",
+    "p": "n",
+    "case": "voc",
+    "num": "pl",
+    "gender": [
+     "m",
+     "f"
+    ],
+    "role": "vocative"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "nōs",
+    "p": "pn",
+    "case": "acc",
+    "num": "pl",
+    "role": "direct-object"
+   },
+   {
+    "t": "sēparāre",
+    "p": "vinf",
+    "tense": "pres",
+    "voice": "act",
+    "role": "complementary-infinitive"
+   },
+   {
+    "t": "nōn",
+    "p": "adv"
+   },
+   {
+    "t": "poteritis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "fut",
+    "role": "main-verb-complementary-infinitive"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
   "id": "s113",
   "chapter": 15,
   "type": "Original Composition",
@@ -5467,6 +6908,98 @@ export const SENTENCES = [
    },
    {
     "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s195",
+  "chapter": 15,
+  "type": "Original Composition",
+  "latin": "Ūnā in vīllā rūsticā senectūtem agēmus.",
+  "english": "Together we will spend old age in a country villa.",
+  "source": "Original sentence — Chapter 15 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ūnā",
+    "p": "adv"
+   },
+   {
+    "t": "in",
+    "p": "prep"
+   },
+   {
+    "t": "vīllā",
+    "p": "n",
+    "case": "abl",
+    "num": "sg",
+    "gender": "f",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "rūsticā",
+    "p": "adj",
+    "agrees": 2
+   },
+   {
+    "t": "senectūtem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "direct-object"
+   },
+   {
+    "t": "agēmus",
+    "p": "v",
+    "person": 1,
+    "num": "pl",
+    "tense": "fut",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s196",
+  "chapter": 15,
+  "type": "Original Composition",
+  "latin": "Cūr vīllam vestram neglegitis?",
+  "english": "Why are you all neglecting your villa?",
+  "source": "Original sentence — Chapter 15 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Cūr",
+    "p": "adv"
+   },
+   {
+    "t": "vīllam",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "direct-object"
+   },
+   {
+    "t": "vestram",
+    "p": "adj",
+    "agrees": 1
+   },
+   {
+    "t": "neglegitis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "pres",
+    "role": "transitive-verb"
+   },
+   {
+    "t": "?",
     "p": "punct"
    }
   ]
@@ -5875,6 +7408,104 @@ export const SENTENCES = [
   ]
  },
  {
+  "id": "s197",
+  "chapter": 16,
+  "type": "Original Composition",
+  "latin": "Vīdistīne nūbem māgnam in caelō?",
+  "english": "Did you see a large cloud in the sky?",
+  "source": "Original sentence — Chapter 16 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Vīdistīne",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "perf",
+    "role": "transitive-verb"
+   },
+   {
+    "t": "nūbem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "direct-object"
+   },
+   {
+    "t": "māgnam",
+    "p": "adj",
+    "agrees": 1
+   },
+   {
+    "t": "in",
+    "p": "prep"
+   },
+   {
+    "t": "caelō",
+    "p": "n",
+    "case": "abl",
+    "num": "sg",
+    "gender": "n",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "?",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s198",
+  "chapter": 16,
+  "type": "Original Composition",
+  "latin": "Vōs mātrem et sorōrem servāvistis.",
+  "english": "You all saved your mother and sister.",
+  "source": "Original sentence — Chapter 16 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "mātrem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "direct-object"
+   },
+   {
+    "t": "et",
+    "p": "conj"
+   },
+   {
+    "t": "sorōrem",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "direct-object"
+   },
+   {
+    "t": "servāvistis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "perf",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
   "id": "s129",
   "chapter": 17,
   "type": "Original Composition",
@@ -6256,6 +7887,120 @@ export const SENTENCES = [
     "p": "v",
     "person": 3,
     "num": "sg",
+    "tense": "plup",
+    "role": "linking-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s199",
+  "chapter": 17,
+  "type": "Original Composition",
+  "latin": "Ego tumultum audīveram, tū autem nihil audīverās.",
+  "english": "I had heard the uproar, but you had heard nothing.",
+  "source": "Original sentence — Chapter 17 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "tumultum",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "audīveram",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "tense": "plup",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "nihil",
+    "p": "pn",
+    "case": "acc",
+    "num": "sg",
+    "role": "direct-object"
+   },
+   {
+    "t": "audīverās",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "plup",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s200",
+  "chapter": 17,
+  "type": "Original Composition",
+  "latin": "Vōs in urbe nōn fuerātis.",
+  "english": "You all had not been in the city.",
+  "source": "Original sentence — Chapter 17 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "in",
+    "p": "prep"
+   },
+   {
+    "t": "urbe",
+    "p": "n",
+    "case": "abl",
+    "num": "sg",
+    "gender": "f",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "nōn",
+    "p": "adv"
+   },
+   {
+    "t": "fuerātis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
     "tense": "plup",
     "role": "linking-verb"
    },
@@ -6700,6 +8445,154 @@ export const SENTENCES = [
   ]
  },
  {
+  "id": "s201",
+  "chapter": 18,
+  "type": "Original Composition",
+  "latin": "Sī marītum vīderō, eum amābō.",
+  "english": "If I see (literally, “will have seen”) my husband, I will love him.",
+  "source": "Original sentence — Chapter 18 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Sī",
+    "p": "conj"
+   },
+   {
+    "t": "marītum",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "vīderō",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "tense": "futperf",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "eum",
+    "p": "pn",
+    "case": "acc",
+    "num": "sg",
+    "role": "direct-object"
+   },
+   {
+    "t": "amābō",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "tense": "fut",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s202",
+  "chapter": 18,
+  "type": "Original Composition",
+  "latin": "Sī fīlium āmīserimus, dolēbimus.",
+  "english": "If we lose (literally, “will have lost”) our son, we will grieve.",
+  "source": "Original sentence — Chapter 18 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Sī",
+    "p": "conj"
+   },
+   {
+    "t": "fīlium",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "āmīserimus",
+    "p": "v",
+    "person": 1,
+    "num": "pl",
+    "tense": "futperf",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "dolēbimus",
+    "p": "v",
+    "person": 1,
+    "num": "pl",
+    "tense": "fut",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s203",
+  "chapter": 18,
+  "type": "Original Composition",
+  "latin": "Sī marītum excitāveritis, fugiet.",
+  "english": "If you all wake (literally, “will have woken”) your husband, he will flee.",
+  "source": "Original sentence — Chapter 18 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Sī",
+    "p": "conj"
+   },
+   {
+    "t": "marītum",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "m",
+    "role": "direct-object"
+   },
+   {
+    "t": "excitāveritis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "futperf",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "fugiet",
+    "p": "v",
+    "person": 3,
+    "num": "sg",
+    "tense": "fut",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
   "id": "s145",
   "chapter": 19,
   "type": "Original Composition",
@@ -7078,6 +8971,148 @@ export const SENTENCES = [
     "t": "fūgērunt",
     "p": "v",
     "person": 3,
+    "num": "pl",
+    "tense": "perf",
+    "role": "intransitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s204",
+  "chapter": 19,
+  "type": "Original Composition",
+  "latin": "Ego in proeliō vulnerātus sum, sed tū ā mīlite servātus es.",
+  "english": "I was wounded in the battle, but you were saved by a soldier.",
+  "source": "Original sentence — Chapter 19 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "in",
+    "p": "prep"
+   },
+   {
+    "t": "proeliō",
+    "p": "n",
+    "case": "abl",
+    "num": "sg",
+    "gender": "n",
+    "role": "object-of-prep"
+   },
+   {
+    "t": "vulnerātus sum",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "tense": "perf",
+    "role": "passive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "sed",
+    "p": "conj"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "ā",
+    "p": "prep"
+   },
+   {
+    "t": "mīlite",
+    "p": "n",
+    "case": "abl",
+    "num": "sg",
+    "gender": "m",
+    "role": "abl-agent"
+   },
+   {
+    "t": "servātus es",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "perf",
+    "role": "passive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s205",
+  "chapter": 19,
+  "type": "Original Composition",
+  "latin": "Nōs ab Hunnīs victī sumus, vōs autem fūgistis.",
+  "english": "We were defeated by the Huns, but you all fled.",
+  "source": "Original sentence — Chapter 19 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Nōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "ab",
+    "p": "prep"
+   },
+   {
+    "t": "Hunnīs",
+    "p": "n",
+    "case": "abl",
+    "num": "pl",
+    "gender": "m",
+    "role": "abl-agent"
+   },
+   {
+    "t": "victī sumus",
+    "p": "v",
+    "person": 1,
+    "num": "pl",
+    "tense": "perf",
+    "role": "passive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "autem",
+    "p": "conj"
+   },
+   {
+    "t": "fūgistis",
+    "p": "v",
+    "person": 2,
     "num": "pl",
     "tense": "perf",
     "role": "intransitive-verb"
@@ -7472,6 +9507,132 @@ export const SENTENCES = [
     "num": "pl",
     "tense": "plup",
     "role": "passive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s206",
+  "chapter": 20,
+  "type": "Original Composition",
+  "latin": "Ego pōma cēpī, sed tū pōma nōn cēpistī.",
+  "english": "I took the fruit, but you did not take the fruit.",
+  "source": "Original sentence — Chapter 20 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Ego",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "pōma",
+    "p": "n",
+    "case": "acc",
+    "num": "pl",
+    "gender": "n",
+    "role": "direct-object"
+   },
+   {
+    "t": "cēpī",
+    "p": "v",
+    "person": 1,
+    "num": "sg",
+    "tense": "perf",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "sed",
+    "p": "conj"
+   },
+   {
+    "t": "tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "pōma",
+    "p": "n",
+    "case": "acc",
+    "num": "pl",
+    "gender": "n",
+    "role": "direct-object"
+   },
+   {
+    "t": "nōn",
+    "p": "adv"
+   },
+   {
+    "t": "cēpistī",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "perf",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s207",
+  "chapter": 20,
+  "type": "Original Composition",
+  "latin": "Vōs pōma ex arbore cēpistis.",
+  "english": "You all took the fruit from the tree.",
+  "source": "Original sentence — Chapter 20 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "pōma",
+    "p": "n",
+    "case": "acc",
+    "num": "pl",
+    "gender": "n",
+    "role": "direct-object"
+   },
+   {
+    "t": "ex",
+    "p": "prep"
+   },
+   {
+    "t": "arbore",
+    "p": "n",
+    "case": "abl",
+    "num": "sg",
+    "gender": "f",
+    "role": [
+     "object-of-prep",
+     "abl-place-from-which"
+    ]
+   },
+   {
+    "t": "cēpistis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "perf",
+    "role": "transitive-verb"
    },
    {
     "t": ".",
@@ -7897,6 +10058,123 @@ export const SENTENCES = [
     "num": "sg",
     "tense": "pres",
     "role": "passive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s208",
+  "chapter": 21,
+  "type": "Original Composition",
+  "latin": "Tū rotam Fortūnae vidēs, sed nōn intellegis.",
+  "english": "You see Fortune’s wheel, but you do not understand.",
+  "source": "Original sentence — Chapter 21 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Tū",
+    "p": "pn",
+    "case": "nom",
+    "num": "sg",
+    "role": "subject"
+   },
+   {
+    "t": "rotam",
+    "p": "n",
+    "case": "acc",
+    "num": "sg",
+    "gender": "f",
+    "role": "direct-object"
+   },
+   {
+    "t": "Fortūnae",
+    "p": "n",
+    "case": "gen",
+    "num": "sg",
+    "gender": "f",
+    "role": "possessive"
+   },
+   {
+    "t": "vidēs",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "pres",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ",",
+    "p": "punct"
+   },
+   {
+    "t": "sed",
+    "p": "conj"
+   },
+   {
+    "t": "nōn",
+    "p": "adv"
+   },
+   {
+    "t": "intellegis",
+    "p": "v",
+    "person": 2,
+    "num": "sg",
+    "tense": "pres",
+    "role": "transitive-verb"
+   },
+   {
+    "t": ".",
+    "p": "punct"
+   }
+  ]
+ },
+ {
+  "id": "s209",
+  "chapter": 21,
+  "type": "Original Composition",
+  "latin": "Vōs rēs externās prō certō nōn possidētis.",
+  "english": "You all do not possess external things for certain.",
+  "source": "Original sentence — Chapter 21 (or earlier) vocabulary",
+  "grammarNotes": null,
+  "tokens": [
+   {
+    "t": "Vōs",
+    "p": "pn",
+    "case": "nom",
+    "num": "pl",
+    "role": "subject"
+   },
+   {
+    "t": "rēs",
+    "p": "n",
+    "case": "acc",
+    "num": "pl",
+    "gender": "f",
+    "role": "direct-object"
+   },
+   {
+    "t": "externās",
+    "p": "adj",
+    "agrees": 1
+   },
+   {
+    "t": "prō certō",
+    "p": "adv"
+   },
+   {
+    "t": "nōn",
+    "p": "adv"
+   },
+   {
+    "t": "possidētis",
+    "p": "v",
+    "person": 2,
+    "num": "pl",
+    "tense": "pres",
+    "role": "transitive-verb"
    },
    {
     "t": ".",
