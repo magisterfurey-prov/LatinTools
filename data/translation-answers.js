@@ -222,7 +222,7 @@ export const ANSWERS = {
     "The king [seeks | is seeking | does seek | heads for | is heading for | does head for | goes to | is going to | does go to | rushes at | is rushing at | does rush at | looks for | is looking for | does look for | consults | is consulting | does consult] the oracle.",
   ],
   s62: [
-    "(the) soldiers [free | are freeing | do free | liberate | are liberating | do liberate | set free | are seting free | do set free] (the) [people | men | human beings | humans] from fear.",
+    "(the) soldiers [free | are freeing | do free | liberate | are liberating | do liberate | set free | are setting free | do set free] (the) [people | men | human beings | humans] from fear.",
   ],
   s63: [
     "[at last | finally | in the end] we [conquer | are conquering | do conquer | defeat | are defeating | do defeat | overcome | are overcoming | do overcome | beat | are beating | do beat] (the) [people | men | human beings | humans].",
