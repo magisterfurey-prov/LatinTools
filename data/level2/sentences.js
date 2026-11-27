@@ -712,6 +712,10 @@ export const SENTENCES = [
    {
     "t": "omnibus",
     "p": "n",
+    "pos": [
+     "n",
+     "adj"
+    ],
     "case": "abl",
     "num": "pl",
     "gender": "m",
@@ -1211,6 +1215,10 @@ export const SENTENCES = [
    {
     "t": "omnibus",
     "p": "n",
+    "pos": [
+     "n",
+     "adj"
+    ],
     "case": "abl",
     "num": "pl",
     "gender": "m",
@@ -1322,6 +1330,10 @@ export const SENTENCES = [
    {
     "t": "multa",
     "p": "n",
+    "pos": [
+     "n",
+     "adj"
+    ],
     "case": "acc",
     "num": "pl",
     "gender": "n",
@@ -1432,6 +1444,10 @@ export const SENTENCES = [
    {
     "t": "multa",
     "p": "n",
+    "pos": [
+     "n",
+     "adj"
+    ],
     "case": "acc",
     "num": "pl",
     "gender": "n",
@@ -2271,6 +2287,10 @@ export const SENTENCES = [
    {
     "t": "omnibus",
     "p": "n",
+    "pos": [
+     "n",
+     "adj"
+    ],
     "case": "dat",
     "num": "pl",
     "gender": "m",
@@ -2564,6 +2584,10 @@ export const SENTENCES = [
    {
     "t": "Nēmō",
     "p": "n",
+    "pos": [
+     "n",
+     "pn"
+    ],
     "case": "nom",
     "num": "sg",
     "gender": "m",
@@ -3599,6 +3623,10 @@ export const SENTENCES = [
    {
     "t": "Rōmānōs",
     "p": "n",
+    "pos": [
+     "n",
+     "adj"
+    ],
     "case": "acc",
     "num": "pl",
     "gender": "m",
@@ -3858,6 +3886,10 @@ export const SENTENCES = [
    {
     "t": "mala",
     "p": "n",
+    "pos": [
+     "n",
+     "adj"
+    ],
     "case": "acc",
     "num": "pl",
     "gender": "n",
@@ -3970,6 +4002,10 @@ export const SENTENCES = [
    {
     "t": "Rōmānōs",
     "p": "n",
+    "pos": [
+     "n",
+     "adj"
+    ],
     "case": "acc",
     "num": "pl",
     "gender": "m",
@@ -4457,6 +4493,10 @@ export const SENTENCES = [
    {
     "t": "nihil",
     "p": "pn",
+    "pos": [
+     "pn",
+     "n"
+    ],
     "case": "acc",
     "num": "sg",
     "role": "direct-object"
@@ -5131,6 +5171,10 @@ export const SENTENCES = [
    {
     "t": "gerentēs",
     "p": "adj",
+    "pos": [
+     "adj",
+     "v"
+    ],
     "agrees": 0
    },
    {
@@ -5225,6 +5269,10 @@ export const SENTENCES = [
    {
     "t": "salūtāns",
     "p": "adj",
+    "pos": [
+     "adj",
+     "v"
+    ],
     "agrees": 3
    },
    {
@@ -5402,6 +5450,10 @@ export const SENTENCES = [
    {
     "t": "alter",
     "p": "n",
+    "pos": [
+     "n",
+     "adj"
+    ],
     "case": "nom",
     "num": "sg",
     "gender": "m",
@@ -6223,6 +6275,10 @@ export const SENTENCES = [
    {
     "t": "captā",
     "p": "adj",
+    "pos": [
+     "adj",
+     "v"
+    ],
     "agrees": 0
    },
    {
@@ -6272,6 +6328,10 @@ export const SENTENCES = [
    {
     "t": "absente",
     "p": "adj",
+    "pos": [
+     "adj",
+     "v"
+    ],
     "agrees": 0
    },
    {
@@ -6373,6 +6433,10 @@ export const SENTENCES = [
    {
     "t": "ipse",
     "p": "adj",
+    "pos": [
+     "adj",
+     "pn"
+    ],
     "agrees": 0
    },
    {
@@ -6409,6 +6473,10 @@ export const SENTENCES = [
    {
     "t": "Eandem",
     "p": "adj",
+    "pos": [
+     "adj",
+     "pn"
+    ],
     "agrees": 1
    },
    {
@@ -6454,6 +6522,10 @@ export const SENTENCES = [
    {
     "t": "ista",
     "p": "adj",
+    "pos": [
+     "adj",
+     "pn"
+    ],
     "agrees": 0
    },
    {
@@ -6547,6 +6619,10 @@ export const SENTENCES = [
    {
     "t": "datā",
     "p": "adj",
+    "pos": [
+     "adj",
+     "v"
+    ],
     "agrees": 0
    },
    {
@@ -6846,6 +6922,10 @@ export const SENTENCES = [
    {
     "t": "Multī",
     "p": "n",
+    "pos": [
+     "n",
+     "adj"
+    ],
     "case": "nom",
     "num": "pl",
     "gender": "m",
@@ -6871,6 +6951,10 @@ export const SENTENCES = [
    {
     "t": "audītum",
     "p": "vinf",
+    "pos": [
+     "v",
+     "n"
+    ],
     "role": "supine-purpose"
    },
    {
@@ -6891,6 +6975,10 @@ export const SENTENCES = [
    {
     "t": "Antīquī",
     "p": "n",
+    "pos": [
+     "n",
+     "adj"
+    ],
     "case": "nom",
     "num": "pl",
     "gender": "m",
@@ -6973,6 +7061,10 @@ export const SENTENCES = [
    {
     "t": "omnia",
     "p": "n",
+    "pos": [
+     "n",
+     "adj"
+    ],
     "case": "nom",
     "num": "pl",
     "gender": "n",
@@ -7324,6 +7416,10 @@ export const SENTENCES = [
    {
     "t": "Legendō",
     "p": "n",
+    "pos": [
+     "n",
+     "v"
+    ],
     "case": "abl",
     "num": "sg",
     "gender": "n",
@@ -7332,6 +7428,10 @@ export const SENTENCES = [
    {
     "t": "multa",
     "p": "n",
+    "pos": [
+     "n",
+     "adj"
+    ],
     "case": "acc",
     "num": "pl",
     "gender": "n",
@@ -7376,6 +7476,10 @@ export const SENTENCES = [
    {
     "t": "dormiendum",
     "p": "n",
+    "pos": [
+     "n",
+     "v"
+    ],
     "case": "acc",
     "num": "sg",
     "gender": "n",
@@ -7428,6 +7532,10 @@ export const SENTENCES = [
    {
     "t": "dēfendendum",
     "p": "adj",
+    "pos": [
+     "adj",
+     "v"
+    ],
     "agrees": 2
    },
    {
@@ -7544,6 +7652,10 @@ export const SENTENCES = [
    {
     "t": "nāvigandī",
     "p": "n",
+    "pos": [
+     "n",
+     "v"
+    ],
     "case": "gen",
     "num": "sg",
     "gender": "n",
@@ -7639,11 +7751,19 @@ export const SENTENCES = [
    {
     "t": "Haec",
     "p": "adj",
+    "pos": [
+     "adj",
+     "pn"
+    ],
     "agrees": 1
    },
    {
     "t": "omnia",
     "p": "n",
+    "pos": [
+     "n",
+     "adj"
+    ],
     "case": "nom",
     "num": "pl",
     "gender": "n",

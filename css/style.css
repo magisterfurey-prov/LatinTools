@@ -460,6 +460,8 @@ table.chart.synopsis-chart .label-short { display: none; }
 }
 /* Wraps when a verb has four fields (person / number / tense / mood). */
 .analysis-word .field-row { display: flex; gap: 3px; flex-wrap: wrap; justify-content: center; max-width: 280px; }
+/* Until a word's part of speech is chosen correctly, it shows only that menu and the word itself. */
+.analysis-word.pos-locked > :not(.f-pos):not(.word-text) { display: none; }
 .analysis-sentence {
   display: flex;
   flex-wrap: wrap;

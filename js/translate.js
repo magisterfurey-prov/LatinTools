@@ -27,6 +27,14 @@ const TENSE_OPTIONS = [
 const TENSE_OPTIONS_WITH_MOOD = TENSE_OPTIONS.filter(([v]) => v !== 'imper');
 const MOOD_OPTIONS = [['ind', 'Indicative'], ['subj', 'Subjunctive'], ['imp', 'Imperative']];
 
+// The first step for every word that has menus: say what part of speech it is. The values are the tags the
+// sentence data uses. Only a word's own part of speech opens the rest of its menus, so the list also offers the
+// ones that never open anything here (a preposition, say, has no menus).
+const POS_OPTIONS = [
+  ['n', 'Noun'], ['pn', 'Pronoun'], ['adj', 'Adjective'], ['v', 'Verb'],
+  ['adv', 'Adverb'], ['prep', 'Preposition'], ['conj', 'Conjunction'],
+];
+
 // Infinitives, such as "iūdicāre" or the two-word "capta esse" (a perfect passive infinitive): the tense
 // and voice of the infinitive itself, and its use, with the names the textbook's syntax appendix gives
 // ("Functions of the infinitive"). A deponent's infinitive is passive in form, so Level 2 offers both.
@@ -110,7 +118,7 @@ function saveProgress(p) {
 }
 
 if (BOOK.id === 2) {
-  document.querySelector('#listCard > p').textContent = 'Pick a sentence. Above nouns and pronouns, set case / number / gender; above verbs, set person / number / tense / mood; above infinitives, set tense / voice. Below each word, choose how it’s used in the sentence — for a subjunctive verb, choose why it is subjunctive (purpose clause, indirect question, …); for adjectives, choose which noun it agrees with, and for relative pronouns, the noun they refer to.';
+  document.querySelector('#listCard > p').textContent = 'Pick a sentence. Each noun, pronoun, adjective, verb and infinitive starts with just a part-of-speech menu: choose its part of speech, and when you choose correctly the rest of its menus appear. Above nouns and pronouns, set case / number / gender; above verbs, set person / number / tense / mood; above infinitives, set tense / voice. Below each word, choose how it’s used in the sentence — for a subjunctive verb, choose why it is subjunctive (purpose clause, indirect question, …); for adjectives, choose which noun it agrees with, and for relative pronouns, the noun they refer to.';
 }
 
 const CHAPTERS = [...new Set(SENTENCES.map(s => s.chapter))].sort((a, b) => a - b);
@@ -194,6 +202,33 @@ function selectHTML(cls, options, placeholder) {
   return `<select class="${cls}"><option value="">${placeholder}</option>${opts}</select>`;
 }
 
+// The parts of speech that count as right for a word: the one it is tagged with (an infinitive is a verb
+// form), or the list in its `pos` where a word is two things at once: an adjective used as a noun (Rōmānī),
+// a participle (verb and adjective), a gerund (verb and noun), a demonstrative (pronoun and adjective).
+function acceptedPos(token) {
+  if (token.pos !== undefined) return [].concat(token.pos);
+  return [token.p === 'vinf' ? 'v' : token.p];
+}
+
+function posSelectHTML(token) {
+  const label = escapeHtml(token.t).replace(/"/g, '&quot;');
+  const opts = POS_OPTIONS.map(([v, l]) => `<option value="${v}">${l}</option>`).join('');
+  return `<select class="f-pos" aria-label="Part of speech of ${label}"><option value="">part of speech…</option>${opts}</select>`;
+}
+
+// Opens or shuts a word's other menus to match its part-of-speech menu: a right answer turns that menu green
+// and opens the rest, a wrong one turns it red and keeps them shut (what was already chosen in them stays,
+// out of sight, and counts as blank until the word is opened again). Returns whether the word is open.
+function applyPos(wordEl, token) {
+  const sel = wordEl.querySelector('.f-pos');
+  const right = !!sel.value && acceptedPos(token).includes(sel.value);
+  sel.classList.remove('field-good', 'field-bad');
+  if (sel.value) sel.classList.add(right ? 'field-good' : 'field-bad');
+  wordEl.classList.toggle('pos-locked', !right);
+  if (!right) wordEl.querySelectorAll('select:not(.f-pos)').forEach(s => s.classList.remove('field-good', 'field-bad'));
+  return right;
+}
+
 function nounOptionsHTML(tokens) {
   return tokens
     .map((t, i) => ({ t, i }))
@@ -210,7 +245,8 @@ function renderWordHTML(token, idx, tokens) {
     const voiceSel = token.voice !== undefined ? selectHTML('f-voice', VOICE_OPTIONS, 'voice') : '';
     const roleSel = token.role !== undefined ? selectHTML('f-role', INFINITIVE_ROLE_OPTIONS, 'usage…') : '';
     return `
-      <span class="analysis-word" data-idx="${idx}" data-type="vinf">
+      <span class="analysis-word pos-locked" data-idx="${idx}" data-type="vinf">
+        ${posSelectHTML(token)}
         <span class="field-row">${tenseSel}${voiceSel}</span>
         <span class="word-text latin">${escapeHtml(token.t)}</span>
         ${roleSel}
@@ -222,7 +258,8 @@ function renderWordHTML(token, idx, tokens) {
   if (token.p === 'adj') {
     const nounOpts = nounOptionsHTML(tokens);
     return `
-      <span class="analysis-word" data-idx="${idx}" data-type="adj">
+      <span class="analysis-word pos-locked" data-idx="${idx}" data-type="adj">
+        ${posSelectHTML(token)}
         <span class="word-text latin">${escapeHtml(token.t)}</span>
         <select class="f-agree">
           <option value="">agrees with…</option>
@@ -241,7 +278,8 @@ function renderWordHTML(token, idx, tokens) {
       ? `<select class="f-antecedent"><option value="">refers to…</option>${nounOptionsHTML(tokens)}</select>`
       : '';
     return `
-      <span class="analysis-word" data-idx="${idx}" data-type="${token.p}">
+      <span class="analysis-word pos-locked" data-idx="${idx}" data-type="${token.p}">
+        ${posSelectHTML(token)}
         <span class="field-row">${caseSel}${numSel}${genderSel}</span>
         <span class="word-text latin">${escapeHtml(token.t)}</span>
         ${roleSel}${antecedentSel}
@@ -256,7 +294,8 @@ function renderWordHTML(token, idx, tokens) {
     const moodSel = withMood ? selectHTML('f-mood', MOOD_OPTIONS, 'mood') : '';
     const roleSel = selectHTML('f-role', VERB_ROLE_OPTIONS, 'usage…');
     return `
-      <span class="analysis-word" data-idx="${idx}" data-type="v">
+      <span class="analysis-word pos-locked" data-idx="${idx}" data-type="v">
+        ${posSelectHTML(token)}
         <span class="field-row">${personSel}${numSel}${tenseSel}${moodSel}</span>
         <span class="word-text latin">${escapeHtml(token.t)}</span>
         ${roleSel}
@@ -299,7 +338,7 @@ function openSentence(id) {
       <button class="secondary" id="clearSentenceBtn">Clear</button>
     </div>
     <div id="scoreBanner"></div>
-    <div class="legend">Adjectives only need the agreement dropdown; relative pronouns also ask which noun they refer to. An infinitive, even a two-word one like “capta esse”, is tagged as a whole: its tense and voice above, its use below. Everything else (prepositions, conjunctions, adverbs) is shown for context and doesn't need to be tagged.</div>
+    <div class="legend">Every noun, pronoun, adjective, verb and infinitive starts with a part-of-speech menu: the right answer opens the rest of that word's menus, and a wrong one turns red and keeps them shut. Where a word is two things at once (an adjective used as a noun, like “Rōmānī”; a participle; a gerund; a demonstrative), either part of speech is accepted. Adjectives then only need the agreement dropdown; relative pronouns also ask which noun they refer to. An infinitive, even a two-word one like “capta esse”, counts as a verb and is tagged as a whole: its tense and voice above, its use below. Everything else (prepositions, conjunctions, adverbs) is shown for context and doesn't need to be tagged.</div>
   `;
 
   const translationInput = document.getElementById('translationInput');
@@ -352,6 +391,7 @@ function openSentence(id) {
       sel.value = '';
       sel.classList.remove('field-good', 'field-bad');
     });
+    analysisArea.querySelectorAll('.analysis-word').forEach(wordEl => wordEl.classList.add('pos-locked'));   // every word starts shut again
     document.getElementById('scoreBanner').innerHTML = '';
     translationInput.value = '';
     hideModel();
@@ -367,11 +407,16 @@ function checkSentence(sentence) {
     const type = wordEl.dataset.type;
     const token = sentence.tokens[idx];
 
+    // The part of speech comes first. Until it is right the word's other menus are shut, and whatever
+    // they hold counts as blank.
+    const opened = applyPos(wordEl, token);
+
     const checkField = (selector, expected) => {
       const sel = wordEl.querySelector(selector);
       if (!sel) return;
       total++;
       sel.classList.remove('field-good', 'field-bad');
+      if (selector !== '.f-pos' && !opened) return;
       if (!sel.value) return;
       filled++;
       // `expected` may list several acceptable answers (e.g. "ex urbe" is
@@ -385,6 +430,7 @@ function checkSentence(sentence) {
       }
     };
 
+    checkField('.f-pos', acceptedPos(token));
     if (type === 'n' || type === 'pn') {
       checkField('.f-case', token.case);
       checkField('.f-num', token.num);
@@ -418,6 +464,13 @@ function checkSentence(sentence) {
   progress[sentence.id] = allCorrect;
   saveProgress(progress);
 }
+
+// Choosing a word's part of speech opens or shuts the rest of its menus at once.
+analysisArea.addEventListener('change', e => {
+  if (!e.target.classList.contains('f-pos') || !state.activeSentence) return;
+  const wordEl = e.target.closest('.analysis-word');
+  applyPos(wordEl, state.activeSentence.tokens[Number(wordEl.dataset.idx)]);
+});
 
 backBtn.onclick = () => {
   state.activeSentence = null;
